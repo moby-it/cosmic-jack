@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://13dothaq8nub"]
+
+[ext_resource type="Texture2D" uid="uid://irvuf433bnbc" path="res://assets/spaceShips_003.png" id="1_xhdre"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s8p4i"]
+radius = 103.0
+height = 1668.0
+
+[node name="Ship" type="Node2D"]
+position = Vector2(1064, 950)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(-103, 114)
+scale = Vector2(5.8893, 1)
+texture = ExtResource("1_xhdre")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-96, 107)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_s8p4i")
