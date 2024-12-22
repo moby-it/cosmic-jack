@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1i44l6vbgk6c"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_w06hk"]
+[ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://entities/ship.tscn" id="3_61vle"]
+[ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://entities/background/background.tscn" id="3_qsmjo"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_w06hk")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(0.8, 0.8)
+
+[node name="Ship" parent="." instance=ExtResource("3_61vle")]
+position = Vector2(0, 418)
+
+[node name="Background" parent="." instance=ExtResource("3_qsmjo")]
+z_index = -1

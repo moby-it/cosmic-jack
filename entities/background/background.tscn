@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcpxt7vufytv5"]
+
+[sub_resource type="Shader" id="Shader_kw0m3"]
+code = "shader_type canvas_item;
+
+uniform vec2 resolution = vec2(1920.0, 1080.0);
+uniform sampler2D noise_texture: filter_nearest, repeat_enable;
+uniform float speed_x: hint_range(-100.0, 100.0, 0.1) = 0.0;
+uniform float speed_y: hint_range(-100.0, 100.0, 0.1) = -20.0;
+uniform float density: hint_range(0.0, 100.0, 0.1) = 20.0;
+uniform float layers: hint_range(1.0, 10.0, 1.0) = 5.0;
+
+void fragment() {
+	vec2 uv = UV;
+	uv.x *= resolution.x / resolution.y;
+	vec2 speed = TIME * vec2(speed_x, speed_y) * 0.01;
+	float stars = 0.0;
+
+	for (float i = 0.0; i < layers; i+=1.0) {
+		float shift = i * 0.2;
+		float brightness = 1.0 - i * 0.2;
+		float scale = 1.0 + (layers - i) * 0.5;
+		stars += step(0.2, pow(texture(noise_texture, (uv/scale) + shift + speed * (1.0 - i * 0.2)).r, density)) * brightness;
+	}
+
+	COLOR = vec4(vec3(stars), 1.0);
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_371yb"]
+noise_type = 0
+frequency = 0.35
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hw05k"]
+noise = SubResource("FastNoiseLite_371yb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4v4su"]
+shader = SubResource("Shader_kw0m3")
+shader_parameter/resolution = Vector2(1920, 1080)
+shader_parameter/speed_x = 0.0
+shader_parameter/speed_y = -20.0
+shader_parameter/density = 20.0
+shader_parameter/layers = 5.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_hw05k")
+
+[node name="Background" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4v4su")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
