@@ -1,19 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1i44l6vbgk6c"]
+[gd_scene load_steps=3 format=3 uid="uid://b1i44l6vbgk6c"]
 
 [ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://ship.tscn" id="1_y4c70"]
-[ext_resource type="Shader" path="res://stars.gdshader" id="2_kflbq"]
-[ext_resource type="Texture2D" uid="uid://b1btui1b0pnam" path="res://assets/background_sized.jpg" id="2_q1tf1"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_npeu0"]
-shader = ExtResource("2_kflbq")
+[ext_resource type="PackedScene" uid="uid://ckmbjyxhyf6v3" path="res://background.tscn" id="2_04ogk"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Ship" parent="." instance=ExtResource("1_y4c70")]
 position = Vector2(1057, 867)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Background" parent="." instance=ExtResource("2_04ogk")]
 z_index = -1
-material = SubResource("ShaderMaterial_npeu0")
-position = Vector2(948, 543)
-texture = ExtResource("2_q1tf1")
