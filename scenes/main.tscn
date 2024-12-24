@@ -9,10 +9,10 @@ script = ExtResource("1_w06hk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(0.8, 0.8)
+anchor_mode = 0
 
 [node name="Ship" parent="." instance=ExtResource("3_61vle")]
-visible = false
-position = Vector2(0, 418)
+position = Vector2(960, 1020)
 
 [node name="Background" parent="." instance=ExtResource("3_qsmjo")]
 z_index = -1
