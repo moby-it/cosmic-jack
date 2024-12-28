@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://kg6eh17l30iv"]
+
+[ext_resource type="Texture2D" uid="uid://1po65a0m6jx7" path="res://assets/red-apple.png" id="1_sqsvj"]
+[ext_resource type="Texture2D" uid="uid://o5vybnpbr2l6" path="res://assets/watermelon.png" id="2_70rfa"]
+
+[node name="Hud" type="Node2D"]
+scale = Vector2(0.2, 0.2)
+
+[node name="apple" type="Sprite2D" parent="."]
+position = Vector2(4, 274)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_sqsvj")
+
+[node name="watermelon" type="Sprite2D" parent="."]
+position = Vector2(0, 615)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_70rfa")
