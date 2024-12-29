@@ -9,6 +9,10 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_w06hk")
 
+[node name="Hud" parent="." instance=ExtResource("5_umtyr")]
+z_index = 10
+position = Vector2(1852, 840)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(0.8, 0.8)
 anchor_mode = 0
@@ -17,11 +21,20 @@ anchor_mode = 0
 position = Vector2(960, 1020)
 
 [node name="Background" parent="." instance=ExtResource("3_qsmjo")]
-z_index = -1
+z_index = -10
 
 [node name="Active Fruit" type="Sprite2D" parent="."]
+z_index = 1
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_x371x")
 
-[node name="Hud" parent="." instance=ExtResource("5_umtyr")]
-position = Vector2(1852, 830)
+[node name="play_area" type="ColorRect" parent="."]
+z_index = -1
+offset_left = 128.0
+offset_right = 1787.0
+offset_bottom = 767.0
+color = Color(1, 1, 1, 0.0588235)
+
+[connection signal="fruit_selected" from="Hud" to="." method="_on_hud_fruit_selected"]
+[connection signal="mouse_entered" from="play_area" to="." method="_on_play_area_mouse_entered"]
+[connection signal="mouse_exited" from="play_area" to="." method="_on_play_area_mouse_exited"]
