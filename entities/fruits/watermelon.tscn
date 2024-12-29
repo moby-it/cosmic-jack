@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwsdcklwnqpng"]
+
+[ext_resource type="Texture2D" uid="uid://o5vybnpbr2l6" path="res://assets/watermelon.png" id="1_ihhoc"]
+[ext_resource type="Script" path="res://entities/fruits/watermelon.gd" id="2_pt3pk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qd3wy"]
+
+[node name="Watermelon" type="Node2D"]
+position = Vector2(0, 4)
+script = ExtResource("2_pt3pk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_ihhoc")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(0.1, 0.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(30, -2.38419e-06)
+shape = SubResource("CircleShape2D_qd3wy")

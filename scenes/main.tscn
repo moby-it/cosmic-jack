@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1i44l6vbgk6c"]
+[gd_scene load_steps=5 format=3 uid="uid://b1i44l6vbgk6c"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_w06hk"]
 [ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://entities/ship.tscn" id="3_61vle"]
 [ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://entities/background/background.tscn" id="3_qsmjo"]
-[ext_resource type="Texture2D" uid="uid://buvpjp6vg0ym6" path="res://assets/red-apple-with-radius_opaque.png" id="4_x371x"]
 [ext_resource type="PackedScene" uid="uid://kg6eh17l30iv" path="res://entities/hud.tscn" id="5_umtyr"]
 
 [node name="Main" type="Node2D"]
@@ -22,11 +21,6 @@ position = Vector2(960, 1020)
 
 [node name="Background" parent="." instance=ExtResource("3_qsmjo")]
 z_index = -10
-
-[node name="Active Fruit" type="Sprite2D" parent="."]
-z_index = 1
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("4_x371x")
 
 [node name="play_area" type="ColorRect" parent="."]
 z_index = -1
