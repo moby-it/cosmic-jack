@@ -10,6 +10,7 @@ var active_fruit = FRUITS.APPLE
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	active_fruit_scn = apple_scn.instantiate()
+	active_fruit_scn.modulate.a = 0.3
 	self.add_child(active_fruit_scn)
 	pass # Replace with function body.
 
@@ -31,12 +32,13 @@ func place_fruit(position: Vector2) -> void:
 	self.add_child(scn)
 
 func create_fruit_scn() -> Node:
+	var scn
 	match active_fruit:
 		0:
-			return apple_scn.instantiate()
+			scn =  apple_scn.instantiate()
 		1: 
-			return watermelon_scn.instantiate()
-	return
+			scn =  watermelon_scn.instantiate()
+	return scn
 
 func _on_hud_fruit_selected(f: int) -> void:
 	active_fruit = f
@@ -46,6 +48,7 @@ func _on_hud_fruit_selected(f: int) -> void:
 func _on_play_area_mouse_entered() -> void:
 	if not is_instance_valid(active_fruit_scn):
 		active_fruit_scn = create_fruit_scn()
+		active_fruit_scn.modulate.a = 0.3
 		self.add_child(active_fruit_scn)
 	pass # Replace with function body.
 
