@@ -20,6 +20,8 @@ anchor_mode = 0
 [node name="Choreography" parent="." instance=ExtResource("5_vx7f3")]
 z_index = 5
 position = Vector2(345, 0)
+spawn_interval = 1.0
+scn_path = "res://entities/enemy.tscn"
 
 [node name="Ship" parent="." instance=ExtResource("3_61vle")]
 position = Vector2(960, 1020)

@@ -12,7 +12,6 @@ func _ready() -> void:
 	active_fruit_scn = apple_scn.instantiate()
 	active_fruit_scn.modulate.a = 0.3
 	self.add_child(active_fruit_scn)
-	pass # Replace with function body.
 
 
 func _input(event) -> void:
@@ -20,11 +19,6 @@ func _input(event) -> void:
 		place_fruit(event.position)
 	if (event is InputEventMouseMotion && is_instance_valid(active_fruit_scn) && play_area.get_rect().has_point(event.position)):
 		active_fruit_scn.position = event.position
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func place_fruit(position: Vector2) -> void:
 	var scn = create_fruit_scn()
@@ -42,17 +36,12 @@ func create_fruit_scn() -> Node:
 
 func _on_hud_fruit_selected(f: int) -> void:
 	active_fruit = f
-	pass # Replace with function body.
-
 
 func _on_play_area_mouse_entered() -> void:
 	if not is_instance_valid(active_fruit_scn):
 		active_fruit_scn = create_fruit_scn()
 		active_fruit_scn.modulate.a = 0.3
 		self.add_child(active_fruit_scn)
-	pass # Replace with function body.
-
 
 func _on_play_area_mouse_exited() -> void:
 	active_fruit_scn.queue_free()
-	pass # Replace with function body.

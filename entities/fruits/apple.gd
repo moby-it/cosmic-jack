@@ -10,11 +10,6 @@ extends Node2D
 func _draw() -> void:
 	collision_shape.shape.radius = radius
 	draw_circle(sprite.position, radius, border_color, false, border_width)
-	pass # Replace with function body.
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func change_transparency():
 	self.modulate.a = 0.5

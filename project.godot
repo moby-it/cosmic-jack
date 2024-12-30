@@ -30,3 +30,7 @@ version_control/autoload_on_startup=true
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[global_group]
+
+enemies=""

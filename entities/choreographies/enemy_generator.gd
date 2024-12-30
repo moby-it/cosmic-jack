@@ -1,32 +1,27 @@
 extends Path2D
 
-# I should add a pathfollow under the Path2D for each enemy that needs to spawn.
-# Path follow needs to also include the enemy scene as a child
-# On each process tick we should set the progress of each PathFollow
+@onready var timer = get_parent().get_node("Timer")
+@onready var spawn_interval = get_parent().spawn_interval
+@onready var count = get_parent().count
+@onready var speed = get_parent().speed
+@onready var enemy_scn = load(get_parent().scn_path)
 
-var croc_scn = load("res://entities/choreographies/path_progress.tscn")
-@onready var timer = $Timer
 var curr_enemies = 0
-@export var speed = 100
-@export var spawn_interval = 0.5
-@export var count = 10
-
-func _ready() -> void:
-	timer.wait_time = spawn_interval
-	curr_enemies += 1
-	var scn = croc_scn.instantiate()
-	self.add_child(scn)
-	scn = croc_scn.instantiate()
-
-func _process(delta):
-	pass
-	#progress += speed * delta
-
 
 func _on_timer_timeout() -> void:
 	if curr_enemies >= count:
-		$Timer.stop()
+		timer.stop()
 		return
 	curr_enemies += 1
-	var scn = croc_scn.instantiate()
-	self.add_child(scn)
+	print("should create enemy")
+	var pf = create_path_follow()
+	self.add_child(pf)
+
+func create_path_follow() -> Node:
+	var path_follow = load("res://entities/choreographies/path_follow.tscn").instantiate()
+	path_follow.speed = speed
+	var scn = enemy_scn.instantiate()
+	scn.get_node("Area2D").get_node("CollisionShape2D").disabled = true # disable colision for preview enemies
+	scn.get_node("Sprite2D").modulate.a = 0.5
+	path_follow.add_child(scn)
+	return path_follow
