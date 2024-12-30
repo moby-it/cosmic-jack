@@ -3,6 +3,8 @@ extends Node2D
 @onready var apple_scn = preload("res://entities/fruits/apple.tscn")
 @onready var watermelon_scn = preload("res://entities/fruits/watermelon.tscn")
 @onready var play_area = $play_area
+@onready var choreography = $Choreography
+var resolving = false
 var active_fruit_scn
 enum FRUITS { APPLE = 0, WATERMELON }
 var active_fruit = FRUITS.APPLE
@@ -38,10 +40,19 @@ func _on_hud_fruit_selected(f: int) -> void:
 	active_fruit = f
 
 func _on_play_area_mouse_entered() -> void:
-	if not is_instance_valid(active_fruit_scn):
+	if not is_instance_valid(active_fruit_scn) && not resolving:
 		active_fruit_scn = create_fruit_scn()
 		active_fruit_scn.modulate.a = 0.3
 		self.add_child(active_fruit_scn)
 
 func _on_play_area_mouse_exited() -> void:
-	active_fruit_scn.queue_free()
+	if is_instance_valid(active_fruit_scn):
+		active_fruit_scn.queue_free()
+
+
+func _on_resolve_resolve_wave() -> void:
+	resolving = true
+	choreography.is_preview = false
+	var enemy_path= choreography.get_node("EnemyPath")
+	for n in enemy_path.get_children():
+		n.queue_free()

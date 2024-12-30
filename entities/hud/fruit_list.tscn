@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://kg6eh17l30iv"]
 
 [ext_resource type="Texture2D" uid="uid://1po65a0m6jx7" path="res://assets/red-apple.png" id="1_sqsvj"]
-[ext_resource type="Script" path="res://entities/hud.gd" id="1_vhkqj"]
+[ext_resource type="Script" path="res://entities/hud/fruit_list.gd" id="1_vhkqj"]
 [ext_resource type="Texture2D" uid="uid://o5vybnpbr2l6" path="res://assets/watermelon.png" id="2_70rfa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pcb0h"]

@@ -11,6 +11,10 @@ func _draw() -> void:
 	collision_shape.shape.radius = radius
 	draw_circle(sprite.position, radius, border_color, false, border_width)
 
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	print("enemy entered")
+	draw_circle(sprite.position, radius, border_color, true, border_width)
+
 
 func change_transparency():
 	self.modulate.a = 0.5

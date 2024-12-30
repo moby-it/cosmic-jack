@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://entities/choreographies/path_follow.gd" id="1_wx3yu"]
 
 [node name="PathFollow2D" type="PathFollow2D"]
+loop = false
 script = ExtResource("1_wx3yu")

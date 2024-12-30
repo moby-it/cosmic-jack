@@ -1,20 +1,21 @@
 [gd_scene load_steps=4 format=3 uid="uid://cxvhh5yd3tff6"]
 
 [ext_resource type="Script" path="res://entities/fruits/apple.gd" id="1_q66ws"]
-[ext_resource type="Texture2D" uid="uid://1po65a0m6jx7" path="res://assets/red-apple.png" id="2_0u1vc"]
+[ext_resource type="Texture2D" uid="uid://ba7gkxun6ov03" path="res://assets/red-apple_small.png" id="2_sd6fq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ajhhp"]
 
 [node name="Apple" type="Node2D"]
-position = Vector2(0, 4)
 script = ExtResource("1_q66ws")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_0u1vc")
+texture = ExtResource("2_sd6fq")
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(0.1, 0.1)
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_ajhhp")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
