@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjyey20riweyl"]
-
-[ext_resource type="Texture2D" uid="uid://bf6iidurfkgnt" path="res://assets/arrow-forward-simple.svg" id="1_u0sol"]
-
-[node name="PathProgress" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("1_u0sol")

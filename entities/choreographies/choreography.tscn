@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyxjwko1qxm8s"]
+
+[ext_resource type="Script" path="res://entities/choreographies/enemy_generator.gd" id="1_ak1fr"]
+
+[sub_resource type="Curve2D" id="Curve2D_vey3e"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, -112.176, -24.7087, 112.176, 24.7087, 42, 239, -82.1228, -68.7936, 82.1228, 68.7936, 490, 46, 25.3984, -98.9481, -25.3984, 98.9481, 474, 225, 0, 0, 0, 0, 550, 414)
+}
+point_count = 5
+
+[node name="Choreography" type="Node2D"]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Path2D" type="Path2D" parent="."]
+scale = Vector2(2, 2)
+curve = SubResource("Curve2D_vey3e")
+script = ExtResource("1_ak1fr")
