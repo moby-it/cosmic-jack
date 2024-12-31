@@ -9,15 +9,16 @@ var active_fruit_scn
 enum FRUITS { APPLE = 0, WATERMELON }
 var active_fruit = FRUITS.APPLE
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	active_fruit_scn = apple_scn.instantiate()
 	active_fruit_scn.modulate.a = 0.3
 	self.add_child(active_fruit_scn)
 
-
+func is_mouse_left(event) -> bool:
+	return event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.is_pressed() && active_fruit_scn && play_area.get_rect().has_point(event.position)
+	
 func _input(event) -> void:
-	if(event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && active_fruit_scn && play_area.get_rect().has_point(event.position)):
+	if is_mouse_left(event):
 		place_fruit(event.position)
 	if (event is InputEventMouseMotion && is_instance_valid(active_fruit_scn) && play_area.get_rect().has_point(event.position)):
 		active_fruit_scn.position = event.position

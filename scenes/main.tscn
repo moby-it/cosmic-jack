@@ -15,7 +15,7 @@ speed = 200
 spawn_interval = 1
 count = 5
 path = "res://entities/choreographies/paths/1.tscn"
-scene = "res://entities/enemy.tscn"
+enemy_scn = "res://entities/enemy.tscn"
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_w06hk")

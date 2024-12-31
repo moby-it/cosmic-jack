@@ -4,7 +4,6 @@ extends Node2D
 
 func _ready() -> void:
 	$Timer.wait_time = attributes.spawn_interval
-	print(attributes.path)
 	var path = load(attributes.path).instantiate()
 	self.add_child(path)
 

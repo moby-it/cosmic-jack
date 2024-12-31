@@ -18,11 +18,10 @@ position = Vector2(-80, -117)
 texture = ExtResource("2_sd6fq")
 
 [node name="Area2D" type="Area2D" parent="."]
-scale = Vector2(0.1, 0.1)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_ajhhp")
 
-[connection signal="timeout" from="TimerLine" to="." method="_on_timer_line_timeout"]
+[connection signal="timeout" from="TimerLine" to="." method="exploded"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
