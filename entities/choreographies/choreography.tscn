@@ -1,23 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyxjwko1qxm8s"]
+[gd_scene load_steps=2 format=3 uid="uid://dyxjwko1qxm8s"]
 
 [ext_resource type="Script" path="res://entities/choreographies/choreography.gd" id="1_ak1fr"]
-[ext_resource type="Script" path="res://entities/choreographies/enemy_generator.gd" id="2_cb46p"]
-
-[sub_resource type="Curve2D" id="Curve2D_vey3e"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, -116.586, 1.43465, 116.586, -1.43465, 42, 239, -78.973, -0.442953, 78.973, 0.442953, 332, 67, 0.514988, -102.413, -0.514988, 102.413, 453.5, 222.5, 0, 0, 0, 0, 534, 386.5)
-}
-point_count = 5
 
 [node name="Choreography" type="Node2D"]
 script = ExtResource("1_ak1fr")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
-
-[node name="EnemyPath" type="Path2D" parent="."]
-scale = Vector2(2, 2)
-curve = SubResource("Curve2D_vey3e")
-script = ExtResource("2_cb46p")
-
-[connection signal="timeout" from="Timer" to="EnemyPath" method="_on_timer_timeout"]

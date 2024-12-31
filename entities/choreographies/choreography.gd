@@ -1,8 +1,12 @@
 extends Node2D
 
-@export var speed = 100
-@export var spawn_interval = 1
-@export var count = 10
-@export var is_preview = true
+@export var attributes: ChoreographyAttributes
 
-@export_file("*.tscn") var scn_path: String
+func _ready() -> void:
+	$Timer.wait_time = attributes.spawn_interval
+	print(attributes.path)
+	var path = load(attributes.path).instantiate()
+	self.add_child(path)
+
+func start_timer():
+	$Timer.start()

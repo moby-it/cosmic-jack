@@ -52,7 +52,9 @@ func _on_play_area_mouse_exited() -> void:
 
 func _on_resolve_resolve_wave() -> void:
 	resolving = true
-	choreography.is_preview = false
-	var enemy_path= choreography.get_node("EnemyPath")
+	choreography.attributes.is_preview = false
+	choreography.start_timer()
+	var enemy_path= choreography.get_node("EnemyPath2D")
+	enemy_path.curr_enemies = 0
 	for n in enemy_path.get_children():
 		n.queue_free()

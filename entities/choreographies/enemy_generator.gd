@@ -1,15 +1,15 @@
 extends Path2D
 
 @onready var timer = get_parent().get_node("Timer")
-@onready var spawn_interval = get_parent().spawn_interval
-@onready var count = get_parent().count
-@onready var speed = get_parent().speed
-@onready var enemy_scn = load(get_parent().scn_path)
+@onready var attributes: ChoreographyAttributes = get_parent().attributes
 
 var curr_enemies = 0
 
+func _ready() -> void:
+	timer.connect("timeout", _on_timer_timeout)
+
 func _on_timer_timeout() -> void:
-	if curr_enemies >= count:
+	if curr_enemies >= attributes.count:
 		timer.stop()
 		return
 	curr_enemies += 1
@@ -17,10 +17,10 @@ func _on_timer_timeout() -> void:
 	self.add_child(pf)
 
 func create_path_follow() -> Node:
-	var path_follow = load("res://entities/choreographies/path_follow.tscn").instantiate()
-	path_follow.speed = speed
-	var scn = enemy_scn.instantiate()
-	if get_parent().is_preview:
+	var path_follow = load("res://entities/choreographies/paths/path_follow.tscn").instantiate()
+	path_follow.speed = attributes.speed
+	var scn = load(attributes.scene).instantiate()
+	if get_parent().attributes.is_preview:
 		path_follow.loop = true
 		preview_props(scn)
 	path_follow.add_child(scn)

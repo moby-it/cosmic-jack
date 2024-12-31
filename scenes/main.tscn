@@ -1,11 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1i44l6vbgk6c"]
+[gd_scene load_steps=10 format=3 uid="uid://b1i44l6vbgk6c"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_w06hk"]
 [ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://entities/ship.tscn" id="3_61vle"]
 [ext_resource type="PackedScene" uid="uid://ys22g7u3y2st" path="res://entities/hud/resolve.tscn" id="3_ju3d5"]
 [ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://entities/background/background.tscn" id="3_qsmjo"]
+[ext_resource type="Script" path="res://entities/choreographies/choreography_attributes.gd" id="5_lb3de"]
 [ext_resource type="PackedScene" uid="uid://kg6eh17l30iv" path="res://entities/hud/fruit_list.tscn" id="5_umtyr"]
 [ext_resource type="PackedScene" uid="uid://dyxjwko1qxm8s" path="res://entities/choreographies/choreography.tscn" id="5_vx7f3"]
+[ext_resource type="PackedScene" uid="uid://e8ktqm538n14" path="res://entities/hud/hp.tscn" id="8_hcj5j"]
+
+[sub_resource type="Resource" id="Resource_untyv"]
+script = ExtResource("5_lb3de")
+speed = 200
+spawn_interval = 1
+count = 5
+path = "res://entities/choreographies/paths/1.tscn"
+scene = "res://entities/enemy.tscn"
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_w06hk")
@@ -21,6 +31,9 @@ offset_top = 908.0
 offset_right = 416.0
 offset_bottom = 1021.0
 
+[node name="HP" parent="." instance=ExtResource("8_hcj5j")]
+position = Vector2(1348, 948)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(0.8, 0.8)
 anchor_mode = 0
@@ -29,7 +42,7 @@ metadata/_edit_lock_ = true
 [node name="Choreography" parent="." instance=ExtResource("5_vx7f3")]
 z_index = 5
 position = Vector2(345, -30)
-scn_path = "res://entities/enemy.tscn"
+attributes = SubResource("Resource_untyv")
 
 [node name="Ship" parent="." instance=ExtResource("3_61vle")]
 position = Vector2(960, 1020)
