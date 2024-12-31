@@ -1,6 +1,5 @@
 extends Node2D
 
-
 @export var radius: float = 100
 
 var border_color: Color = Color.DARK_RED
@@ -19,7 +18,10 @@ func change_transparency():
 	self.modulate.a = 0.5
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.get_parent().is_in_group("enemies"):
+	if area.get_parent().is_in_group("enemies") && is_instance_valid(timer) && timer.is_stopped():
 		timer.start()
 		line.visible = true
-		
+
+
+func _on_timer_line_timeout() -> void:
+	self.queue_free()

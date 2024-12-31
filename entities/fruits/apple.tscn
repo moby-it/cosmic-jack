@@ -10,7 +10,9 @@
 script = ExtResource("1_q66ws")
 
 [node name="TimerLine" parent="." instance=ExtResource("3_78veq")]
-position = Vector2(-93, -222)
+visible = false
+z_index = 20
+position = Vector2(-80, -117)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_sd6fq")
@@ -22,4 +24,5 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_ajhhp")
 
+[connection signal="timeout" from="TimerLine" to="." method="_on_timer_line_timeout"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
