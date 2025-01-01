@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_jiux3")
 radius = 250.0
-detonation_delay = 0.5
+detonation_delay = 1.0
