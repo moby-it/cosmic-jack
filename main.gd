@@ -5,10 +5,8 @@ extends Node2D
 @onready var fruit_list = $FruitList
 var resolving = false
 
-enum FRUITS { APPLE = 0, WATERMELON }
-var active_fruit_idx = FRUITS.APPLE
 var active_fruit: Node2D
-
+var active_fruit_name = "apple"
 func _ready() -> void:
 	CircleShape2D
 	SelectedFruits.create_fruit_list_hud($FruitList)
@@ -26,15 +24,21 @@ func _input(event) -> void:
 	if is_mouse_left(event):
 		place_fruit(event.position)
 	elif is_mouse_move(event):
-		active_fruit.position = event.position
+		if SelectedFruits.can_place_fruit(active_fruit_name):
+			active_fruit.position = event.position
+		elif is_instance_valid(active_fruit):
+			active_fruit.queue_free()
 
 func place_fruit(position: Vector2) -> void:
+	if not SelectedFruits.can_place_fruit(active_fruit_name):
+		return
 	var node = create_fruit()
 	node.position = Vector2(position)
 	self.add_child(node)
+	SelectedFruits.reduce_fruit_ammo(active_fruit_name)
 
 func create_fruit() -> Node2D:
-	var fruit: Node2D =  SelectedFruits.available_fruits[active_fruit_idx].instantiate()
+	var fruit: Node2D =  SelectedFruits.available_fruits[active_fruit_name].instantiate()
 	fruit.explosive.draw_explosive_radius(fruit)
 	return fruit
 
@@ -58,5 +62,5 @@ func _on_resolve_resolve_wave() -> void:
 	for n in enemy_path.get_children():
 		n.queue_free()
 
-func _on_fruit_list_selected(i: int) -> void:
-	active_fruit_idx = i
+func _on_fruit_list_selected(i: String) -> void:
+	active_fruit_name = i
