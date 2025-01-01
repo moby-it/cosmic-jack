@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxvhh5yd3tff6"]
+
+[ext_resource type="Script" path="res://fruits/apple/apple.gd" id="1_qox7n"]
+[ext_resource type="Resource" uid="uid://cd7wp8yiw4kgd" path="res://fruits/apple/apple_explosive.tres" id="2_hpo7h"]
+[ext_resource type="Texture2D" uid="uid://ba7gkxun6ov03" path="res://assets/red-apple_small.png" id="2_sd6fq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ajhhp"]
+radius = 47.0425
+
+[node name="Apple" type="Node2D"]
+script = ExtResource("1_qox7n")
+explosive = ExtResource("2_hpo7h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sd6fq")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ajhhp")
