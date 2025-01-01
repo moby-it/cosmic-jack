@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("2_b5r70")
-radius = 200.0
+radius = 150.0
 delay = 2.0

@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_jiux3")
-radius = 250.0
+radius = 200.0
 delay = 1.0

@@ -1,4 +1,5 @@
 # apple triggers on enemy touch
+
 extends Node2D
 
 @export var explosive: Explosive
@@ -10,4 +11,4 @@ func _ready() -> void:
 
 func enemy_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group("enemies"):
-		explosive.start_explosion_timer(area.get_parent())
+		explosive.start_explosion_timer(self)

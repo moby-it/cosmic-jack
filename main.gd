@@ -32,7 +32,6 @@ func place_fruit(position: Vector2) -> void:
 	self.add_child(node)
 
 func create_fruit() -> Node2D:
-	print(active_fruit_idx)
 	var fruit: Node2D =  SelectedFruits.available_fruits[active_fruit_idx].instantiate()
 	fruit.explosive.draw_explosive_radius(fruit)
 	return fruit
@@ -58,9 +57,5 @@ func _on_resolve_resolve_wave() -> void:
 
 
 func _on_fruit_list_selected(i: int) -> void:
-	print(i)
 	active_fruit_idx = i
-	active_fruit = create_fruit()
-	active_fruit.modulate.a = 0.3
-	self.add_child(active_fruit)
 	
