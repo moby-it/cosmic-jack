@@ -11,7 +11,7 @@
 [node name="Main" type="Node2D"]
 script = ExtResource("1_w06hk")
 
-[node name="FruitList" type="Node2D" parent="."]
+[node name="FruitList" type="Node2D" parent="." groups=["hud"]]
 z_index = 10
 position = Vector2(1783, 852)
 
@@ -22,7 +22,7 @@ offset_top = 908.0
 offset_right = 416.0
 offset_bottom = 1021.0
 
-[node name="HP" parent="." instance=ExtResource("8_hcj5j")]
+[node name="HP" parent="." groups=["hud"] instance=ExtResource("8_hcj5j")]
 position = Vector2(1348, 948)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -34,7 +34,7 @@ metadata/_edit_lock_ = true
 position = Vector2(400, -30)
 attributes = ExtResource("6_i1mb3")
 
-[node name="Ship" parent="." instance=ExtResource("3_61vle")]
+[node name="Ship" parent="." groups=["hud"] instance=ExtResource("3_61vle")]
 position = Vector2(960, 1020)
 metadata/_edit_lock_ = true
 

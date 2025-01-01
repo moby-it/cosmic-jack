@@ -13,4 +13,5 @@ func create_fruit_list_hud(node: Node2D):
 		var area: Area2D = fruit.get_node("Area2D")
 		area.input_event.connect(func(viewport,event, idx): fruit_selected.emit(i))
 		fruit.position.y = i * 100
+		fruit.explosive = null
 		node.add_child(fruit)

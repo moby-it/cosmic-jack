@@ -7,8 +7,10 @@ var resolving = false
 
 enum FRUITS { APPLE = 0, WATERMELON }
 var active_fruit_idx = FRUITS.APPLE
-var active_fruit
+var active_fruit: Node2D
+
 func _ready() -> void:
+	CircleShape2D
 	SelectedFruits.create_fruit_list_hud($FruitList)
 	SelectedFruits.fruit_selected.connect(_on_fruit_list_selected)
 	active_fruit = create_fruit()
@@ -47,6 +49,7 @@ func _on_play_area_mouse_exited() -> void:
 		active_fruit.queue_free()
 
 func _on_resolve_resolve_wave() -> void:
+	Health.health = 3
 	resolving = true
 	choreography.attributes.is_preview = false
 	choreography.start_timer()
@@ -55,7 +58,5 @@ func _on_resolve_resolve_wave() -> void:
 	for n in enemy_path.get_children():
 		n.queue_free()
 
-
 func _on_fruit_list_selected(i: int) -> void:
 	active_fruit_idx = i
-	

@@ -40,8 +40,9 @@ enabled=PackedStringArray()
 [global_group]
 
 enemies=""
+fruits=""
 
 [layer_names]
 
 2d_physics/layer_1="fruits"
-2d_physics/layer_2="enemiess"
+2d_physics/layer_2="enemies"

@@ -8,4 +8,4 @@ speed = 200
 spawn_interval = 0.3
 count = 5
 path = "res://choreos/paths/1.tscn"
-enemy_scn = "res://enemies/enemy.tscn"
+enemy_scn = "res://enemies/croc.tscn"

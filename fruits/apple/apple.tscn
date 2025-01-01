@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ajhhp"]
 radius = 47.0425
 
-[node name="Apple" type="Node2D"]
+[node name="Apple" type="Node2D" groups=["fruits"]]
 script = ExtResource("1_qox7n")
 explosive = ExtResource("2_hpo7h")
 
