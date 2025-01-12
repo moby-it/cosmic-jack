@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bikhjhomldq7c"
-path="res://.godot/imported/watermelon_circle_red.png-be3ec37b69f0691822163bc1acfa7a7e.ctex"
+uid="uid://ba7gkxun6ov03"
+path="res://.godot/imported/apple.png-7b038ddd2045b628a3d8fb0f30feccfa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/watermelon_circle_red.png"
-dest_files=["res://.godot/imported/watermelon_circle_red.png-be3ec37b69f0691822163bc1acfa7a7e.ctex"]
+source_file="res://fruits/apple/apple.png"
+dest_files=["res://.godot/imported/apple.png-7b038ddd2045b628a3d8fb0f30feccfa.ctex"]
 
 [params]
 

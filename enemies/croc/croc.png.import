@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c58emmcn66inn"
-path="res://.godot/imported/watermelon_circle_opaue.png-374060bd30adc02fcd961391d7555855.ctex"
+uid="uid://ufqmqwe88t4d"
+path="res://.godot/imported/croc.png-801203221442d47ca2bfc7deb58c0797.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/watermelon_circle_opaue.png"
-dest_files=["res://.godot/imported/watermelon_circle_opaue.png-374060bd30adc02fcd961391d7555855.ctex"]
+source_file="res://enemies/croc/croc.png"
+dest_files=["res://.godot/imported/croc.png-801203221442d47ca2bfc7deb58c0797.ctex"]
 
 [params]
 

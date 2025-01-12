@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crhcfno28hosd"
-path="res://.godot/imported/red-apple-with-radius-triggered.png-3e76fffe98d265c644e301967edfd9db.ctex"
+uid="uid://irvuf433bnbc"
+path="res://.godot/imported/ship.png-970307ac4a840bc0d0b5656b95d191d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/red-apple-with-radius-triggered.png"
-dest_files=["res://.godot/imported/red-apple-with-radius-triggered.png-3e76fffe98d265c644e301967edfd9db.ctex"]
+source_file="res://hud/ship.png"
+dest_files=["res://.godot/imported/ship.png-970307ac4a840bc0d0b5656b95d191d6.ctex"]
 
 [params]
 

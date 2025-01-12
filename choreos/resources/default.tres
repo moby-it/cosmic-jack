@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ChoreographyAttributes" load_steps=2 format=3 uid="uid://b8yrpb58k5rdr"]
+[gd_resource type="Resource" script_class="ChoreographyAttributes" load_steps=3 format=3 uid="uid://b8yrpb58k5rdr"]
 
 [ext_resource type="Script" path="res://choreos/choreography_attributes.gd" id="1_pqbx5"]
+[ext_resource type="PackedScene" uid="uid://dy1ndkh3j6my7" path="res://enemies/croc/croc.tscn" id="1_uua1f"]
 
 [resource]
 script = ExtResource("1_pqbx5")
@@ -8,4 +9,4 @@ speed = 200
 spawn_interval = 0.3
 count = 5
 path = "res://choreos/paths/1.tscn"
-enemy_scn = "res://enemies/croc.tscn"
+enemy_scn = ExtResource("1_uua1f")

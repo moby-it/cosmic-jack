@@ -19,7 +19,7 @@ func _on_timer_timeout() -> void:
 func create_path_follow() -> Node:
 	var path_follow = load("res://choreos/path_follow.tscn").instantiate()
 	path_follow.speed = attributes.speed
-	var scn = load(attributes.enemy_scn).instantiate()
+	var scn = attributes.enemy_scn.instantiate()
 	if get_parent().attributes.is_preview:
 		path_follow.loop = true
 		preview_props(scn)

@@ -7,4 +7,4 @@ class_name ChoreographyAttributes
 var is_preview = true
 
 @export_file("*.tscn") var path: String
-@export_file("*.tscn") var enemy_scn: String
+@export var enemy_scn: PackedScene

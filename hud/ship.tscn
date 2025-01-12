@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://13dothaq8nub"]
 
-[ext_resource type="Texture2D" uid="uid://irvuf433bnbc" path="res://assets/spaceShips_003.png" id="1_xhdre"]
+[ext_resource type="Texture2D" uid="uid://irvuf433bnbc" path="res://hud/ship.png" id="1_xhdre"]
 
 [node name="Ship" type="Node2D"]
 scale = Vector2(1, 0.7)

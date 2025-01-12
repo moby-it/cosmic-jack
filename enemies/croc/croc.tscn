@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dy1ndkh3j6my7"]
 
-[ext_resource type="Texture2D" uid="uid://ufqmqwe88t4d" path="res://assets/space_croc.png" id="1_qilu0"]
+[ext_resource type="Texture2D" uid="uid://ufqmqwe88t4d" path="res://enemies/croc/croc.png" id="1_qilu0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l7qrp"]
 radius = 21.0

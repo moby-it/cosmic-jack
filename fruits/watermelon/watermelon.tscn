@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dwsdcklwnqpng"]
 
 [ext_resource type="Script" path="res://fruits/watermelon/watermelon.gd" id="1_odd54"]
-[ext_resource type="Texture2D" uid="uid://d3k1bw4cssqqs" path="res://assets/watermelon_small.png" id="2_c8x6t"]
+[ext_resource type="Texture2D" uid="uid://d3k1bw4cssqqs" path="res://fruits/watermelon/watermelon.png" id="2_c8x6t"]
 [ext_resource type="Resource" uid="uid://6xs58noktpr2" path="res://fruits/watermelon/watermelon_explosion.tres" id="2_tro41"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qd3wy"]

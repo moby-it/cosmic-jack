@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://main.gd" id="1_w06hk"]
 [ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://hud/ship.tscn" id="3_61vle"]
 [ext_resource type="PackedScene" uid="uid://ys22g7u3y2st" path="res://hud/resolve.tscn" id="3_ju3d5"]
-[ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://levels/background/background.tscn" id="3_qsmjo"]
+[ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://hud/background/background.tscn" id="3_qsmjo"]
 [ext_resource type="PackedScene" uid="uid://dyxjwko1qxm8s" path="res://choreos/choreography.tscn" id="5_1puyx"]
 [ext_resource type="Resource" uid="uid://b8yrpb58k5rdr" path="res://choreos/resources/default.tres" id="6_i1mb3"]
 [ext_resource type="PackedScene" uid="uid://e8ktqm538n14" path="res://hud/hp.tscn" id="8_hcj5j"]
