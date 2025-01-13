@@ -37,6 +37,3 @@ func reduce_fruit_ammo(fruit: String) -> void:
 		push_error("cannot reduce fruit ammo")
 	ammo[fruit] -= 1
 	ammo_labels[fruit].text = str(ammo[fruit])
-	
-	
-	

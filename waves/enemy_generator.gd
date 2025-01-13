@@ -17,7 +17,7 @@ func _on_timer_timeout() -> void:
 	self.add_child(pf)
 
 func create_path_follow() -> Node:
-	var path_follow = load("res://choreos/path_follow.tscn").instantiate()
+	var path_follow = load("res://waves/path_follow.tscn").instantiate()
 	path_follow.speed = attributes.speed
 	var scn = attributes.enemy_scn.instantiate()
 	if get_parent().attributes.is_preview:

@@ -23,14 +23,15 @@ func start_explosion_timer(node: Node2D) -> void:
 	timer.start()
 
 func _add_area(node: Node2D, r: float):
-	node.get_node("Area2D").queue_free() # remove smaller collision shape
+	if is_instance_valid(node.get_node("Area2D")):
+		node.get_node("Area2D").queue_free() # remove smaller collision shape
 	
 	var area: Area2D = Area2D.new()
 	area.name = "ExplosiveRadius"
 	area.set_collision_layer_value(1, true)
 	area.set_collision_mask_value(1, true)
 	area.set_collision_mask_value(2, true)
-	var collider: CollisionShape2D = CollisionShape2D.new()
+	var collider = CollisionShape2D.new()
 	collider.shape = CircleShape2D.new()
 	collider.shape.radius = r
 	area.add_child(collider)
