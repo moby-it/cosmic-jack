@@ -78,8 +78,20 @@ func add_active_fruit():
 	
 func _on_play_area_gui_input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_CTRL):
-		return
-	if is_mouse_left(event):
-		place_fruit(get_global_mouse_position())
-	elif is_mouse_move(event):
-		active_fruit.position = get_global_mouse_position()
+		if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT:
+			if event.is_pressed():
+				print("should start dragging",find_fruit_under_cursor())
+			else:
+				print("should stop draggin",)
+		elif is_mouse_right(event):
+			print("should remove",find_fruit_under_cursor())
+	else:
+		if is_mouse_left(event):
+			place_fruit(get_global_mouse_position())
+		elif is_mouse_move(event):
+			active_fruit.position = get_global_mouse_position()
+
+func find_fruit_under_cursor() -> Node2D:
+	return null
+	
+	

@@ -48,6 +48,7 @@ z_index = -1
 offset_left = 183.0
 offset_right = 1783.0
 offset_bottom = 750.0
+mouse_filter = 1
 color = Color(1, 1, 1, 0.0588235)
 metadata/_edit_lock_ = true
 
