@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var play_area = $play_area
+@onready var play_area: ColorRect= $play_area
 @onready var choreography = $Choreography
 @onready var fruit_list = $FruitList
 var resolving = false
@@ -11,6 +11,16 @@ var active_fruit_name = "apple"
 func _ready() -> void:
 	SelectedFruits.create_fruit_list_hud($FruitList)
 	SelectedFruits.fruit_selected.connect(_on_fruit_list_selected)
+
+func _input(event: InputEvent) -> void:
+	if not play_area.get_rect().has_point(get_global_mouse_position()):
+		return
+	if Input.is_key_pressed(KEY_CTRL) and is_instance_valid(active_fruit):
+		active_fruit.queue_free()
+	if not Input.is_key_pressed(KEY_CTRL) and not is_instance_valid(active_fruit):
+		add_active_fruit()
+		
+		
 
 func is_mouse_left(event) -> bool:
 	return event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.is_pressed()
@@ -67,6 +77,8 @@ func add_active_fruit():
 		self.add_child(active_fruit)
 	
 func _on_play_area_gui_input(event: InputEvent) -> void:
+	if Input.is_key_pressed(KEY_CTRL):
+		return
 	if is_mouse_left(event):
 		place_fruit(get_global_mouse_position())
 	elif is_mouse_move(event):
