@@ -8,6 +8,7 @@ var border_color: Color = Color.RED
 var border_width: float = 2.0
 var timer: Timer
 var exploding = false
+
 func draw_explosive_radius(node: Node2D) -> void:
 	_add_area(node, radius)
 	node.draw_circle(node.get_node("Sprite2D").position, radius, border_color, false, border_width)

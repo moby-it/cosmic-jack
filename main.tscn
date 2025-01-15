@@ -21,9 +21,10 @@ offset_left = 183.0
 offset_top = 908.0
 offset_right = 416.0
 offset_bottom = 1021.0
+metadata/_edit_use_anchors_ = true
 
 [node name="HP" parent="." groups=["hud"] instance=ExtResource("8_hcj5j")]
-position = Vector2(1348, 948)
+position = Vector2(1605, 948)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(0.8, 0.8)
@@ -35,7 +36,7 @@ position = Vector2(400, -30)
 attributes = ExtResource("6_i1mb3")
 
 [node name="Ship" parent="." groups=["hud"] instance=ExtResource("3_61vle")]
-position = Vector2(992, 1020)
+position = Vector2(1019, 959)
 metadata/_edit_lock_ = true
 
 [node name="Background" parent="." instance=ExtResource("3_qsmjo")]

@@ -5,6 +5,7 @@ extends Node2D
 @export var explosive: Explosive
 var exploding = false
 var hovered = false
+
 func _draw() -> void:
 	if explosive:
 		explosive.draw_explosive_radius(self)

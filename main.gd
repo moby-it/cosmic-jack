@@ -7,6 +7,7 @@ var resolving = false
 
 var active_fruit: Node2D
 var active_fruit_name = "apple"
+var dragging_fruits = []
 
 func _ready() -> void:
 	SelectedFruits.create_fruit_list_hud($FruitList)
@@ -19,8 +20,6 @@ func _input(event: InputEvent) -> void:
 		active_fruit.queue_free()
 	if not Input.is_key_pressed(KEY_CTRL) and not is_instance_valid(active_fruit):
 		add_active_fruit()
-		
-		
 
 func is_mouse_left(event) -> bool:
 	return event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.is_pressed()
@@ -42,6 +41,7 @@ func place_fruit(position: Vector2) -> void:
 
 func create_fruit() -> Node2D:
 	var fruit: Node2D = SelectedFruits.available_fruits[active_fruit_name].instantiate()
+	fruit.name = active_fruit_name
 	fruit.explosive.draw_explosive_radius(fruit)
 	return fruit
 
@@ -80,18 +80,26 @@ func _on_play_area_gui_input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_CTRL):
 		if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT:
 			if event.is_pressed():
-				print("should start dragging",find_fruit_under_cursor())
+				dragging_fruits = find_fruits_under_cursor()
 			else:
-				print("should stop draggin",)
+				dragging_fruits = []
+		elif event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			if len(dragging_fruits) > 0:
+				for df in dragging_fruits:
+					df.position = get_global_mouse_position()
 		elif is_mouse_right(event):
-			print("should remove",find_fruit_under_cursor())
+			var fruits = 	find_fruits_under_cursor()
+			if len(fruits): 
+				for f in fruits:
+					SelectedFruits.add_fruit_ammo(f.get_meta("name"))
+					f.queue_free()
 	else:
 		if is_mouse_left(event):
 			place_fruit(get_global_mouse_position())
 		elif is_mouse_move(event):
 			active_fruit.position = get_global_mouse_position()
 
-func find_fruit_under_cursor() -> Node2D:
-	return null
-	
+func find_fruits_under_cursor() -> Array[Node]:
+	var placed_fruits = get_tree().get_nodes_in_group("fruits").filter(func (f): return f.hovered)
+	return placed_fruits
 	
