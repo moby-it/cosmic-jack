@@ -24,7 +24,7 @@ offset_bottom = 1021.0
 metadata/_edit_use_anchors_ = true
 
 [node name="HP" parent="." groups=["hud"] instance=ExtResource("8_hcj5j")]
-position = Vector2(1605, 948)
+position = Vector2(1485, 948)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(0.8, 0.8)
@@ -54,6 +54,7 @@ color = Color(1, 1, 1, 0.0588235)
 metadata/_edit_lock_ = true
 
 [connection signal="resolve_wave" from="Resolve Button" to="." method="_on_resolve_resolve_wave"]
+[connection signal="health_depleted" from="HP" to="." method="_on_hp_health_depleted"]
 [connection signal="gui_input" from="play_area" to="." method="_on_play_area_gui_input"]
 [connection signal="mouse_entered" from="play_area" to="." method="_on_play_area_mouse_entered"]
 [connection signal="mouse_exited" from="play_area" to="." method="_on_play_area_mouse_exited"]

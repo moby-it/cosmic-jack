@@ -8,10 +8,13 @@ var available_fruits = {
 	"apple": preload("res://fruits/apple/apple.tscn"),
 	"watermelon": preload("res://fruits/watermelon/watermelon.tscn")
 }
-var ammo = {
+var initial_ammo = {
 	"apple": 2,
 	"watermelon": 2
 }
+
+var ammo = initial_ammo
+
 var ammo_labels = {}
 
 func create_fruit_list_hud(node: Node2D):
@@ -41,3 +44,6 @@ func reduce_fruit_ammo(fruit: String) -> void:
 func add_fruit_ammo(fruit: String):
 	ammo[fruit] += 1
 	ammo_labels[fruit].text = str(ammo[fruit])
+
+func reset():
+	ammo = initial_ammo
