@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Health="*res://globals/health.gd"
 ExplosionBus="*res://globals/explosion_bus.gd"
 SelectedFruits="*res://globals/fruits.gd"
+SceneManager="*res://globals/scene_manager.gd"
 
 [display]
 
@@ -27,11 +28,6 @@ window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=2
 window/stretch/mode="canvas_items"
-
-[editor]
-
-version_control/plugin_name="GitPlugin"
-version_control/autoload_on_startup=true
 
 [editor_plugins]
 
@@ -41,6 +37,11 @@ enabled=PackedStringArray()
 
 enemies=""
 fruits=""
+
+[gui]
+
+theme/default_theme_scale=2.0
+theme/custom="res://theme.tres"
 
 [layer_names]
 

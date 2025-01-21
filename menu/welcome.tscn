@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bovh4ll6kkp7l"]
+
+[ext_resource type="Script" path="res://menu/welcome.gd" id="1_2sym4"]
+[ext_resource type="Texture2D" uid="uid://d1o5ocbydf4ng" path="res://assets/xmark.png" id="2_nisiv"]
+
+[sub_resource type="Theme" id="Theme_o5uej"]
+
+[node name="Welcome" type="Node2D"]
+script = ExtResource("1_2sym4")
+
+[node name="content" type="RichTextLabel" parent="."]
+offset_left = 256.0
+offset_top = 136.0
+offset_right = 1664.0
+offset_bottom = 960.0
+theme = SubResource("Theme_o5uej")
+bbcode_enabled = true
+text = "[font_size=52]Welcome to Cosmic Jack Demo![/font_size]
+
+This is the first prototype of a level. The goal is to gather feedback and identify if this is indeed a pleasant  experience <3.
+
+Ideally, we'd like you to record your gaming session with a program like obs and upload it to [url=https://drive.google.com/drive/folders/1gVfNt0ofFfDTmXej9bDuQAa_qM8oCB8-?usp=sharing]this google drive folder[/url]. Create a folder with your name and upload the file there. It would be great to add some text feedback as well.
+
+For any inquiries, send an email to [url=mailto:gspanos@moby-it.com]gspanos@moby-it.com[url]
+
+Have fun!"
+
+[node name="close" type="Button" parent="."]
+offset_left = 1879.0
+offset_right = 1919.0
+offset_bottom = 40.0
+icon = ExtResource("2_nisiv")

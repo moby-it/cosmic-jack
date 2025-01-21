@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bd25s0pan4dp1"]
+
+[node name="Tutorial" type="Button"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 572.0
+offset_top = 178.0
+offset_right = 1372.0
+offset_bottom = 778.0
+bbcode_enabled = true
+text = "Cosmic Jack is a pattern based puzzle game. 
+
+"
+fit_content = true

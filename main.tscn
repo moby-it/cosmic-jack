@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b1i44l6vbgk6c"]
+[gd_scene load_steps=9 format=3 uid="uid://b1i44l6vbgk6c"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_w06hk"]
 [ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://hud/ship.tscn" id="3_61vle"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://hud/background/background.tscn" id="3_qsmjo"]
 [ext_resource type="PackedScene" uid="uid://dyxjwko1qxm8s" path="res://waves/choreography.tscn" id="5_1puyx"]
 [ext_resource type="Resource" uid="uid://b8yrpb58k5rdr" path="res://waves/resources/default.tres" id="6_i1mb3"]
+[ext_resource type="Script" path="res://version.gd" id="8_audxs"]
 [ext_resource type="PackedScene" uid="uid://e8ktqm538n14" path="res://hud/hp.tscn" id="8_hcj5j"]
 
 [node name="Main" type="Node2D"]
@@ -52,6 +53,13 @@ offset_bottom = 750.0
 mouse_filter = 1
 color = Color(1, 1, 1, 0.0588235)
 metadata/_edit_lock_ = true
+
+[node name="version" type="Label" parent="."]
+offset_left = 1803.0
+offset_top = 1033.0
+offset_right = 1910.0
+offset_bottom = 1078.0
+script = ExtResource("8_audxs")
 
 [connection signal="resolve_wave" from="Resolve Button" to="." method="_on_resolve_resolve_wave"]
 [connection signal="health_depleted" from="HP" to="." method="_on_hp_health_depleted"]
