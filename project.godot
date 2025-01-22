@@ -26,12 +26,11 @@ SceneManager="*res://globals/scene_manager.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=2
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/script-ide/plugin.cfg")
 
 [global_group]
 
@@ -40,7 +39,6 @@ fruits=""
 
 [gui]
 
-theme/default_theme_scale=2.0
 theme/custom="res://theme.tres"
 
 [layer_names]

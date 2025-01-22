@@ -1,3 +1,2 @@
-- finish the tutorial scene.
 - reorganize project and implement the whole game loop for puzzle after puzzle resolution.
 - create an in game menu, to time-travel to previous puzzles

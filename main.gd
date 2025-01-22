@@ -12,7 +12,6 @@ var dragging_fruits = []
 func _ready() -> void:
 	SelectedFruits.create_fruit_list_hud($FruitList)
 	SelectedFruits.fruit_selected.connect(_on_fruit_list_selected)
-	
 
 func _input(event: InputEvent) -> void:
 	if not play_area.get_rect().has_point(get_global_mouse_position()):
@@ -101,7 +100,7 @@ func _on_play_area_gui_input(event: InputEvent) -> void:
 			active_fruit.position = get_global_mouse_position()
 
 func find_fruits_under_cursor() -> Array[Node]:
-	var placed_fruits = get_tree().get_nodes_in_group("fruits").filter(func (f): return f.hovered)
+	var placed_fruits = get_tree().get_nodes_in_group("fruits").filter(func (f): return f.explosive.hovered)
 	return placed_fruits
 	
 func reset():
