@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="WaveAttributes" load_steps=4 format=3 uid="uid://b8yrpb58k5rdr"]
+
+[ext_resource type="PackedScene" uid="uid://dy1ndkh3j6my7" path="res://enemies/croc/croc.tscn" id="1_uua1f"]
+[ext_resource type="PackedScene" uid="uid://ctnw6hyjola0a" path="res://waves/rivers/seine.tscn" id="2_7owin"]
+[ext_resource type="Script" path="res://waves/convoys/_convoy.gd" id="3_gf68g"]
+
+[resource]
+script = ExtResource("3_gf68g")
+speed = 200
+spawn_interval = 0.3
+count = 5
+path = ExtResource("2_7owin")
+enemy_scn = ExtResource("1_uua1f")

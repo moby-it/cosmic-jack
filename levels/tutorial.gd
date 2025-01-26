@@ -56,3 +56,7 @@ func _on_next_gui_input(event: InputEvent) -> void:
 		else:
 			self.queue_free()	
 		update_screen_visibility()
+
+
+func _on_skip_gui_input(event: InputEvent) -> void:
+	self.queue_free()

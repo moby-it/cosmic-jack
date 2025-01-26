@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://cd5rvotstiq3w"]
 
-[ext_resource type="Script" path="res://waves/path_follow.gd" id="1_wx3yu"]
+[ext_resource type="Script" path="res://waves/rivers/_river.gd" id="1_80i78"]
 
 [node name="PathFollow2D" type="PathFollow2D"]
 loop = false
-script = ExtResource("1_wx3yu")
+script = ExtResource("1_80i78")

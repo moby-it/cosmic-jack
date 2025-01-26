@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://ddbanutx2tmnw"]
+[gd_scene load_steps=8 format=3 uid="uid://ddbanutx2tmnw"]
 
 [ext_resource type="Script" path="res://main_bak.gd" id="1_ap3p0"]
 [ext_resource type="PackedScene" uid="uid://ys22g7u3y2st" path="res://hud/resolve.tscn" id="2_t5u2p"]
 [ext_resource type="PackedScene" uid="uid://e8ktqm538n14" path="res://hud/hp.tscn" id="3_3cmvw"]
-[ext_resource type="PackedScene" uid="uid://dyxjwko1qxm8s" path="res://waves/choreography.tscn" id="4_m3fl7"]
-[ext_resource type="Resource" uid="uid://b8yrpb58k5rdr" path="res://waves/resources/default.tres" id="5_p0q2u"]
+[ext_resource type="PackedScene" uid="uid://bckgyjgeqo1nr" path="res://waves/wave.tscn" id="4_m3fl7"]
 [ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://hud/ship.tscn" id="6_g1sen"]
 [ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://hud/background/background.tscn" id="7_jsy6l"]
 [ext_resource type="Script" path="res://version.gd" id="8_k3j5q"]
@@ -34,7 +33,6 @@ metadata/_edit_lock_ = true
 
 [node name="Choreography" parent="." instance=ExtResource("4_m3fl7")]
 position = Vector2(400, -30)
-attributes = ExtResource("5_p0q2u")
 
 [node name="Ship" parent="." groups=["hud"] instance=ExtResource("6_g1sen")]
 position = Vector2(1019, 959)

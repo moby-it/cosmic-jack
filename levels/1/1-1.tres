@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Wave" load_steps=4 format=3 uid="uid://bt6oexdghyrwo"]
+
+[ext_resource type="Script" path="res://waves/convoys/_convoy.gd" id="1_ug3o7"]
+[ext_resource type="Script" path="res://waves/wave.gd" id="2_7fv10"]
+[ext_resource type="Resource" uid="uid://b8yrpb58k5rdr" path="res://waves/convoys/starters.tres" id="2_lx660"]
+
+[resource]
+script = ExtResource("2_7fv10")
+convoys = Array[ExtResource("1_ug3o7")]([ExtResource("2_lx660")])

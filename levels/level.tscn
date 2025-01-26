@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://bf5fa6pqes1hj"]
+
+[ext_resource type="Script" path="res://levels/level.gd" id="1_6fb17"]
+[ext_resource type="PackedScene" uid="uid://ys22g7u3y2st" path="res://hud/resolve.tscn" id="1_ae3o5"]
+[ext_resource type="PackedScene" uid="uid://e8ktqm538n14" path="res://hud/hp.tscn" id="2_oxmw4"]
+[ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://hud/ship.tscn" id="4_chuaq"]
+[ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://hud/background/background.tscn" id="5_sp8rb"]
+[ext_resource type="Script" path="res://version.gd" id="6_n7bey"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_6fb17")
+
+[node name="FruitList" type="Node2D" parent="." groups=["hud"]]
+z_index = 10
+position = Vector2(1447, 852)
+
+[node name="Resolve Button" parent="." instance=ExtResource("1_ae3o5")]
+z_index = 10
+offset_left = 183.0
+offset_top = 908.0
+offset_right = 416.0
+offset_bottom = 1021.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HP" parent="." groups=["hud"] instance=ExtResource("2_oxmw4")]
+position = Vector2(481, 948)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(0.8, 0.8)
+anchor_mode = 0
+metadata/_edit_lock_ = true
+
+[node name="Ship" parent="." groups=["hud"] instance=ExtResource("4_chuaq")]
+position = Vector2(1019, 959)
+metadata/_edit_lock_ = true
+
+[node name="Background" parent="." instance=ExtResource("5_sp8rb")]
+z_index = -10
+rotation = -0.000444478
+metadata/_edit_lock_ = true
+
+[node name="play_area" type="ColorRect" parent="."]
+z_index = -1
+offset_left = 183.0
+offset_right = 1783.0
+offset_bottom = 750.0
+mouse_filter = 1
+color = Color(1, 1, 1, 0.0588235)
+metadata/_edit_lock_ = true
+
+[node name="version" type="Label" parent="."]
+offset_left = 1803.0
+offset_top = 1033.0
+offset_right = 1910.0
+offset_bottom = 1078.0
+script = ExtResource("6_n7bey")

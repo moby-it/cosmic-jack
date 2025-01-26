@@ -1,29 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://bd25s0pan4dp1"]
+[gd_scene load_steps=3 format=3 uid="uid://bd25s0pan4dp1"]
 
 [ext_resource type="Script" path="res://levels/tutorial.gd" id="1_cu30i"]
+[ext_resource type="Theme" uid="uid://dixyj4a6nc4u0" path="res://theme.tres" id="2_tj4ie"]
 
 [node name="Tutorial" type="Node2D"]
 script = ExtResource("1_cu30i")
 
 [node name="intro" type="RichTextLabel" parent="."]
-offset_left = 572.0
-offset_top = 178.0
-offset_right = 1372.0
-offset_bottom = 778.0
-bbcode_enabled = true
-text = "Cosmic Jack is a pattern based puzzle game. 
-
-This demo contains one level. Each levels consists of a series of spacial puzzles. We 'll refer to each puzzle as the \"enemy wave\".
-
-"
-fit_content = true
-
-[node name="preview&fruits" type="RichTextLabel" parent="."]
 visible = false
 offset_left = 572.0
 offset_top = 178.0
 offset_right = 1372.0
 offset_bottom = 778.0
+theme = ExtResource("2_tj4ie")
+bbcode_enabled = true
+text = "Cosmic Jack is a pattern based puzzle game. 
+
+This demo contains one level. Each levels consists of a series of spacial puzzles. We'll refer to each puzzle as the \"enemy wave\".
+
+"
+fit_content = true
+
+[node name="preview&fruits" type="RichTextLabel" parent="."]
+offset_left = 572.0
+offset_top = 178.0
+offset_right = 1372.0
+offset_bottom = 778.0
+theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
 text = "Before each enemy wave you watch a preview of their movement. In this phase you can place your fruits.
 
@@ -38,6 +41,7 @@ offset_left = 572.0
 offset_top = 178.0
 offset_right = 1372.0
 offset_bottom = 778.0
+theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
 text = "After you place your fruits, press the \"resolve button\" to actually resolve the puzzle.
 
@@ -50,6 +54,7 @@ offset_left = 572.0
 offset_top = 178.0
 offset_right = 1372.0
 offset_bottom = 778.0
+theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
 text = "Your score is determined by the following formula.
 
@@ -58,10 +63,20 @@ fit_content = true
 
 [node name="next" type="Button" parent="."]
 z_index = 1
-offset_left = 1202.0
+offset_left = 1054.0
 offset_top = 471.0
-offset_right = 1320.0
+offset_right = 1172.0
 offset_bottom = 556.0
 text = "next"
 
+[node name="skip" type="Button" parent="."]
+z_index = 1
+offset_left = 1250.0
+offset_top = 471.0
+offset_right = 1368.0
+offset_bottom = 556.0
+text = "skip
+"
+
 [connection signal="gui_input" from="next" to="." method="_on_next_gui_input"]
+[connection signal="gui_input" from="skip" to="." method="_on_skip_gui_input"]

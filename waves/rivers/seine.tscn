@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctnw6hyjola0a"]
 
-[ext_resource type="Script" path="res://waves/enemy_generator.gd" id="1_0qxof"]
+[ext_resource type="Script" path="res://waves/enemy_generator.gd" id="1_qf2jx"]
 
 [sub_resource type="Curve2D" id="Curve2D_mkx35"]
 _data = {
@@ -11,4 +11,4 @@ point_count = 5
 [node name="EnemyPath2D" type="Path2D"]
 scale = Vector2(2, 2)
 curve = SubResource("Curve2D_mkx35")
-script = ExtResource("1_0qxof")
+script = ExtResource("1_qf2jx")
