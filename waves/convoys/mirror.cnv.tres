@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Convoy" load_steps=4 format=3 uid="uid://cgaksihwdvbkc"]
+
+[ext_resource type="PackedScene" uid="uid://dy1ndkh3j6my7" path="res://enemies/croc/croc.tscn" id="1_ebveq"]
+[ext_resource type="PackedScene" uid="uid://cyiqlvkw0lje4" path="res://waves/rivers/clyde.rvr.tscn" id="2_dkfo4"]
+[ext_resource type="Script" path="res://waves/convoys/_convoy.gd" id="3_vtyx4"]
+
+[resource]
+script = ExtResource("3_vtyx4")
+speed = 200
+spawn_interval = 0.6
+count = 3
+river = ExtResource("2_dkfo4")
+enemy = ExtResource("1_ebveq")

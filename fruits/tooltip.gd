@@ -3,7 +3,6 @@ class_name Tooltip
 
 func tooltip_add_timer(node: Node2D):
 	return func():
-		print("mouse entered", node.name)
 		var tooltip_node = node.get_node("tooltip")
 		tooltip_node.visible = false
 		var timer = node.get_node("timer")
@@ -19,7 +18,6 @@ func tooltip_add_timer(node: Node2D):
 
 func remove(node: Node2D):
 	return func():
-		print("mouse left", node.name)
 		var tooltip: Label = node.get_node("tooltip")
 		if tooltip.visible:
 			tooltip.visible = false

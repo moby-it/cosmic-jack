@@ -25,9 +25,6 @@ func start_explosion_timer(node: Node2D) -> void:
 	timer.start()
 
 func _add_area(node: Node2D, r: float):
-	if is_instance_valid(node.get_node("Area2D")):
-		node.get_node("Area2D").queue_free() # remove smaller collision shape
-	
 	var area: Area2D = Area2D.new()
 	area.name = "ExplosiveRadius"
 	area.set_collision_layer_value(1, true)
@@ -48,8 +45,3 @@ func explode(fruit: Node2D):
 			enemy.get_parent().queue_free()
 	ExplosionBus.exploded.emit(fruit)
 	fruit.queue_free()
-
-## add some description
-func to_movable(area: Area2D):
-	area.mouse_entered.connect(func(): hovered = true)
-	area.mouse_exited.connect(func(): hovered = false)

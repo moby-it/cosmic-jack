@@ -7,7 +7,6 @@
 script = ExtResource("1_cu30i")
 
 [node name="intro" type="RichTextLabel" parent="."]
-visible = false
 offset_left = 572.0
 offset_top = 178.0
 offset_right = 1372.0
@@ -22,6 +21,7 @@ This demo contains one level. Each levels consists of a series of spacial puzzle
 fit_content = true
 
 [node name="preview&fruits" type="RichTextLabel" parent="."]
+visible = false
 offset_left = 572.0
 offset_top = 178.0
 offset_right = 1372.0
@@ -58,7 +58,9 @@ theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
 text = "Your score is determined by the following formula.
 
-score = fruits available + remaining hp"
+score = fruits available + remaining hp
+
+Have fun!"
 fit_content = true
 
 [node name="next" type="Button" parent="."]

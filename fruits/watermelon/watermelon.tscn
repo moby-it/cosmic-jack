@@ -12,7 +12,7 @@ script = ExtResource("1_odd54")
 explosive = ExtResource("2_tro41")
 tooltip_content = "trigger: on adjacent explosion
 delay: 1 second"
-metadata/name = "watermellon"
+metadata/name = "watermelon"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_c8x6t")

@@ -18,6 +18,8 @@ var ammo = initial_ammo
 var ammo_labels = {}
 
 func create_fruit_list_hud(node: Node2D):
+	if not is_instance_valid(node):
+		return
 	for key in available_fruits:
 		var i = FRUITS[key]
 		var fruit: Node2D = available_fruits[key].instantiate()
@@ -45,5 +47,15 @@ func add_fruit_ammo(fruit: String):
 	ammo[fruit] += 1
 	ammo_labels[fruit].text = str(ammo[fruit])
 
+func create_fruit(active_fruit_name: String) -> Node2D:
+	var fruit: Node2D = available_fruits[active_fruit_name].instantiate()
+	fruit.name = active_fruit_name
+	fruit.explosive.draw_explosive_radius(fruit)
+	return fruit
+
 func reset():
 	ammo = initial_ammo
+
+func find_fruits_under_cursor() -> Array[Node]:
+	var placed_fruits = get_tree().get_nodes_in_group("fruits").filter(func (f): return f.hovered)
+	return placed_fruits

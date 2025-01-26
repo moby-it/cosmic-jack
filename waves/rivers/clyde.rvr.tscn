@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyiqlvkw0lje4"]
+
+[sub_resource type="Curve2D" id="Curve2D_mkx35"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 606.5, -37.5, 68.9221, 0, -68.9221, 0, 550, 170, 150.58, -2.24746, -150.58, 2.24746, 199, 87, -146.085, -0.749153, 146.085, 0.749153, 193.5, 391, -113.122, -2.24746, 113.122, 2.24746, 569.5, 321.5, 0, 0, 0, 0, 629.5, 594.5)
+}
+point_count = 6
+
+[node name="EnemyPath2D" type="Path2D" groups=["paths"]]
+scale = Vector2(2, 2)
+curve = SubResource("Curve2D_mkx35")

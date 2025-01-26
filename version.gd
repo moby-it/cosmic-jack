@@ -1,6 +1,6 @@
 extends Label
 
-@onready var file = 'res://version.txt'
+var file = 'res://version.txt'
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

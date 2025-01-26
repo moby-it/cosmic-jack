@@ -5,5 +5,5 @@ class_name Convoy
 @export var spawn_interval = 1.0
 @export var count = 10
 
-@export var path: PackedScene
+@export var river: PackedScene
 @export var enemy: PackedScene

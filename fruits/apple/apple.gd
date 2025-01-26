@@ -4,9 +4,10 @@ extends Node2D
 
 @export var explosive: Explosive
 @export_multiline var tooltip_content: String
+var hovered = false
 
 var tooltip: Tooltip = Tooltip.new()
-
+@onready var area = $Area2D
 func _draw() -> void:
 	if explosive:
 		explosive.draw_explosive_radius(self)
@@ -18,7 +19,7 @@ func _ready() -> void:
 		if area:
 			# wiring up the explosive behavior of the apple
 			area.area_entered.connect(enemy_entered)
-			explosive.to_movable(area)
+		to_movable()
 	else:
 		# non explosive fruits have their tooltip shown on hover
 		tooltip.connect_tooltip_on_hover(self, tooltip_content)
@@ -27,3 +28,7 @@ func enemy_entered(a: Area2D) -> void:
 	if a.get_parent().is_in_group("enemies") && not explosive.exploding:
 		explosive.exploding = true
 		explosive.start_explosion_timer(self)
+
+func to_movable():
+	area.mouse_entered.connect(func(): hovered = true)
+	area.mouse_exited.connect(func(): hovered = false)

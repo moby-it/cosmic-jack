@@ -37,4 +37,5 @@ bbcode_enabled = true
 text = "[font_size=68]Cosmic Jack[/font_size]"
 fit_content = true
 
+[connection signal="button_down" from="VBoxContainer/start" to="." method="_on_start_button_down"]
 [connection signal="button_down" from="VBoxContainer/info" to="." method="_on_info_button_down"]
