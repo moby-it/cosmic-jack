@@ -17,10 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Health="*res://globals/health.gd"
-ExplosionBus="*res://globals/explosion_bus.gd"
-SelectedFruits="*res://globals/fruits.gd"
-SceneManager="*res://globals/scene_manager.gd"
+Health="*res://singletons/health.gd"
+ExplosionBus="*res://singletons/explosion_bus.gd"
+SelectedFruits="*res://singletons/fruits.gd"
+SceneManager="*res://singletons/scene_manager.gd"
 
 [display]
 

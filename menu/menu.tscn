@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://da82mo4gw3cgq"]
+[gd_scene load_steps=3 format=3 uid="uid://da82mo4gw3cgq"]
 
 [ext_resource type="Texture2D" uid="uid://rbggduk0mytx" path="res://menu/menu-background.jpg" id="1_8k4hn"]
+[ext_resource type="Script" path="res://menu/menu.gd" id="1_tdhh3"]
 
 [node name="Menu" type="Node2D"]
+script = ExtResource("1_tdhh3")
 
 [node name="background" type="Sprite2D" parent="."]
 texture = ExtResource("1_8k4hn")
@@ -34,3 +36,5 @@ offset_bottom = 501.0
 bbcode_enabled = true
 text = "[font_size=68]Cosmic Jack[/font_size]"
 fit_content = true
+
+[connection signal="button_down" from="VBoxContainer/info" to="." method="_on_info_button_down"]

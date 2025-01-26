@@ -1,32 +1,50 @@
 [gd_scene load_steps=4 format=3 uid="uid://bovh4ll6kkp7l"]
 
 [ext_resource type="Script" path="res://menu/welcome.gd" id="1_2sym4"]
-[ext_resource type="Texture2D" uid="uid://d1o5ocbydf4ng" path="res://assets/xmark.png" id="2_nisiv"]
+[ext_resource type="Texture2D" uid="uid://doqmpiqsc6od7" path="res://assets/right_arrow.jpg" id="2_x1bmu"]
 
 [sub_resource type="Theme" id="Theme_o5uej"]
 
 [node name="Welcome" type="Node2D"]
 script = ExtResource("1_2sym4")
 
-[node name="content" type="RichTextLabel" parent="."]
-offset_left = 256.0
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="next" type="Button" parent="ColorRect"]
+z_index = 2
+offset_left = 884.0
+offset_top = 775.0
+offset_right = 942.0
+offset_bottom = 833.0
+icon = ExtResource("2_x1bmu")
+
+[node name="content" type="RichTextLabel" parent="ColorRect"]
+z_index = 1
+offset_left = 66.0
 offset_top = 136.0
-offset_right = 1664.0
-offset_bottom = 960.0
+offset_right = 1864.0
+offset_bottom = 692.0
+focus_mode = 2
+mouse_filter = 1
 theme = SubResource("Theme_o5uej")
 bbcode_enabled = true
-text = "[font_size=52]Welcome to Cosmic Jack Demo![/font_size]
+text = "[font_size=96]Welcome to Cosmic Jack Demo![/font_size]
+[font_size=32]
 
-This is the first prototype of a level. The goal is to gather feedback and identify if this is indeed a pleasant  experience <3.
+This is the first prototype of a level. The goal is to gather feedback and identify if this is indeed a pleasant experience.
 
 Ideally, we'd like you to record your gaming session with a program like obs and upload it to [url=https://drive.google.com/drive/folders/1gVfNt0ofFfDTmXej9bDuQAa_qM8oCB8-?usp=sharing]this google drive folder[/url]. Create a folder with your name and upload the file there. It would be great to add some text feedback as well.
 
-For any inquiries, send an email to [url=mailto:gspanos@moby-it.com]gspanos@moby-it.com[url]
+For any inquiries, send an email to gspanos@moby-it.com.
 
-Have fun!"
+Have fun!
+"
+selection_enabled = true
+metadata/_edit_lock_ = true
 
-[node name="close" type="Button" parent="."]
-offset_left = 1879.0
-offset_right = 1919.0
-offset_bottom = 40.0
-icon = ExtResource("2_nisiv")
+[connection signal="button_down" from="ColorRect/next" to="." method="_on_next_button_down"]
+[connection signal="meta_clicked" from="ColorRect/content" to="." method="_on_content_meta_clicked"]
