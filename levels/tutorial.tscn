@@ -3,14 +3,32 @@
 [ext_resource type="Script" path="res://levels/tutorial.gd" id="1_cu30i"]
 [ext_resource type="Theme" uid="uid://dixyj4a6nc4u0" path="res://theme.tres" id="2_tj4ie"]
 
-[node name="Tutorial" type="Node2D"]
+[node name="Tutorial" type="ColorRect"]
+offset_right = 1920.0
+offset_bottom = 788.0
+color = Color(0.12, 0.12, 0.12, 0.631373)
 script = ExtResource("1_cu30i")
 
-[node name="intro" type="RichTextLabel" parent="."]
-offset_left = 572.0
-offset_top = 178.0
-offset_right = 1372.0
-offset_bottom = 778.0
+[node name="TabBar" type="TabBar" parent="."]
+offset_left = 379.0
+offset_top = 94.0
+offset_right = 1543.0
+offset_bottom = 184.0
+current_tab = 0
+tab_alignment = 1
+tab_count = 6
+tab_0/title = "Intro"
+tab_1/title = "Preview"
+tab_2/title = "Fruits"
+tab_3/title = "Resolution"
+tab_4/title = "Time Travel"
+tab_5/title = "Score"
+
+[node name="Intro" type="RichTextLabel" parent="."]
+offset_left = 564.0
+offset_top = 234.0
+offset_right = 1364.0
+offset_bottom = 486.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
 text = "Cosmic Jack is a pattern based puzzle game. 
@@ -20,12 +38,12 @@ This demo contains one level. Each levels consists of a series of spacial puzzle
 "
 fit_content = true
 
-[node name="preview&fruits" type="RichTextLabel" parent="."]
+[node name="Preview" type="RichTextLabel" parent="."]
 visible = false
-offset_left = 572.0
-offset_top = 178.0
-offset_right = 1372.0
-offset_bottom = 778.0
+offset_left = 564.0
+offset_top = 234.0
+offset_right = 1364.0
+offset_bottom = 541.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
 text = "Before each enemy wave you watch a preview of their movement. In this phase you can place your fruits.
@@ -35,12 +53,25 @@ Available fruits can be found at the bottom right of the screen, as well as thei
 You can hover over each fruit to see what it does."
 fit_content = true
 
-[node name="resolution&hp" type="RichTextLabel" parent="."]
+[node name="Fruits" type="RichTextLabel" parent="."]
 visible = false
-offset_left = 572.0
-offset_top = 178.0
-offset_right = 1372.0
-offset_bottom = 778.0
+offset_left = 564.0
+offset_top = 234.0
+offset_right = 1364.0
+offset_bottom = 381.0
+theme = ExtResource("2_tj4ie")
+bbcode_enabled = true
+text = "You can move and remove already placed fruits.
+CTRL + left click moves a fruit.
+CTRL + right click removes it."
+fit_content = true
+
+[node name="Resolution" type="RichTextLabel" parent="."]
+visible = false
+offset_left = 564.0
+offset_top = 234.0
+offset_right = 1364.0
+offset_bottom = 458.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
 text = "After you place your fruits, press the \"resolve button\" to actually resolve the puzzle.
@@ -48,37 +79,43 @@ text = "After you place your fruits, press the \"resolve button\" to actually re
 Any enemy that does not die and reaches your spaceship reducers your hp by 1."
 fit_content = true
 
-[node name="score" type="RichTextLabel" parent="."]
+[node name="TimeTravel" type="RichTextLabel" parent="."]
 visible = false
-offset_left = 572.0
-offset_top = 178.0
-offset_right = 1372.0
-offset_bottom = 778.0
+offset_left = 564.0
+offset_top = 234.0
+offset_right = 1364.0
+offset_bottom = 458.0
+theme = ExtResource("2_tj4ie")
+bbcode_enabled = true
+text = "By pressing ESC you can open the menu.
+
+In the menu you can choose to retry past won levels!"
+fit_content = true
+
+[node name="Score" type="RichTextLabel" parent="."]
+visible = false
+offset_left = 564.0
+offset_top = 234.0
+offset_right = 1364.0
+offset_bottom = 504.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
 text = "Your score is determined by the following formula.
 
-score = fruits available + remaining hp
+score = fruits available * hidden_modifier + remaining hp * hidden_modifier
 
 Have fun!"
 fit_content = true
 
-[node name="next" type="Button" parent="."]
+[node name="Close" type="Button" parent="."]
 z_index = 1
-offset_left = 1054.0
-offset_top = 562.0
-offset_right = 1172.0
-offset_bottom = 647.0
-text = "next"
-
-[node name="skip" type="Button" parent="."]
-z_index = 1
-offset_left = 1250.0
-offset_top = 562.0
-offset_right = 1368.0
-offset_bottom = 647.0
-text = "skip
+offset_left = 872.0
+offset_top = 600.0
+offset_right = 1027.0
+offset_bottom = 689.0
+theme = ExtResource("2_tj4ie")
+text = "close
 "
 
-[connection signal="gui_input" from="next" to="." method="_on_next_gui_input"]
-[connection signal="gui_input" from="skip" to="." method="_on_skip_gui_input"]
+[connection signal="tab_changed" from="TabBar" to="." method="_on_tab_bar_tab_changed"]
+[connection signal="gui_input" from="Close" to="." method="_on_skip_gui_input"]

@@ -23,7 +23,7 @@ func _ready() -> void:
 		tooltip.connect_tooltip_on_hover(self, tooltip_content)
 
 # watermelon triggers on adjacent explosion
-func _on_explosion(fruit: Node) -> void:
+func _on_explosion(fruit: Node, enemies_exploded: int) -> void:
 	var fruit_area: Area2D = fruit.get_node("ExplosiveRadius")
 	var my_area: Area2D = self.get_node("ExplosiveRadius")
 	if my_area.overlaps_area(fruit_area) && not exploding:

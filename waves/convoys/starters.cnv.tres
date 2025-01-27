@@ -6,8 +6,8 @@
 
 [resource]
 script = ExtResource("3_nle1a")
-speed = 200
-spawn_interval = 0.3
+speed = 100
+spawn_interval = 0.5
 count = 5
 river = ExtResource("2_wuvxp")
 enemy = ExtResource("1_728rq")

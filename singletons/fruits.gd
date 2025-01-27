@@ -9,8 +9,13 @@ var available_fruits = {
 	"watermelon": preload("res://fruits/watermelon/watermelon.tscn")
 }
 var initial_ammo = {
-	"apple": 2,
-	"watermelon": 2
+	"apple": 4,
+	"watermelon": 6
+}
+
+var fruit_score = {
+	"apple": 20,
+	"watermelon": 10
 }
 
 var ammo = initial_ammo
@@ -29,7 +34,7 @@ func create_fruit_list_hud(node: Node2D):
 		fruit.add_child(label)
 		ammo_labels[key] = label
 		var area: Area2D = fruit.get_node("Area2D")
-		area.input_event.connect(func(viewport,event, idx): fruit_selected.emit(key))
+		area.input_event.connect(func(viewport,event, idx): if Utils.is_mouse_left(event): fruit_selected.emit(key))
 		fruit.position.y = i * 100
 		fruit.explosive = null
 		node.add_child(fruit)

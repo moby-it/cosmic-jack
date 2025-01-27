@@ -65,6 +65,11 @@ offset_bottom = 1000.0
 text = "resolve wave"
 script = null
 
+[node name="WaveNo" type="Label" parent="."]
+offset_right = 137.0
+offset_bottom = 94.0
+text = "Wave 1-1"
+
 [connection signal="gui_input" from="PlayArea" to="." method="_on_play_area_gui_input"]
 [connection signal="mouse_entered" from="PlayArea" to="." method="_on_play_area_mouse_entered"]
 [connection signal="mouse_exited" from="PlayArea" to="." method="_on_play_area_mouse_exited"]

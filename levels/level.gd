@@ -2,7 +2,6 @@ extends Node2D
 class_name Level
 
 signal health_depleted
-signal wave_completed
 signal level_completed
 
 @export var waves: Array[Wave]
@@ -12,6 +11,7 @@ signal level_completed
 @onready var fruit_list = $FruitList
 @onready var waves_container = $WavesContainer
 @onready var health_count = $Health/Count
+@onready var wave_no = $WaveNo
 
 var active_fruit: Node2D
 var active_fruit_name = "apple"
@@ -29,21 +29,26 @@ func _ready() -> void:
 	var tutorial = load("res://levels/tutorial.tscn").instantiate()
 	tutorial.closed.connect(_on_tutorial_closed)
 	self.add_child(tutorial)
-	ExplosionBus.exploded.connect(func(): enemies_count += 1)
-
+	ExplosionBus.exploded.connect(func(f,e): enemies_count += e)
+	level_completed.connect(_on_level_completed)
+	health_depleted.connect(_on_health_depleted)
+	print("ready run")
+	WaveHistory.add_wave(curr_wave_idx, health, Fruits.ammo)
+	WaveHistory.level_change.connect(_on_level_change)
+	set_wave_no()
+	
 func _process(delta: float) -> void:
 	if resolving and enemies_count == curr_wave().convoys.reduce(func(acc,v): return acc + v.count ,0):
-		if len(waves) == curr_wave_idx +1:
+		if len(waves) == curr_wave_idx + 1:
 			level_completed.emit()
-			print("level completed!")
-			self.queue_free()
 			return
 		else:
+			print("wave passed")
+			WaveHistory.add_wave(curr_wave_idx + 1, health, Fruits.ammo)
 			resolving = false
 			curr_wave_idx += 1
 			enemies_count = 0
 			print("wave completed")
-			wave_completed.emit()
 			create_wave(true)
 
 func _on_tutorial_closed():
@@ -51,6 +56,15 @@ func _on_tutorial_closed():
 	create_wave(true)
 
 func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("Menu"):
+		if not is_instance_valid(self.get_node("Menu")):
+			var menu = load("res://menu/in_game_menu.tscn").instantiate()
+			menu.name = "Menu"
+			menu.closed.connect(_resume_movement)
+			_stop_movement()
+			self.add_child(menu)
+		else:
+			self.get_node("Menu").closed.emit()
 	if not play_area.get_rect().has_point(get_global_mouse_position()):
 		return
 	if Input.is_key_pressed(KEY_CTRL) and is_instance_valid(active_fruit):
@@ -70,10 +84,8 @@ func add_active_fruit():
 
 func _on_resolve_button_down() -> void:
 	resolving = true
-	var wave: Wave = waves[curr_wave_idx]
-	wave.is_preview = false
-	for c in waves_container.get_children():
-		c.queue_free()
+	curr_wave().is_preview = false
+	_clear_wave()
 	create_wave(false)
 
 func _on_play_area_mouse_entered() -> void:
@@ -106,9 +118,11 @@ func _on_play_area_gui_input(event: InputEvent) -> void:
 					Fruits.add_fruit_ammo(f.get_meta("name"))
 					f.queue_free()
 	else:
+		if not is_instance_valid(active_fruit):
+			return
 		if Utils.is_mouse_left(event):
 			place_fruit(get_global_mouse_position())
-		elif Utils.is_mouse_move(event) and is_instance_valid(active_fruit):
+		elif Utils.is_mouse_move(event):
 			active_fruit.position = get_global_mouse_position()
 
 func place_fruit(position: Vector2) -> void:
@@ -124,6 +138,8 @@ func place_fruit(position: Vector2) -> void:
 
 
 func create_wave(preview: bool):
+	set_wave_no()
+	_clear_wave()
 	print("should create wave ", curr_wave_idx)
 	var wave = curr_wave()
 	wave.is_preview = preview
@@ -131,6 +147,7 @@ func create_wave(preview: bool):
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
 		var t = Timer.new()
+		t.name = "Timer"
 		t.wait_time = c.spawn_interval
 		t.one_shot = false
 		t.autostart = true
@@ -161,6 +178,61 @@ func enemy_passed():
 	var count = int(health_count.text)
 	if count > 0:
 		count -= 1
+		health -= 1
 		health_count.text = str(count)
 	if count == 0:
 		health_depleted.emit()
+
+func _on_level_completed():
+	print("level completed!")
+	var level_won = load("res://level_won.tscn").instantiate()
+	level_won.score = Utils.calc_score(health, Fruits.ammo)
+	SceneManager.change_scene.emit(level_won)
+
+func _on_health_depleted():
+	var menu: Node2D = load("res://menu/in_game_menu.tscn").instantiate()
+	menu.name = "Menu"
+	menu.get_node("ColorRect").get_node("CloseMenu").queue_free()
+	_clear_wave()
+	self.add_child(menu)
+
+func _stop_movement():
+	var paths = get_tree().get_nodes_in_group("paths")
+	for p in paths:
+		var t: Timer = p.get_parent().get_node("Timer")
+		t.stop()
+		for pf in p.get_children():
+			if pf is PathFollow2D:
+				pf.paused = true
+
+func _resume_movement():
+	var paths = get_tree().get_nodes_in_group("paths")
+	for p in paths:
+		var t: Timer = p.get_parent().get_node("Timer")
+		t.start()
+		for pf in p.get_children():
+			if pf is PathFollow2D:
+				pf.paused = false
+
+func _clear_wave():
+	for c in waves_container.get_children():
+		c.queue_free()
+
+func _on_level_change(idx: int, hp: int):
+	self.get_node("Menu").closed.emit()
+	_clear_wave()
+	health = hp
+	health_count.text = str(hp)
+	curr_wave_idx = idx
+	resolving = false
+	enemies_count = 0
+	for c in $FruitList.get_children():
+		c.queue_free()
+	for c in get_tree().get_nodes_in_group("fruits"):
+		if c.explosive:
+			c.queue_free()
+	Fruits.create_fruit_list_hud($FruitList)
+	create_wave(true)
+	
+func set_wave_no():
+	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]

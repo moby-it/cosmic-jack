@@ -16,14 +16,18 @@ color = Color(0, 0, 0, 1)
 
 [node name="next" type="Button" parent="ColorRect"]
 z_index = 2
+layout_mode = 0
 offset_left = 884.0
 offset_top = 775.0
 offset_right = 942.0
 offset_bottom = 833.0
 icon = ExtResource("2_x1bmu")
+flat = true
+expand_icon = true
 
 [node name="content" type="RichTextLabel" parent="ColorRect"]
 z_index = 1
+layout_mode = 0
 offset_left = 66.0
 offset_top = 136.0
 offset_right = 1864.0

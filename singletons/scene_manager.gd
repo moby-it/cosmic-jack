@@ -3,7 +3,8 @@
 extends Node
 
 signal change_scene
-@onready var main_node: Node2D = self.get_tree().root.get_node("Main")
+@onready var main_node: Node2D = get_tree().root.get_node("Main")
+
 func _ready() -> void:
 	change_scene.connect(on_change_scene)
 

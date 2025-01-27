@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="Wave" load_steps=5 format=3 uid="uid://be7kwxqprngjr"]
+[gd_resource type="Resource" script_class="Wave" load_steps=4 format=3 uid="uid://be7kwxqprngjr"]
 
 [ext_resource type="Script" path="res://waves/convoys/_convoy.gd" id="1_slgmc"]
 [ext_resource type="Resource" uid="uid://b8yrpb58k5rdr" path="res://waves/convoys/starters.cnv.tres" id="2_xmq7c"]
-[ext_resource type="Resource" uid="uid://cgaksihwdvbkc" path="res://waves/convoys/mirror.cnv.tres" id="3_vsk56"]
 [ext_resource type="Script" path="res://waves/wave.gd" id="4_atpr4"]
 
 [resource]
 script = ExtResource("4_atpr4")
-convoys = Array[ExtResource("1_slgmc")]([ExtResource("2_xmq7c"), ExtResource("3_vsk56")])
+convoys = Array[ExtResource("1_slgmc")]([ExtResource("2_xmq7c")])

@@ -26,3 +26,7 @@ Before demo I have to:
 	- Create a game over and retry screen.
 	- Create a level won screen with a score. For now, we can go with, fruits left + hp
 	- Create a time travel mechanism. Give the player the option to open a menu and travel back to a specific wave and replay it.
+
+## 27/12 23:03
+
+Seems to be working. It's ugly, it's true. But it might make a good game, while still being as ugly as it is. I have to gather emails to send the demo over next week.

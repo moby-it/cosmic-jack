@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://da82mo4gw3cgq"]
 
-[ext_resource type="Texture2D" uid="uid://rbggduk0mytx" path="res://menu/menu-background.jpg" id="1_8k4hn"]
-[ext_resource type="Script" path="res://menu/menu.gd" id="1_tdhh3"]
+[ext_resource type="Script" path="res://menu/main_menu.gd" id="1_gd21t"]
+[ext_resource type="Texture2D" uid="uid://rbggduk0mytx" path="res://menu/main-menu-background.jpg" id="2_h8lhm"]
 
-[node name="Menu" type="Node2D"]
-script = ExtResource("1_tdhh3")
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_gd21t")
 
 [node name="background" type="Sprite2D" parent="."]
-texture = ExtResource("1_8k4hn")
+texture = ExtResource("2_h8lhm")
 centered = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
