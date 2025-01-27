@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bf5fa6pqes1hj"]
+[gd_scene load_steps=7 format=3 uid="uid://bf5fa6pqes1hj"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_6fb17"]
 [ext_resource type="PackedScene" uid="uid://bevr0doghdswj" path="res://hud/resolve.tscn" id="1_ae3o5"]
 [ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://hud/ship.tscn" id="4_chuaq"]
+[ext_resource type="PackedScene" uid="uid://bjcxaxlx6qt5e" path="res://levels/play_area.tscn" id="4_pmx5f"]
 [ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://hud/background/background.tscn" id="5_sp8rb"]
 [ext_resource type="Script" path="res://version.gd" id="6_n7bey"]
 
@@ -45,14 +46,9 @@ z_index = -10
 rotation = -0.000444478
 metadata/_edit_lock_ = true
 
-[node name="PlayArea" type="ColorRect" parent="."]
-z_index = -1
-offset_left = 183.0
-offset_right = 1783.0
-offset_bottom = 750.0
-mouse_filter = 1
-color = Color(1, 1, 1, 0.0588235)
-metadata/_edit_lock_ = true
+[node name="PlayArea" parent="." instance=ExtResource("4_pmx5f")]
+offset_left = 150.0
+offset_right = 1750.0
 
 [node name="Version" type="Label" parent="."]
 offset_left = 1803.0

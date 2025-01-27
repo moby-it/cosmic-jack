@@ -1,5 +1,7 @@
 extends Node2D
 
+signal closed
+
 # Enum to track which screen is currently displayed
 enum Screen {
 	INTRO,
@@ -15,6 +17,7 @@ var current_screen = Screen.INTRO
 @onready var resolution = $"resolution&hp"
 @onready var score = $score
 @onready var btn = $next
+@onready var skip = $skip
 var last_tip = false
 
 func _ready() -> void:
@@ -41,7 +44,7 @@ func update_screen_visibility() -> void:
 			last_tip = true
 
 func _on_next_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 		if !last_tip:
 			match current_screen:
 				Screen.INTRO:
@@ -51,12 +54,16 @@ func _on_next_gui_input(event: InputEvent) -> void:
 				Screen.RESOLUTION:
 					current_screen = Screen.SCORE
 					btn.text = "close"
+					skip.queue_free()
 				Screen.SCORE:
-					pass
+					closed.emit()
+					self.queue_free()
 		else:
 			self.queue_free()	
 		update_screen_visibility()
 
 
 func _on_skip_gui_input(event: InputEvent) -> void:
-	self.queue_free()
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+		closed.emit()
+		self.queue_free()

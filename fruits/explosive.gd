@@ -7,8 +7,6 @@ class_name Explosive
 var border_color: Color = Color.RED
 var border_width: float = 2.0
 var timer: Timer
-var exploding = false
-var hovered = false # on hover, explosive fruits can be either removed, or moved
 
 func draw_explosive_radius(node: Node2D) -> void:
 	_add_area(node, radius)

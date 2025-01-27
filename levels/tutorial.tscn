@@ -66,17 +66,17 @@ fit_content = true
 [node name="next" type="Button" parent="."]
 z_index = 1
 offset_left = 1054.0
-offset_top = 471.0
+offset_top = 562.0
 offset_right = 1172.0
-offset_bottom = 556.0
+offset_bottom = 647.0
 text = "next"
 
 [node name="skip" type="Button" parent="."]
 z_index = 1
 offset_left = 1250.0
-offset_top = 471.0
+offset_top = 562.0
 offset_right = 1368.0
-offset_bottom = 556.0
+offset_bottom = 647.0
 text = "skip
 "
 

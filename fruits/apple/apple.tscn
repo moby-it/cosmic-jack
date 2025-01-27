@@ -1,15 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxvhh5yd3tff6"]
+[gd_scene load_steps=6 format=3 uid="uid://cxvhh5yd3tff6"]
 
 [ext_resource type="Script" path="res://fruits/apple/apple.gd" id="1_qox7n"]
-[ext_resource type="Resource" uid="uid://cd7wp8yiw4kgd" path="res://fruits/apple/explosive.tres" id="2_hpo7h"]
+[ext_resource type="Script" path="res://fruits/explosive.gd" id="2_dn3uh"]
 [ext_resource type="Texture2D" uid="uid://ba7gkxun6ov03" path="res://fruits/apple/apple.png" id="2_sd6fq"]
+
+[sub_resource type="Resource" id="Resource_ad5qp"]
+script = ExtResource("2_dn3uh")
+radius = 200.0
+detonation_delay = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ajhhp"]
 radius = 47.0425
 
 [node name="Apple" type="Node2D" groups=["fruits"]]
 script = ExtResource("1_qox7n")
-explosive = ExtResource("2_hpo7h")
+explosive = SubResource("Resource_ad5qp")
 tooltip_content = "trigger: on enemy touched
 delay: 2 seconds"
 metadata/name = "apple"

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Explosive" load_steps=2 format=3 uid="uid://6xs58noktpr2"]
-
-[ext_resource type="Script" path="res://fruits/explosive.gd" id="1_jiux3"]
-
-[resource]
-script = ExtResource("1_jiux3")
-radius = 250.0
-detonation_delay = 1.0
-tooltip = ""

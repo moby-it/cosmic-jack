@@ -1,11 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyiqlvkw0lje4"]
+[gd_scene load_steps=3 format=3 uid="uid://cyiqlvkw0lje4"]
 
-[sub_resource type="Curve2D" id="Curve2D_mkx35"]
+[ext_resource type="PackedScene" uid="uid://bjcxaxlx6qt5e" path="res://levels/play_area.tscn" id="1_6p7gv"]
+
+[sub_resource type="Curve2D" id="Curve2D_g50po"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 606.5, -37.5, 68.9221, 0, -68.9221, 0, 550, 170, 150.58, -2.24746, -150.58, 2.24746, 199, 87, -146.085, -0.749153, 146.085, 0.749153, 193.5, 391, -113.122, -2.24746, 113.122, 2.24746, 569.5, 321.5, 0, 0, 0, 0, 629.5, 594.5)
+"points": PackedVector2Array(0, 0, 0, 0, 674.383, -104.179, -1.68666, -144.344, 1.68666, 144.344, -244.196, 350.501, 0, -210.446, 0, 210.446, 836.485, 408.124, 0, -164.579, 0, 164.579, 502.15, 531.473, 0, 0, 0, 0, 781.325, 698.039)
 }
-point_count = 6
+point_count = 5
 
-[node name="EnemyPath2D" type="Path2D" groups=["paths"]]
-scale = Vector2(2, 2)
-curve = SubResource("Curve2D_mkx35")
+[node name="Clyde" type="Node2D"]
+
+[node name="Path2D" type="Path2D" parent="." groups=["paths"]]
+position = Vector2(635.926, 1.70862)
+scale = Vector2(0.888329, 1.11067)
+curve = SubResource("Curve2D_g50po")
+
+[node name="PlayArea" parent="." instance=ExtResource("1_6p7gv")]
+visible = false
+z_index = -10
