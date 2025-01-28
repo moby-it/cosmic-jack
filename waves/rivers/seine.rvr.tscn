@@ -15,7 +15,3 @@ position = Vector2(377.343, -47)
 curve = SubResource("Curve2D_7etg2")
 
 [node name="PlayArea" parent="." instance=ExtResource("1_47p6t")]
-visible = false
-z_index = -10
-offset_left = 150.0
-offset_right = 1750.0

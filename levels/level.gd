@@ -10,7 +10,7 @@ signal level_completed
 @onready var play_area: ColorRect = $PlayArea
 @onready var fruit_list = $FruitList
 @onready var waves_container = $WavesContainer
-@onready var health_count = $Health/Count
+@onready var health_count = $Health/HBoxContainer/Count
 @onready var wave_no = $WaveNo
 
 var active_fruit: Node2D

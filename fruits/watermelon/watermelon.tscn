@@ -15,8 +15,6 @@ radius = 46.2709
 [node name="Watermelon" type="Node2D" groups=["fruits"]]
 script = ExtResource("1_odd54")
 explosive = SubResource("Resource_db4lq")
-tooltip_content = "trigger: on adjacent explosion
-delay: 1 second"
 metadata/name = "watermelon"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -27,13 +25,3 @@ collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_qd3wy")
-
-[node name="tooltip" type="Label" parent="."]
-visible = false
-z_index = 1
-offset_left = 85.0
-offset_top = -37.0
-offset_right = 425.0
-offset_bottom = 53.0
-theme_override_font_sizes/font_size = 24
-text = "some example text content"

@@ -6,17 +6,15 @@
 [node name="Main" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_right = 3840.0
+offset_bottom = 2160.0
 color = Color(0, 0, 0, 1)
 
 [node name="Logo" type="Sprite2D" parent="ColorRect"]
 modulate = Color(1, 1, 1, 0)
 z_index = 1
-position = Vector2(236, -201)
-scale = Vector2(0.18, 0.18)
+position = Vector2(1944, 1096)
 texture = ExtResource("2_q3adg")
-centered = false
 script = ExtResource("2_d4iki")
 
 [node name="Timer" type="Timer" parent="ColorRect"]

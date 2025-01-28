@@ -11,49 +11,56 @@ script = ExtResource("1_6fb17")
 
 [node name="WavesContainer" type="Node2D" parent="."]
 
-[node name="FruitList" type="Node2D" parent="." groups=["hud"]]
+[node name="FruitList" type="VBoxContainer" parent="." groups=["hud"]]
 z_index = 10
-position = Vector2(1447, 852)
+offset_left = 2455.0
+offset_top = 1747.0
+offset_right = 2455.0
+offset_bottom = 1747.0
+theme_override_constants/separation = 10
 
 [node name="Health" type="Node2D" parent="."]
-position = Vector2(490, 918)
+position = Vector2(1400, 1844)
 
-[node name="Label" type="Label" parent="Health"]
-offset_right = 98.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Health"]
+offset_right = 40.0
 offset_bottom = 40.0
-theme_override_font_sizes/font_size = 30
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="Health/HBoxContainer"]
+layout_mode = 2
 text = "Health:"
 metadata/_edit_use_anchors_ = true
 
-[node name="Count" type="Label" parent="Health"]
-offset_left = 115.0
-offset_right = 133.0
-offset_bottom = 40.0
+[node name="Count" type="Label" parent="Health/HBoxContainer"]
+layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 30
 text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Ship" parent="." groups=["hud"] instance=ExtResource("4_chuaq")]
-position = Vector2(1019, 959)
-metadata/_edit_lock_ = true
+position = Vector2(2077, 1885)
 
 [node name="Background" parent="." instance=ExtResource("5_sp8rb")]
 z_index = -10
 rotation = -0.000444478
-metadata/_edit_lock_ = true
 
 [node name="PlayArea" parent="." instance=ExtResource("4_pmx5f")]
-offset_left = 150.0
-offset_right = 1750.0
 
 [node name="Version" type="Label" parent="."]
-offset_left = 1803.0
-offset_top = 1033.0
-offset_right = 1910.0
-offset_bottom = 1078.0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3549.0
+offset_top = 1885.0
+offset_right = 3550.0
+offset_bottom = 1961.0
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource("6_n7bey")
 
 [node name="Resolve" type="Button" parent="."]
@@ -62,13 +69,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 183.0
-offset_top = 887.0
-offset_right = 416.0
-offset_bottom = 1000.0
+offset_left = 704.0
+offset_top = 1813.0
+offset_right = 1186.0
+offset_bottom = 2010.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 30
 text = "resolve wave"
 
 [node name="WaveNo" type="Label" parent="."]

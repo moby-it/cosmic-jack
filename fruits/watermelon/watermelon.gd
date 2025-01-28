@@ -1,26 +1,19 @@
 extends Node2D
 
 @export var explosive: Explosive
-@export_multiline var tooltip_content: String
 
-var tooltip: Tooltip = Tooltip.new()
+@onready var area = $Area2D
 
 var exploding = false
 var hovered = false
 
-@onready var area = $Area2D
-
 func _draw() -> void:
-	if explosive:
-		explosive.draw_explosive_radius(self)
+	explosive.draw_explosive_radius(self)
 
 func _ready() -> void:
-	if explosive:
-		var area: Area2D = self.get_node("ExplosiveRadius")
-		ExplosionBus.exploded.connect(_on_explosion)
-		to_movable()
-	else:
-		tooltip.connect_tooltip_on_hover(self, tooltip_content)
+	var area: Area2D = self.get_node("ExplosiveRadius")
+	ExplosionBus.exploded.connect(_on_explosion)
+	to_movable()
 
 # watermelon triggers on adjacent explosion
 func _on_explosion(fruit: Node, enemies_exploded: int) -> void:

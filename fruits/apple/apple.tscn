@@ -15,8 +15,6 @@ radius = 48.0104
 [node name="Apple" type="Node2D" groups=["fruits"]]
 script = ExtResource("1_qox7n")
 explosive = SubResource("Resource_ad5qp")
-tooltip_content = "trigger: on enemy touched
-delay: 2 seconds"
 metadata/name = "apple"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -28,16 +26,3 @@ collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_ajhhp")
-
-[node name="tooltip" type="Label" parent="."]
-visible = false
-z_index = 1
-offset_left = 81.0
-offset_top = -43.0
-offset_right = 421.0
-offset_bottom = 47.0
-theme_override_font_sizes/font_size = 24
-text = "Some sample tooltip text"
-
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

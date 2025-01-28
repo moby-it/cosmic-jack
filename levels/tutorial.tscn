@@ -4,15 +4,16 @@
 [ext_resource type="Theme" uid="uid://dixyj4a6nc4u0" path="res://theme.tres" id="2_tj4ie"]
 
 [node name="Tutorial" type="ColorRect"]
-offset_right = 1920.0
-offset_bottom = 788.0
+offset_right = 3840.0
+offset_bottom = 1300.0
 color = Color(0.12, 0.12, 0.12, 0.631373)
 script = ExtResource("1_cu30i")
 
 [node name="TabBar" type="TabBar" parent="."]
-offset_left = 379.0
+layout_mode = 0
+offset_left = 1281.0
 offset_top = 94.0
-offset_right = 1543.0
+offset_right = 2445.0
 offset_bottom = 184.0
 current_tab = 0
 tab_alignment = 1
@@ -25,9 +26,11 @@ tab_4/title = "Time Travel"
 tab_5/title = "Score"
 
 [node name="Intro" type="RichTextLabel" parent="."]
-offset_left = 564.0
+visible = false
+layout_mode = 0
+offset_left = 1466.0
 offset_top = 234.0
-offset_right = 1364.0
+offset_right = 2266.0
 offset_bottom = 486.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
@@ -40,9 +43,10 @@ fit_content = true
 
 [node name="Preview" type="RichTextLabel" parent="."]
 visible = false
-offset_left = 564.0
+layout_mode = 0
+offset_left = 1466.0
 offset_top = 234.0
-offset_right = 1364.0
+offset_right = 2266.0
 offset_bottom = 541.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
@@ -55,9 +59,10 @@ fit_content = true
 
 [node name="Fruits" type="RichTextLabel" parent="."]
 visible = false
-offset_left = 564.0
+layout_mode = 0
+offset_left = 1466.0
 offset_top = 234.0
-offset_right = 1364.0
+offset_right = 2266.0
 offset_bottom = 381.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
@@ -68,9 +73,10 @@ fit_content = true
 
 [node name="Resolution" type="RichTextLabel" parent="."]
 visible = false
-offset_left = 564.0
+layout_mode = 0
+offset_left = 1466.0
 offset_top = 234.0
-offset_right = 1364.0
+offset_right = 2266.0
 offset_bottom = 458.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
@@ -81,9 +87,10 @@ fit_content = true
 
 [node name="TimeTravel" type="RichTextLabel" parent="."]
 visible = false
-offset_left = 564.0
+layout_mode = 0
+offset_left = 1466.0
 offset_top = 234.0
-offset_right = 1364.0
+offset_right = 2266.0
 offset_bottom = 458.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
@@ -94,9 +101,10 @@ fit_content = true
 
 [node name="Score" type="RichTextLabel" parent="."]
 visible = false
-offset_left = 564.0
+layout_mode = 0
+offset_left = 1466.0
 offset_top = 234.0
-offset_right = 1364.0
+offset_right = 2266.0
 offset_bottom = 504.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
@@ -109,10 +117,11 @@ fit_content = true
 
 [node name="Close" type="Button" parent="."]
 z_index = 1
-offset_left = 872.0
+layout_mode = 0
+offset_left = 1774.0
 offset_top = 600.0
-offset_right = 1027.0
-offset_bottom = 689.0
+offset_right = 1955.0
+offset_bottom = 709.0
 theme = ExtResource("2_tj4ie")
 text = "close
 "

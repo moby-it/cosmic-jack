@@ -1,7 +1,7 @@
 extends Resource
 class_name Tooltip
 
-func tooltip_add_timer(node: Node2D):
+func tooltip_add_timer(node: Control):
 	return func():
 		var tooltip_node = node.get_node("tooltip")
 		tooltip_node.visible = false
@@ -16,7 +16,7 @@ func tooltip_add_timer(node: Node2D):
 		timer.name = "timer"
 		node.add_child(timer)
 
-func remove(node: Node2D):
+func remove(node: Control):
 	return func():
 		var tooltip: Label = node.get_node("tooltip")
 		if tooltip.visible:
@@ -28,9 +28,7 @@ func remove(node: Node2D):
 		else:
 			push_warning("timer should be present")
 
-func connect_tooltip_on_hover(node: Node2D, tooltip_content: String):
-	var tooltip_node: Label = node.get_node("tooltip")
-	tooltip_node.text = tooltip_content
-	var area = node.get_node("Area2D")
-	area.mouse_entered.connect(tooltip_add_timer(node))
-	area.mouse_exited.connect(remove(node))
+func connect_tooltip_on_hover(node: Control, tooltip_content: String):
+	node.text = tooltip_content
+	node.mouse_entered.connect(tooltip_add_timer(node))
+	node.mouse_exited.connect(remove(node))

@@ -2,11 +2,17 @@ extends Node
 
 signal fruit_selected
 
-enum FRUITS { apple = 0, watermelon }
-
 var available_fruits = {
 	"apple": preload("res://fruits/apple/apple.tscn"),
 	"watermelon": preload("res://fruits/watermelon/watermelon.tscn")
+}
+var tooltips = {
+	"apple":"Explodes 2 seconds after enemy touch.",
+	"watermelon":"Explodes 1 second after an overlapping explosion."
+}
+var available_fruits_png = {
+	"apple": preload("res://fruits/apple/apple.png"),
+	"watermelon": preload("res://fruits/watermelon/watermelon.png")
 }
 var initial_ammo = {
 	"apple": 4,
@@ -22,22 +28,28 @@ var ammo = initial_ammo
 
 var ammo_labels = {}
 
-func create_fruit_list_hud(node: Node2D):
+func create_fruit_list_hud(node: VBoxContainer):
 	if not is_instance_valid(node):
 		return
 	for key in available_fruits:
-		var i = FRUITS[key]
-		var fruit: Node2D = available_fruits[key].instantiate()
+		var container = HBoxContainer.new()
+		container.add_theme_constant_override("separation", 20)
+		var fruit = TextureRect.new()
+		fruit.texture = available_fruits_png[key]
+		fruit.gui_input.connect(func(event): if Utils.is_mouse_left(event): fruit_selected.emit(key))
+		container.add_child(fruit)
+		
 		var label = Label.new()
 		label.text = str(ammo[key])
-		label.position.x = 50
-		fruit.add_child(label)
 		ammo_labels[key] = label
-		var area: Area2D = fruit.get_node("Area2D")
-		area.input_event.connect(func(viewport,event, idx): if Utils.is_mouse_left(event): fruit_selected.emit(key))
-		fruit.position.y = i * 100
-		fruit.explosive = null
-		node.add_child(fruit)
+		container.add_child(label)
+		
+		var tooltip = Label.new()
+		tooltip.text = tooltips[key]
+		tooltip.add_theme_font_size_override("font_size",24)
+		container.add_child(tooltip)
+		
+		node.add_child(container)
 
 func can_place_fruit(fruit: String) -> bool:
 	return ammo[fruit] > 0

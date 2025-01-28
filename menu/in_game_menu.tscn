@@ -9,34 +9,36 @@ script = ExtResource("1_ar3js")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_right = 3840.0
+offset_bottom = 2160.0
 mouse_filter = 1
 color = Color(0, 0, 0, 1)
 
 [node name="Exit" type="Button" parent="ColorRect"]
 layout_mode = 0
-offset_left = 1551.0
-offset_top = 890.0
-offset_right = 1800.0
-offset_bottom = 979.0
+offset_left = 3158.0
+offset_top = 1509.0
+offset_right = 3550.0
+offset_bottom = 1649.0
 text = "Exit game"
 
 [node name="CloseMenu" type="Button" parent="ColorRect"]
-layout_mode = 0
-offset_left = 1763.0
-offset_top = 33.0
-offset_right = 1807.0
-offset_bottom = 77.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -44.0
+offset_bottom = 44.0
+grow_horizontal = 0
 icon = ExtResource("2_ywnst")
 
 [node name="History" type="HBoxContainer" parent="ColorRect"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 0
-offset_left = 52.0
+offset_left = 231.0
 offset_top = 180.0
-offset_right = 1852.0
-offset_bottom = 780.0
+offset_right = 3684.0
+offset_bottom = 1331.0
 theme_override_constants/separation = 30
 
 [connection signal="button_down" from="ColorRect/Exit" to="." method="_on_exit_button_down"]

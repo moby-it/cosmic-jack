@@ -7,35 +7,41 @@
 script = ExtResource("1_gd21t")
 
 [node name="background" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
 texture = ExtResource("2_h8lhm")
 centered = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 767.0
-offset_top = 584.0
-offset_right = 1163.0
-offset_bottom = 762.0
-grow_vertical = 2
+[node name="container" type="VBoxContainer" parent="."]
+offset_right = 3840.0
+offset_bottom = 2160.0
 
-[node name="start" type="Button" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="container"]
 layout_mode = 2
-text = "start"
+size_flags_horizontal = 4
+size_flags_vertical = 6
 
-[node name="info" type="Button" parent="VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="container/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-text = "info"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 767.0
-offset_top = 412.0
-offset_right = 1172.0
-offset_bottom = 501.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 bbcode_enabled = true
 text = "[font_size=68]Cosmic Jack[/font_size]"
 fit_content = true
 
-[connection signal="button_down" from="VBoxContainer/start" to="." method="_on_start_button_down"]
-[connection signal="button_down" from="VBoxContainer/info" to="." method="_on_info_button_down"]
+[node name="start" type="Button" parent="container/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "start"
+
+[node name="info" type="Button" parent="container/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "info"
+
+[connection signal="button_down" from="container/VBoxContainer/start" to="." method="_on_start_button_down"]
+[connection signal="button_down" from="container/VBoxContainer/info" to="." method="_on_info_button_down"]
