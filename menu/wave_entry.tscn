@@ -9,26 +9,28 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
-[node name="WaveEntry" type="Panel"]
-custom_minimum_size = Vector2(500, 400)
+[node name="WaveEntry" type="VBoxContainer"]
 offset_right = 500.0
-offset_bottom = 400.0
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_qkbhk")
-script = ExtResource("1_ish8f")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
-offset_right = 500.0
+offset_bottom = 639.0
 mouse_filter = 0
 mouse_default_cursor_shape = 2
+theme_override_constants/separation = 30
+script = ExtResource("1_ish8f")
+
+[node name="Panel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(500, 600)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_qkbhk")
+
+[node name="WaveProps" type="VBoxContainer" parent="Panel"]
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
 
 [node name="Retry" type="Button" parent="."]
-layout_mode = 0
-offset_left = 177.0
-offset_top = 418.0
-offset_right = 342.0
-offset_bottom = 527.0
+layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "retry"
 

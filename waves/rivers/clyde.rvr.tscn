@@ -4,15 +4,15 @@
 
 [sub_resource type="Curve2D" id="Curve2D_g50po"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 674.383, -104.179, -2.6226e-06, -283.292, 2.6226e-06, 283.292, 20.3461, 161.426, 0, -210.446, 0, 210.446, 836.485, 408.124, 0, -164.579, 0, 164.579, 353.556, 515.267, 0, 0, 0, 0, 781.325, 698.039)
+"points": PackedVector2Array(0, 0, 0, 0, 674.383, -104.179, -339.955, 0, 339.955, 0, 829.814, 852.581, -261.504, 132.303, 261.504, -132.303, 1367.98, 177.949, -1.86789, -376.938, 1.86789, 376.938, 2090.72, 422.639, 0, 0, 0, 0, 1547.36, 1224.07)
 }
 point_count = 5
 
 [node name="Clyde" type="Node2D"]
 
 [node name="Path2D" type="Path2D" parent="." groups=["paths"]]
-position = Vector2(635.926, 1.70862)
-scale = Vector2(0.888329, 1.11067)
+position = Vector2(250.552, 72.3711)
+scale = Vector2(1.34903, 1.00944)
 curve = SubResource("Curve2D_g50po")
 
 [node name="PlayArea" parent="." instance=ExtResource("1_6p7gv")]

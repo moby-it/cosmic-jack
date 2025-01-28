@@ -1,10 +1,10 @@
-extends Panel
+extends VBoxContainer
 
 @export var index: int
 @export var hp: int = 0
 @export var ammo: Dictionary = {}
 
-@onready var container = $VBoxContainer
+@onready var container = $Panel/WaveProps
 
 func _ready() -> void:
 	var title = create_label("Wave %s" % str(index + 1))

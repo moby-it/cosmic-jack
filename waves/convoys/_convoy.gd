@@ -1,7 +1,7 @@
 extends Resource
 class_name Convoy
 
-@export var speed = 100
+@export var speed = 300.0
 @export var spawn_interval = 1.0
 @export var count = 10
 

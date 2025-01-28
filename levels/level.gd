@@ -47,7 +47,7 @@ func _ready() -> void:
 	
 func _process(delta: float) -> void:
 	if resolving and enemies_count == curr_wave().convoys.reduce(func(acc,v): return acc + v.count ,0):
-		if len(waves) == curr_wave_idx + 1:
+		if len(waves) == curr_wave_idx + 1 and health > 0:
 			level_completed.emit()
 			return
 		else:

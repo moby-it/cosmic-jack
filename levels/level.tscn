@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bf5fa6pqes1hj"]
+[gd_scene load_steps=7 format=3 uid="uid://bf5fa6pqes1hj"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_6fb17"]
 [ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://hud/ship.tscn" id="4_chuaq"]
 [ext_resource type="PackedScene" uid="uid://bjcxaxlx6qt5e" path="res://levels/play_area.tscn" id="4_pmx5f"]
 [ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://hud/background/background.tscn" id="5_sp8rb"]
+[ext_resource type="Script" path="res://levels/frames.gd" id="6_26sqf"]
 [ext_resource type="Script" path="res://version.gd" id="6_n7bey"]
 
 [node name="Level" type="Node2D"]
@@ -62,6 +63,21 @@ offset_bottom = 1961.0
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("6_n7bey")
+
+[node name="Frames" type="Label" parent="."]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3550.0
+offset_top = 1441.0
+offset_right = 3551.0
+offset_bottom = 1517.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("6_26sqf")
 
 [node name="Resolve" type="Button" parent="."]
 anchors_preset = 8
