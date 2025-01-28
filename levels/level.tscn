@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bf5fa6pqes1hj"]
+[gd_scene load_steps=6 format=3 uid="uid://bf5fa6pqes1hj"]
 
 [ext_resource type="Script" path="res://levels/level.gd" id="1_6fb17"]
-[ext_resource type="PackedScene" uid="uid://bevr0doghdswj" path="res://hud/resolve.tscn" id="1_ae3o5"]
 [ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://hud/ship.tscn" id="4_chuaq"]
 [ext_resource type="PackedScene" uid="uid://bjcxaxlx6qt5e" path="res://levels/play_area.tscn" id="4_pmx5f"]
 [ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://hud/background/background.tscn" id="5_sp8rb"]
@@ -57,13 +56,20 @@ offset_right = 1910.0
 offset_bottom = 1078.0
 script = ExtResource("6_n7bey")
 
-[node name="Resolve" parent="." instance=ExtResource("1_ae3o5")]
+[node name="Resolve" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = 183.0
 offset_top = 887.0
 offset_right = 416.0
 offset_bottom = 1000.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
 text = "resolve wave"
-script = null
 
 [node name="WaveNo" type="Label" parent="."]
 offset_right = 137.0

@@ -3,6 +3,7 @@ extends PathFollow2D
 @export var speed = 200
 var paused = false
 var speed_modifier = 4
+
 signal enemy_passed
 
 func _process(delta):

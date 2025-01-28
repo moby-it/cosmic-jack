@@ -17,8 +17,7 @@ func _draw() -> void:
 func _ready() -> void:
 	if explosive:
 		var area: Area2D = self.get_node("ExplosiveRadius")
-		if area:
-			area.area_entered.connect(enemy_entered)
+		area.area_entered.connect(enemy_entered)
 		to_movable()
 	else:
 		tooltip.connect_tooltip_on_hover(self, tooltip_content)
