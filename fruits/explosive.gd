@@ -35,13 +35,12 @@ func _add_area(node: Node2D, r: float):
 	node.add_child(area)
 
 func explode(fruit: Node2D):
-	var enemies_in_area = 0
 	var area: Area2D = fruit.get_node("ExplosiveRadius")
 	for a in area.get_overlapping_areas():
 		var enemy = a.get_parent()
 		if enemy.is_in_group("enemies"):
 			# we have to remove the pathFollow that is the parent of enemy
-			enemies_in_area += 1
-			enemy.get_parent().queue_free()
-	ExplosionBus.exploded.emit(fruit, enemies_in_area)
+			var pf = enemy.get_parent()
+			pf.queue_free()
+	ExplosionBus.exploded.emit(fruit)
 	fruit.queue_free()

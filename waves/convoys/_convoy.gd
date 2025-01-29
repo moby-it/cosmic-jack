@@ -7,3 +7,5 @@ class_name Convoy
 
 @export var river: PackedScene
 @export var enemy: PackedScene
+
+var rendered = false

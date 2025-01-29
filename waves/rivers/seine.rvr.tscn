@@ -4,7 +4,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_7etg2"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 3463.66, 228, 324.195, 4.23787, -324.195, -4.23787, 3061.66, 158, 379.287, 0, -379.287, 0, 1933.66, 961, 349.622, 2.11892, -349.622, -2.11892, 423.657, 253, 0, 0, 0, 0, 103.657, 1351)
+"points": PackedVector2Array(0, 0, 0, 0, 3414.66, 786, 342, -6, -342, 6, 2886.66, 444, 379.287, 0, -379.287, 0, 1933.66, 961, 349.622, 2.11892, -349.622, -2.11892, 423.657, 253, 0, 0, 0, 0, 103.657, 1351)
 }
 point_count = 5
 
@@ -15,3 +15,4 @@ position = Vector2(377.343, -47)
 curve = SubResource("Curve2D_7etg2")
 
 [node name="PlayArea" parent="." instance=ExtResource("1_47p6t")]
+visible = false
