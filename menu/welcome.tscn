@@ -37,12 +37,12 @@ size_flags_vertical = 4
 focus_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
-text = "[font_size=96]Welcome to Cosmic Jack Demo![/font_size]
+text = "[font_size=96]Cosmic Jack Demo[/font_size]
 [font_size=32]
 
-This is the first prototype of a level. The goal is to gather feedback and identify if this is indeed a pleasant experience.
+This is a prototype level of our game, Cosmic Jack. The goal is to gather feedback and share our progress with you.
 
-Ideally, we'd like you to record your gaming session with a program like obs and upload it to [url=https://drive.google.com/drive/folders/1gVfNt0ofFfDTmXej9bDuQAa_qM8oCB8-?usp=sharing]this google drive folder[/url]. Create a folder with your name and upload the file there. It would be great to add some text feedback as well.
+Ideally, we'd like you to record your first gaming session with a program like OBS Studio and upload it to [url=https://drive.google.com/drive/folders/1gVfNt0ofFfDTmXej9bDuQAa_qM8oCB8-?usp=sharing]this google drive folder[/url]. Create a folder with your name and upload the file there. It would be great to add some text feedback as well.
 
 For any inquiries, send an email to gspanos@moby-it.com.
 

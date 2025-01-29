@@ -127,4 +127,5 @@ text = "close
 "
 
 [connection signal="tab_changed" from="TabBar" to="." method="_on_tab_bar_tab_changed"]
+[connection signal="button_down" from="Close" to="." method="_on_close_button_down"]
 [connection signal="gui_input" from="Close" to="." method="_on_skip_gui_input"]
