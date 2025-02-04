@@ -9,6 +9,8 @@
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_6fb17")
+waves = null
+health = null
 
 [node name="WavesContainer" type="Node2D" parent="."]
 
@@ -97,6 +99,8 @@ text = "resolve wave"
 offset_right = 137.0
 offset_bottom = 94.0
 text = "Wave 1-1"
+
+[node name="WaveAudio" type="AudioStreamPlayer" parent="."]
 
 [connection signal="gui_input" from="PlayArea" to="." method="_on_play_area_gui_input"]
 [connection signal="mouse_entered" from="PlayArea" to="." method="_on_play_area_mouse_entered"]

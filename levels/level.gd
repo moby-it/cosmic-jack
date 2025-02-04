@@ -24,6 +24,7 @@ func resolving():
 @onready var waves_container = $WavesContainer
 @onready var health_count = $Health/HBoxContainer/Count
 @onready var wave_no = $WaveNo
+@onready var wave_audio = $WaveAudio
 
 var active_fruit: Node2D
 var active_fruit_name = "apple"
@@ -50,6 +51,7 @@ func _ready() -> void:
 	WaveHistory.add_wave(curr_wave_idx, health, Fruits.ammo)
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
+	BpmManager.on_beat.connect(on_beat)
 	
 func _process(delta: float) -> void:
 	if health <= 0: 
@@ -166,6 +168,15 @@ func create_wave(preview: bool):
 	print("create wave %s, preview %s" % [curr_wave_idx, preview])
 	var wave = curr_wave()
 	round_status = ROUND_STATUS.PREVIEW if preview else ROUND_STATUS.RESOLVING
+	$WaveAudio.stream = load(wave.audio_track)
+	BpmManager.bpm = wave.bpm
+	print("wave bpm %s" % wave.bpm)
+	BpmManager.time_begin = Time.get_ticks_usec()
+	BpmManager.time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	BpmManager.seconds_per_beat = 60.0 / wave.bpm
+	
+	$WaveAudio.play()
+
 	for c in wave.convoys:
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
@@ -257,3 +268,13 @@ func _on_level_change(idx: int, hp: int):
 	
 func update_wave_label():
 	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]
+
+func on_beat(i: int):
+	var enemy = select_random_enemy()
+	var animation: AnimationPlayer = enemy.get_node("Animation")
+	animation.add_animation_library()
+	animation.animation_set_next("RESET","scale")
+
+func select_random_enemy() -> Node2D:
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	return enemies.pick_random()

@@ -22,6 +22,7 @@ Fruits="*res://singletons/fruits.gd"
 SceneManager="*res://singletons/scene_manager.gd"
 Utils="*res://singletons/utils.gd"
 WaveHistory="*res://singletons/wave_history.gd"
+BpmManager="*res://singletons/bpm_manager.gd"
 
 [display]
 

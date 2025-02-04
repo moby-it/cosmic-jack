@@ -30,3 +30,9 @@ Before demo I have to:
 ## 27/12 23:03
 
 Seems to be working. It's ugly, it's true. But it might make a good game, while still being as ugly as it is. I have to gather emails to send the demo over next week.
+
+## 4/2/2025 13:35
+
+I'm working towards integrating music. Music is very important. I should sync some basic enemy animation with the beat. 
+I've managed to get the beat time for each wave and now I have to sync this with an animation. Due to the fact that enemy colliders will change on animation, this **should**
+be something the player can leverage.

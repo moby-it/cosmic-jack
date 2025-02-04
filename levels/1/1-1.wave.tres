@@ -7,3 +7,5 @@
 [resource]
 script = ExtResource("2_7fv10")
 convoys = Array[ExtResource("1_ug3o7")]([ExtResource("2_lx660")])
+audio_track = "res://levels/1/track1.wav"
+bpm = 120
