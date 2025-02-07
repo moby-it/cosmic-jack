@@ -7,8 +7,8 @@ var available_fruits = {
 	"watermelon": preload("res://fruits/watermelon/watermelon.tscn")
 }
 var tooltips = {
-	"apple":"Explodes 2 seconds after enemy touch.",
-	"watermelon":"Explodes 1 second after an overlapping explosion."
+	"apple":"Explodes 2 beats after enemy touch.",
+	"watermelon":"Explodes 1 beat after an overlapping explosion."
 }
 var available_fruits_png = {
 	"apple": preload("res://fruits/apple/apple.png"),

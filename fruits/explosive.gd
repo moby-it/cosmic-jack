@@ -2,6 +2,7 @@ extends Resource
 class_name Explosive
 
 @export var radius: float = 0.0
+## delay is always in coordination with current song bpm
 @export var detonation_delay: float = 1.0
 
 var border_color: Color = Color.RED
@@ -14,11 +15,13 @@ func draw_explosive_radius(node: Node2D) -> void:
 	node.queue_redraw()
 
 func start_explosion_timer(node: Node2D) -> void:
+	# delay is always in sync with bpm
+	var delay = detonation_delay * BpmManager.seconds_per_beat
 	var timer_line: Node2D = load("res://fruits/timer_line.tscn").instantiate()
-	timer_line.duration = detonation_delay
+	timer_line.duration = delay
 	timer_line.timeout.connect(explode.bind(node))
 	timer = timer_line.get_node("Timer")
-	timer.wait_time = detonation_delay
+	timer.wait_time = delay
 	node.add_child(timer_line)
 	timer.start()
 

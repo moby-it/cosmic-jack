@@ -8,5 +8,5 @@
 [resource]
 script = ExtResource("4_atpr4")
 convoys = Array[ExtResource("1_slgmc")]([ExtResource("2_xmq7c"), ExtResource("3_8oxid")])
-audio_track = null
-bpm = 0
+audio_track = "res://levels/1/track1.wav"
+bpm = 120

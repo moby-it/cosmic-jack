@@ -8,3 +8,4 @@
 script = ExtResource("3_87hvf")
 convoys = Array[ExtResource("1_cuspu")]([ExtResource("2_j40sn")])
 audio_track = null
+bpm = 0

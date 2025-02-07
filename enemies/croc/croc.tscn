@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dy1ndkh3j6my7"]
+[gd_scene load_steps=7 format=3 uid="uid://dy1ndkh3j6my7"]
 
+[ext_resource type="Script" path="res://enemies/croc/croc.gd" id="1_82s2i"]
 [ext_resource type="Texture2D" uid="uid://ufqmqwe88t4d" path="res://enemies/croc/croc.png" id="1_qilu0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l7qrp"]
@@ -34,7 +35,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_8oyll"]
-resource_name = "scale"
+resource_name = "scale_1"
 length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -64,10 +65,11 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s0505"]
 _data = {
 "RESET": SubResource("Animation_16vpe"),
-"scale": SubResource("Animation_8oyll")
+"scale_1": SubResource("Animation_8oyll")
 }
 
 [node name="Enemy" type="Node2D" groups=["enemies"]]
+script = ExtResource("1_82s2i")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

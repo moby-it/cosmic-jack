@@ -26,6 +26,8 @@ func resolving():
 @onready var wave_no = $WaveNo
 @onready var wave_audio = $WaveAudio
 
+var beat_fns = []
+
 var active_fruit: Node2D
 var active_fruit_name = "apple"
 var dragging_fruits = []
@@ -108,8 +110,11 @@ func add_active_fruit():
 		self.add_child(active_fruit)
 
 func _on_resolve_button_down() -> void:
-	round_status = ROUND_STATUS.RESOLVING
-	create_wave(false)
+	if not resolving():
+		round_status = ROUND_STATUS.RESOLVING
+		for c in curr_wave().convoys:
+			c.rendered = false
+		create_wave(false)
 
 # we are adding the active_fruit when the mouse enters the play area
 func _on_play_area_mouse_entered() -> void:
@@ -174,36 +179,30 @@ func create_wave(preview: bool):
 	BpmManager.time_begin = Time.get_ticks_usec()
 	BpmManager.time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	BpmManager.seconds_per_beat = 60.0 / wave.bpm
-	
-	$WaveAudio.play()
 
 	for c in wave.convoys:
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
-		var t = Timer.new()
-		t.name = "Timer"
-		t.wait_time = c.spawn_interval
-		t.one_shot = false
-		t.autostart = true
-		t.timeout.connect(func(): add_enemy(c, river, t, preview))
-		river_node.add_child(t)
+		var beat_fn = func(i: int): add_enemy(c, river, preview)
+		beat_fns.push_back(beat_fn)
+		BpmManager.on_beat.connect(beat_fn)
 		waves_container.add_child(river_node)
-	
-func add_enemy(convoy: Convoy, path: Path2D, timer: Timer, preview: bool):
+	$WaveAudio.play()
+
+func add_enemy(convoy: Convoy, path: Path2D, preview: bool):
 	if path.get_child_count() == convoy.count:
-		if not preview:
-			convoy.rendered = true
-			timer.stop()
+		convoy.rendered = true
+		return
+	if convoy.rendered and not preview:
 		return
 	convoy.rendered = false
 	var pf = PathFollow2D.new()
 	pf.set_script(load("res://waves/rivers/_river.gd"))
-	pf.speed = convoy.speed
-	var enemy = convoy.enemy.instantiate()
+	pf.duration = convoy.duration
+	var enemy: Node2D = convoy.enemy.instantiate()
+	enemy.queue_animation = true
 	if round_status == ROUND_STATUS.PREVIEW:
-		enemy.get_node("Sprite2D").modulate.a = 0.5
-		var collision_shape: CollisionShape2D = 	enemy.get_node("Area2D").get_node("CollisionShape2D")
-		collision_shape.disabled = true
+		enemy.collision = false
 	else:
 		pf.enemy_passed.connect(enemy_passed)
 		pf.loop = false
@@ -233,8 +232,6 @@ func on_health_depleted():
 func stop_movement():
 	var paths = get_tree().get_nodes_in_group("paths")
 	for p in paths:
-		var t: Timer = p.get_parent().get_node("Timer")
-		t.stop()
 		for pf in p.get_children():
 			if pf is PathFollow2D:
 				pf.paused = true
@@ -242,8 +239,6 @@ func stop_movement():
 func resume_movement():
 	var paths = get_tree().get_nodes_in_group("paths")
 	for p in paths:
-		var t: Timer = p.get_parent().get_node("Timer")
-		t.start()
 		for pf in p.get_children():
 			if pf is PathFollow2D:
 				pf.paused = false
@@ -251,29 +246,35 @@ func resume_movement():
 func clear_wave():
 	for c in waves_container.get_children():
 		c.queue_free()
-
+		for f in beat_fns:
+			BpmManager.on_beat.disconnect(f)
+		beat_fns.clear()
+	BpmManager.reset()
 func _on_level_change(idx: int, hp: int):
 	self.get_node("Menu").closed.emit()
 	clear_wave()
 	health = hp
 	health_count.text = str(hp)
 	curr_wave_idx = idx
+	# remove fruit list and recreate it
 	for c in $FruitList.get_children():
 		c.queue_free()
-	for c in get_tree().get_nodes_in_group("fruits"):
-		if c.explosive:
-			c.queue_free()
 	Fruits.create_fruit_list_hud($FruitList)
+	# clear fruits on play area
+	for c in get_tree().get_nodes_in_group("fruits"):
+		c.queue_free()
+	# recreate the fruit list
 	create_wave(true)
 	
 func update_wave_label():
 	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]
 
 func on_beat(i: int):
-	var enemy = select_random_enemy()
-	var animation: AnimationPlayer = enemy.get_node("Animation")
-	animation.add_animation_library()
-	animation.animation_set_next("RESET","scale")
+	pass
+	#var enemy = select_random_enemy()
+	#var animation: AnimationPlayer = enemy.get_node("Animation")
+	#animation.add_animation_library()
+	#animation.animation_set_next("RESET","scale")
 
 func select_random_enemy() -> Node2D:
 	var enemies = get_tree().get_nodes_in_group("enemies")

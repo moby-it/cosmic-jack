@@ -19,3 +19,12 @@ func _process(delta: float) -> void:
 		on_beat.emit(beat)
 		next_beat_time += seconds_per_beat
 		beat += 1
+		print("on beat %s" % beat)
+
+func reset():
+	bpm = 0
+	time_begin = 0
+	time_delay = 0
+	next_beat_time = 0.0
+	seconds_per_beat = 0.0
+	beat = 0
