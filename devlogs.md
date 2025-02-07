@@ -36,3 +36,8 @@ Seems to be working. It's ugly, it's true. But it might make a good game, while 
 I'm working towards integrating music. Music is very important. I should sync some basic enemy animation with the beat. 
 I've managed to get the beat time for each wave and now I have to sync this with an animation. Due to the fact that enemy colliders will change on animation, this **should**
 be something the player can leverage.
+
+## 7/2/2025 14:26
+
+After some thought, it's clear that the prototype has to have music. Enemy spawns have to be on-beat, and fruit explosions are also on-beat. I have to implement both
+so that I can then focus on level design, which in this game and every puzzle game, is where I _should_ spend most of my time.
