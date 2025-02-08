@@ -218,6 +218,7 @@ func enemy_passed():
 
 func on_level_completed():
 	print("level completed!")
+	BpmManager.reset()
 	var level_won = load("res://level_won.tscn").instantiate()
 	level_won.score = Utils.calc_score(health, Fruits.ammo)
 	SceneManager.change_scene.emit(level_won)

@@ -55,4 +55,6 @@ It's late, I have to sleep. The current state has some issues:
 	
 8/2 - 16:08
 
-I managed to sync the song with the beats. T
+Managed to sync adequetly the beats of the song to both animations and fruit explosions.
+	- I have to explain the game better in the tutorial.
+	- I have to work on level design.
