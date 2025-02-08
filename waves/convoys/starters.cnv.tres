@@ -7,6 +7,6 @@
 [resource]
 script = ExtResource("3_nle1a")
 duration = 16
-count = 5
+count = 4
 river = ExtResource("2_wuvxp")
 enemy = ExtResource("1_728rq")

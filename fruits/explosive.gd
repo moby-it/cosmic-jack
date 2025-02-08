@@ -10,13 +10,12 @@ var border_width: float = 2.0
 var timer: Timer
 
 func draw_explosive_radius(node: Node2D) -> void:
-	_add_area(node, radius)
+	_add_explosive_radius(node, radius)
 	node.draw_circle(node.get_node("Sprite2D").position, radius, border_color, false, border_width)
-	node.queue_redraw()
 
 func start_explosion_timer(node: Node2D) -> void:
 	# delay is always in sync with bpm
-	var delay = detonation_delay * BpmManager.seconds_per_beat
+	var delay = (detonation_delay * BpmManager.seconds_per_beat) + BpmManager.time_to_next_beat
 	var timer_line: Node2D = load("res://fruits/timer_line.tscn").instantiate()
 	timer_line.duration = delay
 	timer_line.timeout.connect(explode.bind(node))
@@ -25,7 +24,7 @@ func start_explosion_timer(node: Node2D) -> void:
 	node.add_child(timer_line)
 	timer.start()
 
-func _add_area(node: Node2D, r: float):
+func _add_explosive_radius(node: Node2D, r: float):
 	var area: Area2D = Area2D.new()
 	area.name = "ExplosiveRadius"
 	area.set_collision_layer_value(1, true)

@@ -1,5 +1,6 @@
 extends PathFollow2D
 
+## in beats
 @export var duration = 12  # Duration in beats
 var paused = false
 signal enemy_passed

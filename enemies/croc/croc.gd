@@ -14,17 +14,10 @@ func _ready() -> void:
 		disable_collision()
 
 func create_animation():
-	var animation = Animation.new()
-	animation.resource_name = "scale"
-	var track_index = animation.add_track(Animation.TYPE_VALUE)
-	animation.track_set_path(track_index, "Sprite2D:scale")
-	animation.track_insert_key(track_index, 0.0, 0.5)
-	animation.track_insert_key(track_index, BpmManager.seconds_per_beat, 0.7)
-	animation.track_insert_key(track_index,  BpmManager.seconds_per_beat * 2, 0.5)
-	animation.loop_mode = Animation.LOOP_LINEAR
-	animation.length = BpmManager.seconds_per_beat * 2
-	animation_player.add_animation_library("", animation)
-	animation_player.queue("scale")
+	var tween := self.create_tween().set_loops()
+	tween.tween_property(self, "scale", Vector2(1.5, 1.5), BpmManager.seconds_per_beat * 2).set_trans(Tween.TRANS_SPRING).set_delay(BpmManager.time_to_next_beat)
+	tween.tween_property(self, "scale", Vector2(1, 1), BpmManager.seconds_per_beat * 2).set_trans(Tween.TRANS_SPRING).set_delay(BpmManager.time_to_next_beat)
+	tween.bind_node(self)
 
 func disable_collision():
 		sprite.modulate.a = 0.5

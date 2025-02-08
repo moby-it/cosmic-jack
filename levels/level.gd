@@ -12,7 +12,8 @@ enum ROUND_STATUS {
 }
 
 var round_status = ROUND_STATUS.PREVIEW
-
+# used for pausing
+var audio_position = 0.0
 func resolving():
 	return round_status == ROUND_STATUS.RESOLVING
 	
@@ -24,7 +25,7 @@ func resolving():
 @onready var waves_container = $WavesContainer
 @onready var health_count = $Health/HBoxContainer/Count
 @onready var wave_no = $WaveNo
-@onready var wave_audio = $WaveAudio
+@onready var wave_audio: AudioStreamPlayer = $WaveAudio
 
 var beat_fns = []
 
@@ -82,16 +83,17 @@ func on_tutorial_closed():
 	create_wave(true)
 
 func _input(event: InputEvent) -> void:
-	var menu = self.get_node("Menu")
 	if event.is_action_pressed("Menu"):
-		if not is_instance_valid(menu):
+		var menu = self.get_node_or_null("Menu")
+		if is_instance_valid(menu):
+			menu.closed.emit()
+		else:
+			# add menu
 			menu = load("res://menu/in_game_menu.tscn").instantiate()
 			menu.name = "Menu"
 			menu.closed.connect(resume_movement)
 			stop_movement()
 			self.add_child(menu)
-		else:
-			self.get_node("Menu").closed.emit()
 	if not play_area.get_rect().has_point(get_global_mouse_position()):
 		return
 	if Input.is_key_pressed(KEY_CTRL) and is_instance_valid(active_fruit):
@@ -173,12 +175,11 @@ func create_wave(preview: bool):
 	print("create wave %s, preview %s" % [curr_wave_idx, preview])
 	var wave = curr_wave()
 	round_status = ROUND_STATUS.PREVIEW if preview else ROUND_STATUS.RESOLVING
-	$WaveAudio.stream = load(wave.audio_track)
+	wave_audio.stream = load(wave.audio_track)
 	BpmManager.bpm = wave.bpm
 	print("wave bpm %s" % wave.bpm)
-	BpmManager.time_begin = Time.get_ticks_usec()
-	BpmManager.time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
 	BpmManager.seconds_per_beat = 60.0 / wave.bpm
+	wave_audio.play()
 
 	for c in wave.convoys:
 		var river_node = c.river.instantiate()
@@ -187,7 +188,6 @@ func create_wave(preview: bool):
 		beat_fns.push_back(beat_fn)
 		BpmManager.on_beat.connect(beat_fn)
 		waves_container.add_child(river_node)
-	$WaveAudio.play()
 
 func add_enemy(convoy: Convoy, path: Path2D, preview: bool):
 	if path.get_child_count() == convoy.count:
@@ -230,6 +230,9 @@ func on_health_depleted():
 	self.add_child(menu)
 
 func stop_movement():
+	audio_position = wave_audio.get_playback_position()
+	wave_audio.stop()
+	BpmManager.bpm = 0
 	var paths = get_tree().get_nodes_in_group("paths")
 	for p in paths:
 		for pf in p.get_children():
@@ -242,6 +245,9 @@ func resume_movement():
 		for pf in p.get_children():
 			if pf is PathFollow2D:
 				pf.paused = false
+	wave_audio.play(audio_position)
+	audio_position = 0.0
+	BpmManager.bpm = curr_wave().bpm
 
 func clear_wave():
 	for c in waves_container.get_children():
