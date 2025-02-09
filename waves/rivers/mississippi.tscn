@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf12x1x0rhtha"]
+
+[ext_resource type="PackedScene" uid="uid://bjcxaxlx6qt5e" path="res://levels/play_area.tscn" id="1_5a0yc"]
+
+[sub_resource type="Curve2D" id="Curve2D_7etg2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3464.66, 872, 300, 0, -300, 0, 3002.66, 306, 19.0273, -104.269, -19.0273, 104.269, 2604.66, 590, -90.3797, -61.8388, 90.3797, 61.8388, 2658.66, 1018, -78.4877, -112.975, 78.4877, 112.975, 3094.66, 1082, 224.76, -1.18921, -224.76, 1.18921, 2884.66, 1308, 115.353, 63.028, -115.353, -63.028, 2168.66, 1262, 129.624, 44.0007, -129.624, -44.0007, 1330.66, 334, 140.327, -84.4337, -140.327, 84.4337, 124.657, 284, 28.541, -141.516, -28.541, 141.516, -161.343, 776, 0, 0, 0, 0, -107.343, 1346)
+}
+point_count = 11
+
+[node name="Seine" type="Node2D"]
+
+[node name="Path2D" type="Path2D" parent="." groups=["paths"]]
+position = Vector2(377.343, -47)
+curve = SubResource("Curve2D_7etg2")
+
+[node name="PlayArea" parent="." instance=ExtResource("1_5a0yc")]
+visible = false

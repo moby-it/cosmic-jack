@@ -2,7 +2,7 @@ extends Resource
 class_name Explosive
 
 @export var radius: float = 0.0
-## delay is always in coordination with current song bpm
+## in beats
 @export var detonation_delay: float = 1.0
 
 var border_color: Color = Color.RED
@@ -37,12 +37,14 @@ func _add_explosive_radius(node: Node2D, r: float):
 	node.add_child(area)
 
 func explode(fruit: Node2D):
+	var enemies_killed = {}
 	var area: Area2D = fruit.get_node("ExplosiveRadius")
 	for a in area.get_overlapping_areas():
 		var enemy = a.get_parent()
 		if enemy.is_in_group("enemies"):
 			# we have to remove the pathFollow that is the parent of enemy
+			enemies_killed[enemy.get_instance_id()] = null
 			var pf = enemy.get_parent()
 			pf.queue_free()
-	ExplosionBus.exploded.emit(fruit)
+	ExplosionBus.exploded.emit(fruit, enemies_killed)
 	fruit.queue_free()

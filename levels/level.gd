@@ -35,6 +35,7 @@ var dragging_fruits = []
 var curr_wave_idx = 0
 var showing_tutorial = true
 var resolving_progres = 0
+
 func curr_wave() -> Wave:
 	return waves[curr_wave_idx]
 
@@ -54,6 +55,7 @@ func _ready() -> void:
 	WaveHistory.add_wave(curr_wave_idx, health, Fruits.ammo)
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
+	health_count.text = str(health)
 	BpmManager.on_beat.connect(on_beat)
 	
 func _process(delta: float) -> void:
@@ -195,7 +197,7 @@ func create_wave(preview: bool):
 		waves_container.add_child(river_node)
 
 func add_enemy(convoy: Convoy, path: Path2D, preview: bool):
-	if path.get_child_count() == convoy.count:
+	if path.get_child_count() + ExplosionBus.enemies_exploded.size() == convoy.count:
 		convoy.rendered = true
 		return
 	if convoy.rendered and not preview:
@@ -262,6 +264,7 @@ func clear_wave():
 			BpmManager.on_beat.disconnect(f)
 		beat_fns.clear()
 	BpmManager.reset()
+	ExplosionBus.enemies_exploded = {}
 func _on_level_change(idx: int, hp: int):
 	self.get_node("Menu").closed.emit()
 	clear_wave()

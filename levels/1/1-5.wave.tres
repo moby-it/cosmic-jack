@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Wave" load_steps=8 format=3 uid="uid://gm6rx4ol8qlt"]
+
+[ext_resource type="Script" path="res://waves/_convoy.gd" id="1_6mvc1"]
+[ext_resource type="PackedScene" uid="uid://dy1ndkh3j6my7" path="res://enemies/croc/croc.tscn" id="2_ue14f"]
+[ext_resource type="PackedScene" uid="uid://cf12x1x0rhtha" path="res://waves/rivers/mississippi.tscn" id="3_8r3uc"]
+[ext_resource type="PackedScene" uid="uid://ctnw6hyjola0a" path="res://waves/rivers/seine.rvr.tscn" id="4_hu3u2"]
+[ext_resource type="Script" path="res://waves/wave.gd" id="4_m4nau"]
+
+[sub_resource type="Resource" id="Resource_sbo23"]
+script = ExtResource("1_6mvc1")
+duration = 16
+count = 4
+river = ExtResource("3_8r3uc")
+enemy = ExtResource("2_ue14f")
+
+[sub_resource type="Resource" id="Resource_n50rg"]
+script = ExtResource("1_6mvc1")
+duration = 16
+count = 4
+river = ExtResource("4_hu3u2")
+enemy = ExtResource("2_ue14f")
+
+[resource]
+script = ExtResource("4_m4nau")
+convoys = Array[ExtResource("1_6mvc1")]([SubResource("Resource_sbo23"), SubResource("Resource_n50rg")])
+audio_track = "res://levels/1/track1.wav"
+bpm = 120
