@@ -177,6 +177,11 @@ func create_wave(preview: bool):
 	round_status = ROUND_STATUS.PREVIEW if preview else ROUND_STATUS.RESOLVING
 	wave_audio.stream = load(wave.audio_track)
 	BpmManager.bpm = wave.bpm
+	BpmManager.seconds_per_beat = 60.0 / wave.bpm
+	BpmManager.time_begin = Time.get_ticks_usec()
+	BpmManager.time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	BpmManager.time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
+	print("Output latency %s ms" % (AudioServer.get_output_latency() * 1000))
 	print("wave bpm %s" % wave.bpm)
 	BpmManager.seconds_per_beat = 60.0 / wave.bpm
 	wave_audio.play()
