@@ -46,7 +46,7 @@ func create_fruit_list_hud(node: VBoxContainer):
 		
 		var tooltip = Label.new()
 		tooltip.text = tooltips[key]
-		tooltip.add_theme_font_size_override("font_size",24)
+		tooltip.add_theme_font_size_override("font_size", 32)
 		container.add_child(tooltip)
 		
 		node.add_child(container)

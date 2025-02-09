@@ -15,6 +15,10 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+driver/output_latency=1
+
 [autoload]
 
 ExplosionBus="*res://singletons/explosion_bus.gd"

@@ -15,8 +15,8 @@ func _ready() -> void:
 
 func create_animation():
 	var tween := self.create_tween().set_loops()
-	tween.tween_property(self, "scale", Vector2(1.5, 1.5), BpmManager.seconds_per_beat * 2).set_trans(Tween.TRANS_SPRING).set_delay(BpmManager.time_to_next_beat)
-	tween.tween_property(self, "scale", Vector2(1, 1), BpmManager.seconds_per_beat * 2).set_trans(Tween.TRANS_SPRING).set_delay(BpmManager.time_to_next_beat)
+	tween.tween_property(self, "scale", Vector2(1.5, 1.5), BpmManager.seconds_per_beat * 2).set_trans(Tween.TRANS_SPRING)
+	tween.tween_property(self, "scale", Vector2(1, 1), BpmManager.seconds_per_beat * 2).set_trans(Tween.TRANS_SPRING)
 	tween.bind_node(self)
 
 func disable_collision():
