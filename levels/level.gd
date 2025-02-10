@@ -3,7 +3,6 @@ class_name Level
 
 signal health_depleted
 signal level_completed
-signal wave_completed
 
 enum ROUND_STATUS {
 	PREVIEW,
@@ -56,10 +55,9 @@ func _ready() -> void:
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
 	health_count.text = str(health)
-	BpmManager.on_beat.connect(on_beat)
 	
-func _process(delta: float) -> void:
-	if health <= 0: 
+func _process(_delta: float) -> void:
+	if health <= 0:
 		return
 	if round_status == ROUND_STATUS.RESOLVED:
 		if len(waves) == curr_wave_idx + 1:
@@ -147,7 +145,7 @@ func _on_play_area_gui_input(event: InputEvent) -> void:
 					df.position = get_global_mouse_position()
 		elif Utils.is_mouse_right(event):
 			var fruits = Fruits.find_fruits_under_cursor()
-			if len(fruits): 
+			if len(fruits):
 				for f in fruits:
 					Fruits.add_fruit_ammo(f.get_meta("name"))
 					f.queue_free()
@@ -159,11 +157,11 @@ func _on_play_area_gui_input(event: InputEvent) -> void:
 		elif Utils.is_mouse_move(event):
 			active_fruit.position = get_global_mouse_position()
 
-func place_fruit(position: Vector2) -> void:
+func place_fruit(p: Vector2) -> void:
 	if not Fruits.can_place_fruit(active_fruit_name):
 		return
 	var node = Fruits.create_fruit(active_fruit_name)
-	node.position = Vector2(position)
+	node.position = Vector2(p)
 	self.add_child(node)
 	# if you cannot place any more fruits of the same stack, we remove the active fruit element
 	Fruits.reduce_fruit_ammo(active_fruit_name)
@@ -182,8 +180,7 @@ func create_wave(preview: bool):
 	BpmManager.seconds_per_beat = 60.0 / wave.bpm
 	BpmManager.time_begin = Time.get_ticks_usec()
 	BpmManager.time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
-	BpmManager.time_delay = AudioServer.get_time_to_next_mix() + AudioServer.get_output_latency()
-	print("Output latency %s ms" % (AudioServer.get_output_latency() * 1000))
+	print("delay %s" % BpmManager.time_delay)
 	print("wave bpm %s" % wave.bpm)
 	BpmManager.seconds_per_beat = 60.0 / wave.bpm
 	wave_audio.play()
@@ -191,7 +188,7 @@ func create_wave(preview: bool):
 	for c in wave.convoys:
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
-		var beat_fn = func(i: int): add_enemy(c, river, preview)
+		var beat_fn = func(_i: int): add_enemy(c, river, preview)
 		beat_fns.push_back(beat_fn)
 		BpmManager.on_beat.connect(beat_fn)
 		waves_container.add_child(river_node)
@@ -227,6 +224,7 @@ func on_level_completed():
 	print("level completed!")
 	BpmManager.reset()
 	var level_won = load("res://level_won.tscn").instantiate()
+	level_won.hp = health
 	level_won.score = Utils.calc_score(health, Fruits.ammo)
 	SceneManager.change_scene.emit(level_won)
 
@@ -283,13 +281,6 @@ func _on_level_change(idx: int, hp: int):
 	
 func update_wave_label():
 	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]
-
-func on_beat(i: int):
-	pass
-	#var enemy = select_random_enemy()
-	#var animation: AnimationPlayer = enemy.get_node("Animation")
-	#animation.add_animation_library()
-	#animation.animation_set_next("RESET","scale")
 
 func select_random_enemy() -> Node2D:
 	var enemies = get_tree().get_nodes_in_group("enemies")

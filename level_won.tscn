@@ -17,14 +17,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -450.5
-offset_top = -134.0
-offset_right = 450.5
-offset_bottom = 134.0
+offset_left = -259.0
+offset_top = -41.0
+offset_right = 259.0
+offset_bottom = 41.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "[font_size=62]
-YOU WON!!!!!!!!!!!!!!!!!!!!!![/font_size]
-
-Your score is"
+text = "[font_size=62]YOU WON [/font_size]
+Score breakdown
+"
+fit_content = true

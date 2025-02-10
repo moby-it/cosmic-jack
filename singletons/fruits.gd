@@ -2,6 +2,8 @@ extends Node
 
 signal fruit_selected
 
+var fruits = ["apple","watermelon"]
+
 var available_fruits = {
 	"apple": preload("res://fruits/apple/apple.tscn"),
 	"watermelon": preload("res://fruits/watermelon/watermelon.tscn")
@@ -20,8 +22,8 @@ var initial_ammo = {
 }
 
 var fruit_score = {
-	"apple": 20,
-	"watermelon": 10
+	"apple": 10,
+	"watermelon": 20
 }
 
 var ammo = initial_ammo

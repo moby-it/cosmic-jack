@@ -1,5 +1,6 @@
 extends Node
 
+var hp_score_mod = 30
 
 func is_mouse_left(event) -> bool:
 	return event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.is_pressed()
@@ -12,4 +13,4 @@ func calc_score(hp: int, ammo: Dictionary) -> int:
 	var fruit_score = 0
 	for k in ammo:
 		fruit_score += ammo[k] * Fruits.fruit_score[k]
-	return (hp * 30) + fruit_score
+	return (hp * hp_score_mod) + fruit_score

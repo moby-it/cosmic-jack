@@ -108,9 +108,14 @@ offset_right = 2266.0
 offset_bottom = 504.0
 theme = ExtResource("2_tj4ie")
 bbcode_enabled = true
-text = "Your score is determined by the following formula.
+text = "Your score is determined by the remaining ammo per fruit, plus your hp. Specifically:
 
-score = fruits available * hidden_modifier + remaining hp * hidden_modifier
+apples_score = 10 * apple ammo remaining
+watermelon_score = 20 * watermelon_ammo_remaining
+fruit score = apples_score + watermelon_score
+hp score = 30 * hit points remaining
+
+score = hp score + fruit score
 
 Have fun!"
 fit_content = true
