@@ -6,24 +6,29 @@ var fruits = ["apple","watermelon"]
 
 var available_fruits = {
 	"apple": preload("res://fruits/apple/apple.tscn"),
-	"watermelon": preload("res://fruits/watermelon/watermelon.tscn")
+	"watermelon": preload("res://fruits/watermelon/watermelon.tscn"),
+	"cherries": preload("res://fruits/cherries/cherries.tscn")
 }
 var tooltips = {
-	"apple":"Explodes 3 beats after enemy touch.",
-	"watermelon":"Explodes 1 beat after an overlapping explosion."
+	"apple":"Explodes 4 beats after enemy touch.",
+	"watermelon":"Explodes 2 beat after an overlapping explosion.",
+	"cherries":"Explodes on next beat after enemy touch."
 }
 var available_fruits_png = {
 	"apple": preload("res://fruits/apple/apple.png"),
-	"watermelon": preload("res://fruits/watermelon/watermelon.png")
+	"watermelon": preload("res://fruits/watermelon/watermelon.png"),
+	"cherries": preload("res://fruits/cherries/cherries.png")
 }
 var initial_ammo = {
 	"apple": 10,
-	"watermelon": 16
+	"watermelon": 16,
+	"cherries": 5
 }
 
 var fruit_score = {
-	"apple": 10,
-	"watermelon": 20
+	"apple": 40,
+	"watermelon": 10,
+	"cherries": 10
 }
 
 var ammo = initial_ammo

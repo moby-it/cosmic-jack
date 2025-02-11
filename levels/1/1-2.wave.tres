@@ -7,7 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_pdekj"]
 script = ExtResource("1_denl3")
-duration = 12
+duration = 8
 count = 4
 river = ExtResource("3_16iyf")
 enemy = ExtResource("2_n8nmf")

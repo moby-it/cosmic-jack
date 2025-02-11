@@ -17,7 +17,7 @@ func resolving():
 	return round_status == ROUND_STATUS.RESOLVING
 	
 @export var waves: Array[Wave]
-@export var health: int
+@export var health = 3 
 
 @onready var play_area: ColorRect = $PlayArea
 @onready var fruit_list = $FruitList
@@ -133,7 +133,7 @@ func _on_play_area_mouse_exited() -> void:
 
 
 func _on_play_area_gui_input(event: InputEvent) -> void:
-	if Input.is_key_pressed(KEY_CTRL):
+	if Input.is_key_pressed(KEY_CTRL) and not resolving():
 		if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT:
 			if event.is_pressed():
 				dragging_fruits = Fruits.find_fruits_under_cursor()

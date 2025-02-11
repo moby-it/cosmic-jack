@@ -37,6 +37,7 @@ func _add_explosive_radius(node: Node2D, r: float):
 	node.add_child(area)
 
 func explode(fruit: Node2D):
+	print("fruit exploded")
 	var enemies_killed = {}
 	var area: Area2D = fruit.get_node("ExplosiveRadius")
 	for a in area.get_overlapping_areas():

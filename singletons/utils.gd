@@ -1,6 +1,6 @@
 extends Node
 
-var hp_score_mod = 30
+var hp_score_mod = 100
 
 func is_mouse_left(event) -> bool:
 	return event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.is_pressed()

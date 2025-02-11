@@ -11,15 +11,15 @@ func _draw() -> void:
 	explosive.draw_explosive_radius(self)
 
 func _ready() -> void:
-	var area: Area2D = self.get_node("ExplosiveRadius")
 	ExplosionBus.exploded.connect(_on_explosion)
 	to_movable()
 
 # watermelon triggers on adjacent explosion
-func _on_explosion(fruit: Node, enemies_killed) -> void:
+func _on_explosion(fruit: Node, _enemies_killed) -> void:
+	print("enemy entered cherry")
 	var fruit_area: Area2D = fruit.get_node("ExplosiveRadius")
-	var my_area: Area2D = self.get_node("ExplosiveRadius")
-	if my_area.overlaps_area(fruit_area) && not exploding:
+	var exp_radius: Area2D = self.get_node("ExplosiveRadius")
+	if exp_radius.overlaps_area(fruit_area) && not exploding:
 		exploding = true
 		explosive.start_explosion_timer(self)
 		
