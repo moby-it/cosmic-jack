@@ -20,9 +20,9 @@ var available_fruits_png = {
 	"cherries": preload("res://fruits/cherries/cherries.png")
 }
 var initial_ammo = {
-	"apple": 10,
-	"watermelon": 16,
-	"cherries": 5
+	"apple": 2,
+	"watermelon": 2,
+	"cherries": 1
 }
 
 var fruit_score = {

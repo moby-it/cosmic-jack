@@ -15,14 +15,11 @@ func draw_explosive_radius(node: Node2D) -> void:
 
 func start_explosion_timer(node: Node2D) -> void:
 	# delay is always in sync with bpm
-	var delay = (detonation_delay * BpmManager.seconds_per_beat) + BpmManager.time_to_next_beat
-	var timer_line: Node2D = load("res://fruits/timer_line.tscn").instantiate()
-	timer_line.duration = delay
-	timer_line.timeout.connect(explode.bind(node))
-	timer = timer_line.get_node("Timer")
-	timer.wait_time = delay
-	node.add_child(timer_line)
-	timer.start()
+	# var delay = (detonation_delay * BpmManager.seconds_per_beat) # remove time_to_next_beat when the movement is disretez
+	var detonation_timer: Node2D = load("res://fruits/detonation_timer.tscn").instantiate()
+	detonation_timer.duration = detonation_delay
+	detonation_timer.timeout.connect(explode.bind(node))
+	node.add_child(detonation_timer)
 
 func _add_explosive_radius(node: Node2D, r: float):
 	var area: Area2D = Area2D.new()
