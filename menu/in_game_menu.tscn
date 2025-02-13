@@ -12,14 +12,14 @@ z_index = -1
 offset_right = 3840.0
 offset_bottom = 2160.0
 mouse_filter = 1
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0.784314)
 
 [node name="Exit" type="Button" parent="ColorRect"]
 layout_mode = 0
-offset_left = 3158.0
-offset_top = 1509.0
-offset_right = 3550.0
-offset_bottom = 1649.0
+offset_left = 3275.0
+offset_top = 1765.0
+offset_right = 3667.0
+offset_bottom = 1905.0
 text = "Exit game"
 
 [node name="CloseMenu" type="Button" parent="ColorRect"]
@@ -27,8 +27,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -44.0
-offset_bottom = 44.0
+offset_left = -115.0
+offset_top = 59.0
+offset_right = -71.0
+offset_bottom = 103.0
 grow_horizontal = 0
 icon = ExtResource("2_ywnst")
 

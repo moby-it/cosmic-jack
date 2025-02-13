@@ -2,6 +2,8 @@ extends Node2D
 
 var queue_animation = false
 var collision = true
+var convoy_id
+
 
 @onready var animation_player: AnimationPlayer = $Animation
 @onready var sprite = $Sprite2D

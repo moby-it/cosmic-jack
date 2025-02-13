@@ -56,7 +56,6 @@ func _process(_delta: float) -> void:
 			return
 		else:
 			print("wave passed")
-			health = add_health_per_ammo(health, Fruits.ammo)
 			WaveHistory.add_wave(curr_wave_idx + 1, health)
 			curr_wave_idx += 1
 			print("wave completed")
@@ -167,6 +166,7 @@ func create_wave(preview: bool):
 		for c in $FruitList.get_children():
 			c.queue_free()
 		Fruits.create_fruit_list_hud($FruitList, wave)
+		Fruits.fruit_selected.connect(on_fruit_list_selected)
 	
 	print("create wave %s, preview %s" % [curr_wave_idx, preview])
 	print("create wave %s, preview %s" % [curr_wave_idx, preview])
@@ -182,6 +182,7 @@ func create_wave(preview: bool):
 	wave_audio.play()
 
 	for c in wave.convoys:
+		ExplosionBus.enemies_exploded[c.get_instance_id()] = 0
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
 		var beat_fn = func(_i: int): add_enemy(c, river, preview)
@@ -190,7 +191,8 @@ func create_wave(preview: bool):
 		waves_container.add_child(river_node)
 
 func add_enemy(convoy: Convoy, path: Path2D, preview: bool):
-	if path.get_child_count() + ExplosionBus.enemies_exploded.size() == convoy.count:
+	print("checking to add enemy %s" % Time.get_ticks_usec())
+	if path.get_child_count() + ExplosionBus.enemies_exploded[convoy.get_instance_id()] == convoy.count:
 		convoy.rendered = true
 		return
 	if convoy.rendered and not preview:
@@ -201,6 +203,7 @@ func add_enemy(convoy: Convoy, path: Path2D, preview: bool):
 	pf.duration = convoy.duration
 	var enemy: Node2D = convoy.enemy.instantiate()
 	enemy.queue_animation = true
+	enemy.convoy_id =  convoy.get_instance_id()
 	if round_status == ROUND_STATUS.PREVIEW:
 		enemy.collision = false
 	else:
@@ -220,8 +223,6 @@ func on_level_completed():
 	print("level completed!")
 	BpmManager.reset()
 	var level_won = load("res://level_won.tscn").instantiate()
-	level_won.hp = health
-	level_won.score = Score.calc_score(health, Fruits.ammo)
 	SceneManager.change_scene.emit(level_won)
 
 func on_health_depleted():
@@ -243,13 +244,14 @@ func stop_movement():
 
 func resume_movement():
 	var paths = get_tree().get_nodes_in_group("paths")
+	var wave = curr_wave()
 	for p in paths:
 		for pf in p.get_children():
 			if pf is PathFollow2D:
 				pf.paused = false
+	BpmManager.bpm = wave.bpm
 	wave_audio.play(audio_position)
 	audio_position = 0.0
-	BpmManager.bpm = curr_wave().bpm
 
 func clear_wave():
 	for c in waves_container.get_children():
@@ -270,11 +272,3 @@ func _on_level_change(idx: int, hp: int):
 	
 func update_wave_label():
 	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]
-
-func add_health_per_ammo(health: int, ammo: Dictionary) -> int:
-	var h = health
-	for f in ammo:
-		if ammo[f] > 0:
-			h += ammo[f]
-	return h
-	

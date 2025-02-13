@@ -77,3 +77,8 @@ Thoughts regarding this path:
 	- I have to reward players that manage to beat a wave by spending less resources than allocated. Maybe a star reward system, or maybe reward HP.
 
 But mostly, I have to consider - do I want to make a tight game, or do I want to create a casual game? Should the game be hard, in any way?
+
+## 14/2 1:29
+
+It seems that most stuff works, and the puzzles can be actually tough, which is nice. I have a bug with timings when pausing and unpausing on a wave
+that is never rendered compeltely once.
