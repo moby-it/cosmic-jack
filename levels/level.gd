@@ -38,14 +38,10 @@ func curr_wave() -> Wave:
 	return waves[curr_wave_idx]
 
 func _ready() -> void:
-	# create fruits HUD
-	Fruits.create_fruit_list_hud($FruitList)
-	Fruits.fruit_selected.connect(on_fruit_list_selected)
-	
 	level_completed.connect(on_level_completed)
 	health_depleted.connect(on_health_depleted)
 	
-	WaveHistory.add_wave(curr_wave_idx, health, Fruits.ammo)
+	WaveHistory.add_wave(curr_wave_idx, health)
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
 	health_count.text = str(health)
@@ -60,7 +56,8 @@ func _process(_delta: float) -> void:
 			return
 		else:
 			print("wave passed")
-			WaveHistory.add_wave(curr_wave_idx + 1, health, Fruits.ammo)
+			health = add_health_per_ammo(health, Fruits.ammo)
+			WaveHistory.add_wave(curr_wave_idx + 1, health)
 			curr_wave_idx += 1
 			print("wave completed")
 			create_wave(true)
@@ -161,10 +158,18 @@ func place_fruit(p: Vector2) -> void:
 
 
 func create_wave(preview: bool):
+	var wave = curr_wave()
+
 	update_wave_label()
 	clear_wave()
+		# create fruits HUD
+	if preview:
+		for c in $FruitList.get_children():
+			c.queue_free()
+		Fruits.create_fruit_list_hud($FruitList, wave)
+	
 	print("create wave %s, preview %s" % [curr_wave_idx, preview])
-	var wave = curr_wave()
+	print("create wave %s, preview %s" % [curr_wave_idx, preview])
 	round_status = ROUND_STATUS.PREVIEW if preview else ROUND_STATUS.RESOLVING
 	wave_audio.stream = load(wave.audio_track)
 	BpmManager.bpm = wave.bpm
@@ -261,15 +266,15 @@ func _on_level_change(idx: int, hp: int):
 	health = hp
 	health_count.text = str(hp)
 	curr_wave_idx = idx
-	# remove fruit list and recreate it
-	for c in $FruitList.get_children():
-		c.queue_free()
-	Fruits.create_fruit_list_hud($FruitList)
-	# clear fruits on play area
-	for c in get_tree().get_nodes_in_group("fruits"):
-		c.queue_free()
-	# recreate the fruit list
 	create_wave(true)
 	
 func update_wave_label():
 	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]
+
+func add_health_per_ammo(health: int, ammo: Dictionary) -> int:
+	var h = health
+	for f in ammo:
+		if ammo[f] > 0:
+			h += ammo[f]
+	return h
+	

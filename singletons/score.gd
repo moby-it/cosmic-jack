@@ -2,9 +2,15 @@ extends Node
 
 var hp_score_mod = 100
 
+var fruit_score = {
+	"apple": 40,
+	"watermelon": 10,
+	"cherries": 10
+}
+
 
 func calc_score(hp: int, ammo: Dictionary) -> int:
-	var fruit_score = 0
+	var fs = 0
 	for k in ammo:
-		fruit_score += ammo[k] * Fruits.fruit_score[k]
-	return (hp * hp_score_mod) + fruit_score
+		fs += ammo[k] * fruit_score[k]
+	return (hp * hp_score_mod) + fs
