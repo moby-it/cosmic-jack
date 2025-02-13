@@ -18,7 +18,6 @@ func _ready() -> void:
 	to_movable()
 
 func enemy_entered(a: Area2D) -> void:
-	print("enemy entered: %s" % Time.get_ticks_msec())
 	if a.get_parent().is_in_group("enemies") && not exploding:
 		exploding = true
 		explosive.start_explosion_timer(self)

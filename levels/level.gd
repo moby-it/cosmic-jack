@@ -216,7 +216,7 @@ func on_level_completed():
 	BpmManager.reset()
 	var level_won = load("res://level_won.tscn").instantiate()
 	level_won.hp = health
-	level_won.score = Utils.calc_score(health, Fruits.ammo)
+	level_won.score = Score.calc_score(health, Fruits.ammo)
 	SceneManager.change_scene.emit(level_won)
 
 func on_health_depleted():
@@ -254,6 +254,7 @@ func clear_wave():
 		beat_fns.clear()
 	BpmManager.reset()
 	ExplosionBus.enemies_exploded = {}
+
 func _on_level_change(idx: int, hp: int):
 	self.get_node("Menu").closed.emit()
 	clear_wave()
@@ -272,7 +273,3 @@ func _on_level_change(idx: int, hp: int):
 	
 func update_wave_label():
 	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]
-
-func select_random_enemy() -> Node2D:
-	var enemies = get_tree().get_nodes_in_group("enemies")
-	return enemies.pick_random()
