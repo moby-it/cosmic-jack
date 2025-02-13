@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm4jnb24t13gh"]
+
+[ext_resource type="Script" path="res://tutorial/tutorial.gd" id="1_nn21y"]
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_nn21y")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 76.0
+text = "Some tutorial"

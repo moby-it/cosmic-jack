@@ -32,7 +32,6 @@ var active_fruit: Node2D
 var active_fruit_name = "apple"
 var dragging_fruits = []
 var curr_wave_idx = 0
-var showing_tutorial = true
 var resolving_progres = 0
 
 func curr_wave() -> Wave:
@@ -43,11 +42,6 @@ func _ready() -> void:
 	Fruits.create_fruit_list_hud($FruitList)
 	Fruits.fruit_selected.connect(on_fruit_list_selected)
 	
-	# add tutorial
-	var tutorial = load("res://levels/tutorial.tscn").instantiate()
-	tutorial.closed.connect(on_tutorial_closed)
-	self.add_child(tutorial)
-	
 	level_completed.connect(on_level_completed)
 	health_depleted.connect(on_health_depleted)
 	
@@ -55,6 +49,7 @@ func _ready() -> void:
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
 	health_count.text = str(health)
+	create_wave(true)
 	
 func _process(_delta: float) -> void:
 	if health <= 0:
@@ -78,10 +73,6 @@ func all_convoys_rendered() -> bool:
 func no_rendered_pfs():
 	return waves_container.get_children().all(func(c): return c.get_node("Path2D").get_child_count() == 0)
 
-func on_tutorial_closed():
-	showing_tutorial = false
-	create_wave(true)
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Menu"):
 		var menu = self.get_node_or_null("Menu")
@@ -98,7 +89,7 @@ func _input(event: InputEvent) -> void:
 		return
 	if Input.is_key_pressed(KEY_CTRL) and is_instance_valid(active_fruit):
 		active_fruit.queue_free()
-	if not Input.is_key_pressed(KEY_CTRL) and not is_instance_valid(active_fruit) and not showing_tutorial:
+	if not Input.is_key_pressed(KEY_CTRL) and not is_instance_valid(active_fruit):
 		add_active_fruit()
 
 func on_fruit_list_selected(i: String) -> void:
@@ -120,7 +111,7 @@ func _on_resolve_button_down() -> void:
 
 # we are adding the active_fruit when the mouse enters the play area
 func _on_play_area_mouse_entered() -> void:
-	if not is_instance_valid(active_fruit) and not resolving and not showing_tutorial and Fruits.can_place_fruit(active_fruit_name):
+	if not is_instance_valid(active_fruit) and not resolving and Fruits.can_place_fruit(active_fruit_name):
 		active_fruit = Fruits.create_fruit(active_fruit_name)
 		active_fruit.modulate.a = 0.3
 		active_fruit.position = get_global_mouse_position()

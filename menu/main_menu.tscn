@@ -19,29 +19,41 @@ offset_bottom = 2160.0
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
+theme_override_constants/separation = 50
 
 [node name="RichTextLabel" type="RichTextLabel" parent="container/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=180]Cosmic Jack[/font_size]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="container/VBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-bbcode_enabled = true
-text = "[font_size=68]Cosmic Jack[/font_size]"
-fit_content = true
+theme_override_constants/separation = 20
 
-[node name="start" type="Button" parent="container/VBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
+[node name="start" type="Button" parent="container/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 5
 size_flags_vertical = 4
 text = "start"
 
-[node name="info" type="Button" parent="container/VBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
+[node name="tutorial" type="Button" parent="container/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 5
+size_flags_vertical = 4
+text = "tutorial
+"
+
+[node name="info" type="Button" parent="container/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
 size_flags_vertical = 4
 text = "info"
 
-[connection signal="button_down" from="container/VBoxContainer/start" to="." method="_on_start_button_down"]
-[connection signal="button_down" from="container/VBoxContainer/info" to="." method="_on_info_button_down"]
+[connection signal="button_down" from="container/VBoxContainer/VBoxContainer/start" to="." method="_on_start_button_down"]
+[connection signal="button_down" from="container/VBoxContainer/VBoxContainer/tutorial" to="." method="_on_tutorial_button_down"]
+[connection signal="button_down" from="container/VBoxContainer/VBoxContainer/info" to="." method="_on_info_button_down"]
