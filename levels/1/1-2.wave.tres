@@ -8,13 +8,13 @@
 
 [sub_resource type="Resource" id="Resource_pupxp"]
 script = ExtResource("1_ig3f2")
-apples = 0
+apples = 1
 watermelons = 2
 cherries = 1
 
 [sub_resource type="Resource" id="Resource_pdekj"]
 script = ExtResource("1_denl3")
-duration = 8
+duration = 12
 count = 4
 river = ExtResource("3_16iyf")
 enemy = ExtResource("2_n8nmf")

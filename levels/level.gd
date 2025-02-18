@@ -193,7 +193,6 @@ func create_wave(preview: bool):
 		waves_container.add_child(river_node)
 
 func add_enemy(convoy: Convoy, path: Path2D, preview: bool):
-	print("checking to add enemy %s" % Time.get_ticks_usec())
 	if path.get_child_count() + ExplosionBus.enemies_exploded[convoy.get_instance_id()] == convoy.count:
 		convoy.rendered = true
 		return
