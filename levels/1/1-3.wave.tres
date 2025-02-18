@@ -15,12 +15,13 @@ cherries = 0
 [sub_resource type="Resource" id="Resource_sbo23"]
 script = ExtResource("1_cuspu")
 duration = 24
-count = 8
+count = 4
 river = ExtResource("3_xxjqi")
 enemy = ExtResource("2_khpvr")
 
 [resource]
 script = ExtResource("3_87hvf")
+enabled = true
 convoys = Array[ExtResource("1_cuspu")]([SubResource("Resource_sbo23")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120

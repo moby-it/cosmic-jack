@@ -15,8 +15,9 @@ var round_status = ROUND_STATUS.PREVIEW
 var audio_position = 0.0
 func resolving():
 	return round_status == ROUND_STATUS.RESOLVING
-	
+
 @export var waves: Array[Wave]
+var active_waves: Array[Wave]
 @export var health = 3 
 
 @onready var play_area: ColorRect = $PlayArea
@@ -35,9 +36,10 @@ var curr_wave_idx = 0
 var resolving_progres = 0
 
 func curr_wave() -> Wave:
-	return waves[curr_wave_idx]
+	return active_waves[curr_wave_idx]
 
 func _ready() -> void:
+	active_waves = waves.filter(func(w): return w.enabled)
 	level_completed.connect(on_level_completed)
 	health_depleted.connect(on_health_depleted)
 	
@@ -51,7 +53,7 @@ func _process(_delta: float) -> void:
 	if health <= 0:
 		return
 	if round_status == ROUND_STATUS.RESOLVED:
-		if len(waves) == curr_wave_idx + 1:
+		if len(active_waves) == curr_wave_idx + 1:
 			level_completed.emit()
 			return
 		else:
