@@ -21,8 +21,8 @@ func _process(_delta: float) -> void:
 		next_beat_time += seconds_per_beat
 		time_to_next_beat = seconds_per_beat
 		beat += 1
-		print("on beat %s" % beat)
-		print("time %s" % time)
+		#print("on beat %s" % beat)
+		#print("time %s" % time)
 
 func reset():
 	bpm = 0

@@ -64,3 +64,35 @@ Managed to sync adequetly the beats of the song to both animations and fruit exp
 There's a weird issue with audio sync. Sometime the time delay works and sometimes it just ruins the sync. It makes sense to need the time delay, as per [docs](https://docs.godotengine.org/en/stable/tutorials/audio/sync_with_audio.html), but it does not work consistently.
 I introduced the cherry fruit. The goal of this fruit is to give a really fast trigger on watermelons, so that the player has another mechanic to trigger it.
 I fear that the enemies moving continously instead of discreetly makes the game increadibly more complex.
+
+## 13/2 - 20:24
+
+I did some basic playtesting with Panos and Nekti. It seems that the game is not entirely too hard for everyone. 
+For Nekti, an experienced puzzle-games player that was also a singer, the game seems pretty straightforward and rewarding! I can build on that.
+However, I do not want the game to be for experienced puzzle players with an affinity for music. I want the game to have a casual vibe and, potentially, have hidden gems for those who want to get better and improve.
+I'm working on a refactor so that each wave has a specific set of fruits available. This pushes the game in the puzzle-aspect more. It limits the possibility space. Makes the game more tight.
+
+Thoughts regarding this path:
+	- If the puzzles are to be tight, there has to be a hinting system 100%
+	- I have to reward players that manage to beat a wave by spending less resources than allocated. Maybe a star reward system, or maybe reward HP.
+
+But mostly, I have to consider - do I want to make a tight game, or do I want to create a casual game? Should the game be hard, in any way?
+
+## 14/2 1:29
+
+It seems that most stuff works, and the puzzles can be actually tough, which is nice. I have a bug with timings when pausing and unpausing on a wave
+that is never rendered compeltely once.
+
+## 20/2 12:29
+
+Wokring on wave design.
+Each wave should serve a purpose. I intend to create 10 waves for the prototype. Waves should also have "hacks". 
+A player can finish the wave with using less than suggested resources, rewarding a hidden score.
+1st wave is a simple apple puzzle.
+2nd is a harder apple puzzle.
+3rd introduces the watermelon, but CAN be solved with an apple, if placed correctly.
+4th level, you are forced to use a watermelon.
+5th level introduces chain-reaction watermelons.
+6th level introduces the cherry.
+7th level combines cherries with watermelons.
+8th, 9th, 10th should be challenges for the player.

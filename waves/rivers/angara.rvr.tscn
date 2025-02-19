@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://pbkvcll6ln1i"]
+
+[ext_resource type="PackedScene" uid="uid://bjcxaxlx6qt5e" path="res://levels/play_area.tscn" id="1_11soa"]
+
+[sub_resource type="Curve2D" id="Curve2D_g50po"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1227.45, -72.3711, 4, -214, -4, 214, 285.448, 362.629, -4, -366, 4, 366, 1556.45, 554.629, 0, 0, 0, 0, 668.448, 1220.63)
+}
+point_count = 4
+
+[node name="Angara" type="Node2D"]
+editor_description = "Relatively linear path, favors fast exlposives"
+
+[node name="Path2D" type="Path2D" parent="." groups=["paths"]]
+editor_description = "Duration 8 - Count 2 - can be solved by single apple"
+position = Vector2(250.552, 72.3711)
+curve = SubResource("Curve2D_g50po")
+
+[node name="PlayArea" parent="." instance=ExtResource("1_11soa")]
+z_index = -10
+metadata/_edit_lock_ = true

@@ -2,55 +2,50 @@ extends Node
 
 signal fruit_selected
 
-var fruits = ["apple","watermelon"]
-
 var available_fruits = {
 	"apple": preload("res://fruits/apple/apple.tscn"),
 	"watermelon": preload("res://fruits/watermelon/watermelon.tscn"),
-	"cherries": preload("res://fruits/cherries/cherries.tscn")
+	"cherry": preload("res://fruits/cherry/cherry.tscn")
 }
 var tooltips = {
 	"apple":"Explodes 4 beats after enemy touch.",
 	"watermelon":"Explodes 2 beat after an overlapping explosion.",
-	"cherries":"Explodes on next beat after enemy touch."
+	"cherry":"Explodes on next beat after enemy touch."
 }
 var available_fruits_png = {
 	"apple": preload("res://fruits/apple/apple.png"),
 	"watermelon": preload("res://fruits/watermelon/watermelon.png"),
-	"cherries": preload("res://fruits/cherries/cherries.png")
-}
-var initial_ammo = {
-	"apple": 2,
-	"watermelon": 2,
-	"cherries": 1
+	"cherry": preload("res://fruits/cherry/cherry.png")
 }
 
-var fruit_score = {
-	"apple": 40,
-	"watermelon": 10,
-	"cherries": 10
-}
-
-var ammo = initial_ammo
+var ammo = {}
 
 var ammo_labels = {}
 
-func create_fruit_list_hud(node: VBoxContainer):
+func create_fruit_list_hud(node: VBoxContainer, wave: Wave):
 	if not is_instance_valid(node):
 		return
+	ammo = wave.ammo.get_fruits()
+	print("creating new fruit list", ammo)
 	for key in available_fruits:
+		if not wave.ammo.get_fruits()[key]:
+			continue
 		var container = HBoxContainer.new()
 		container.add_theme_constant_override("separation", 20)
+		
+		# render fruit texture
 		var fruit = TextureRect.new()
 		fruit.texture = available_fruits_png[key]
 		fruit.gui_input.connect(func(event): if Utils.is_mouse_left(event): fruit_selected.emit(key))
 		container.add_child(fruit)
 		
+		# render ammo label
 		var label = Label.new()
-		label.text = str(ammo[key])
+		label.text = str(wave.ammo.get_fruits()[key])
 		ammo_labels[key] = label
 		container.add_child(label)
 		
+		# render tooltip
 		var tooltip = Label.new()
 		tooltip.text = tooltips[key]
 		tooltip.add_theme_font_size_override("font_size", 32)
@@ -76,10 +71,7 @@ func create_fruit(active_fruit_name: String) -> Node2D:
 	fruit.name = active_fruit_name
 	fruit.explosive.draw_explosive_radius(fruit)
 	return fruit
-
-func reset():
-	ammo = initial_ammo
-
+	
 func find_fruits_under_cursor() -> Array[Node]:
 	var placed_fruits = get_tree().get_nodes_in_group("fruits").filter(func (f): return f.hovered)
 	return placed_fruits

@@ -16,7 +16,6 @@ func _ready() -> void:
 
 # watermelon triggers on adjacent explosion
 func _on_explosion(fruit: Node, _enemies_killed) -> void:
-	print("enemy entered cherry")
 	var fruit_area: Area2D = fruit.get_node("ExplosiveRadius")
 	var exp_radius: Area2D = self.get_node("ExplosiveRadius")
 	if exp_radius.overlaps_area(fruit_area) && not exploding:

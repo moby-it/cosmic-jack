@@ -15,7 +15,7 @@ radius = 46.0
 [node name="Watermelon" type="Node2D" groups=["fruits"]]
 script = ExtResource("1_odd54")
 explosive = SubResource("Resource_db4lq")
-metadata/name = "watermelon"
+metadata/name = "watermelonFcan_place"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_c8x6t")

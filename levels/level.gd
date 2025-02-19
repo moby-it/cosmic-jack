@@ -15,8 +15,9 @@ var round_status = ROUND_STATUS.PREVIEW
 var audio_position = 0.0
 func resolving():
 	return round_status == ROUND_STATUS.RESOLVING
-	
+
 @export var waves: Array[Wave]
+var active_waves: Array[Wave]
 @export var health = 3 
 
 @onready var play_area: ColorRect = $PlayArea
@@ -35,17 +36,14 @@ var curr_wave_idx = 0
 var resolving_progres = 0
 
 func curr_wave() -> Wave:
-	return waves[curr_wave_idx]
+	return active_waves[curr_wave_idx]
 
 func _ready() -> void:
-	# create fruits HUD
-	Fruits.create_fruit_list_hud($FruitList)
-	Fruits.fruit_selected.connect(on_fruit_list_selected)
-	
+	active_waves = waves.filter(func(w): return w.enabled)
 	level_completed.connect(on_level_completed)
 	health_depleted.connect(on_health_depleted)
 	
-	WaveHistory.add_wave(curr_wave_idx, health, Fruits.ammo)
+	WaveHistory.add_wave(curr_wave_idx, health)
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
 	health_count.text = str(health)
@@ -55,23 +53,17 @@ func _process(_delta: float) -> void:
 	if health <= 0:
 		return
 	if round_status == ROUND_STATUS.RESOLVED:
-		if len(waves) == curr_wave_idx + 1:
+		if len(active_waves) == curr_wave_idx + 1:
 			level_completed.emit()
 			return
 		else:
 			print("wave passed")
-			WaveHistory.add_wave(curr_wave_idx + 1, health, Fruits.ammo)
+			WaveHistory.add_wave(curr_wave_idx + 1, health)
 			curr_wave_idx += 1
 			print("wave completed")
 			create_wave(true)
-	if resolving() and all_convoys_rendered() and no_rendered_pfs():
+	if resolving() and no_rendered_pfs():
 		round_status = ROUND_STATUS.RESOLVED
-
-func all_convoys_rendered() -> bool:
-	return curr_wave().convoys.all(func(c): return c.rendered)
-
-func no_rendered_pfs():
-	return waves_container.get_children().all(func(c): return c.get_node("Path2D").get_child_count() == 0)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Menu"):
@@ -105,8 +97,6 @@ func add_active_fruit():
 func _on_resolve_button_down() -> void:
 	if not resolving():
 		round_status = ROUND_STATUS.RESOLVING
-		for c in curr_wave().convoys:
-			c.rendered = false
 		create_wave(false)
 
 # we are adding the active_fruit when the mouse enters the play area
@@ -161,10 +151,19 @@ func place_fruit(p: Vector2) -> void:
 
 
 func create_wave(preview: bool):
+	var wave = curr_wave()
+
 	update_wave_label()
 	clear_wave()
+		# create fruits HUD
+	if preview:
+		for c in $FruitList.get_children():
+			c.queue_free()
+		Fruits.create_fruit_list_hud($FruitList, wave)
+		Fruits.fruit_selected.connect(on_fruit_list_selected)
+	
 	print("create wave %s, preview %s" % [curr_wave_idx, preview])
-	var wave = curr_wave()
+	print("create wave %s, preview %s" % [curr_wave_idx, preview])
 	round_status = ROUND_STATUS.PREVIEW if preview else ROUND_STATUS.RESOLVING
 	wave_audio.stream = load(wave.audio_track)
 	BpmManager.bpm = wave.bpm
@@ -177,30 +176,39 @@ func create_wave(preview: bool):
 	wave_audio.play()
 
 	for c in wave.convoys:
+		ExplosionBus.enemies_exploded[c.get_instance_id()] = 0
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
-		var beat_fn = func(_i: int): add_enemy(c, river, preview)
+		var beat_fn = func(i: int): 
+			var duration = largest_duration()
+			var remainder = i % duration if i >= duration else i
+			print("remainder: %s, count: %s" % [remainder, c.count])
+			if remainder < c.count:
+				return add_enemy_preview(c, river) if preview else add_enemy_resolve(c,river)
 		beat_fns.push_back(beat_fn)
 		BpmManager.on_beat.connect(beat_fn)
 		waves_container.add_child(river_node)
-
-func add_enemy(convoy: Convoy, path: Path2D, preview: bool):
-	if path.get_child_count() + ExplosionBus.enemies_exploded.size() == convoy.count:
-		convoy.rendered = true
-		return
-	if convoy.rendered and not preview:
-		return
-	convoy.rendered = false
+	
+func add_enemy_resolve(convoy: Convoy, path: Path2D):
 	var pf = PathFollow2D.new()
 	pf.set_script(load("res://waves/rivers/_river.gd"))
 	pf.duration = convoy.duration
 	var enemy: Node2D = convoy.enemy.instantiate()
 	enemy.queue_animation = true
-	if round_status == ROUND_STATUS.PREVIEW:
-		enemy.collision = false
-	else:
-		pf.enemy_passed.connect(enemy_passed)
-		pf.loop = false
+	enemy.convoy_id =  convoy.get_instance_id()
+	pf.enemy_passed.connect(enemy_passed)
+	pf.loop = false
+	pf.add_child(enemy)
+	path.add_child(pf)
+
+func add_enemy_preview(convoy: Convoy, path: Path2D):
+	var pf = PathFollow2D.new()
+	pf.set_script(load("res://waves/rivers/_river.gd"))
+	pf.duration = convoy.duration
+	var enemy: Node2D = convoy.enemy.instantiate()
+	enemy.queue_animation = true
+	enemy.convoy_id =  convoy.get_instance_id()
+	enemy.collision = false
 	pf.add_child(enemy)
 	path.add_child(pf)
 
@@ -215,8 +223,6 @@ func on_level_completed():
 	print("level completed!")
 	BpmManager.reset()
 	var level_won = load("res://level_won.tscn").instantiate()
-	level_won.hp = health
-	level_won.score = Score.calc_score(health, Fruits.ammo)
 	SceneManager.change_scene.emit(level_won)
 
 func on_health_depleted():
@@ -238,14 +244,23 @@ func stop_movement():
 
 func resume_movement():
 	var paths = get_tree().get_nodes_in_group("paths")
+	var wave = curr_wave()
 	for p in paths:
 		for pf in p.get_children():
 			if pf is PathFollow2D:
 				pf.paused = false
+	BpmManager.bpm = wave.bpm
 	wave_audio.play(audio_position)
 	audio_position = 0.0
-	BpmManager.bpm = curr_wave().bpm
 
+func _on_level_change(idx: int, hp: int):
+	self.get_node("Menu").closed.emit()
+	clear_wave()
+	health = hp
+	health_count.text = str(hp)
+	curr_wave_idx = idx
+	create_wave(true)
+	
 func clear_wave():
 	for c in waves_container.get_children():
 		c.queue_free()
@@ -255,21 +270,12 @@ func clear_wave():
 	BpmManager.reset()
 	ExplosionBus.enemies_exploded = {}
 
-func _on_level_change(idx: int, hp: int):
-	self.get_node("Menu").closed.emit()
-	clear_wave()
-	health = hp
-	health_count.text = str(hp)
-	curr_wave_idx = idx
-	# remove fruit list and recreate it
-	for c in $FruitList.get_children():
-		c.queue_free()
-	Fruits.create_fruit_list_hud($FruitList)
-	# clear fruits on play area
-	for c in get_tree().get_nodes_in_group("fruits"):
-		c.queue_free()
-	# recreate the fruit list
-	create_wave(true)
-	
 func update_wave_label():
 	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]
+
+func no_rendered_pfs():
+	return waves_container.get_children().all(func(c): return c.get_node("Path2D").get_child_count() == 0)
+
+func largest_duration() -> int:
+	return curr_wave().convoys.map(func(c): return c.duration).max()
+	
