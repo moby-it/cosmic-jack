@@ -26,3 +26,5 @@ convoys = Array[ExtResource("1_ug3o7")]([SubResource("Resource_8v38k")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120
 ammo = SubResource("Resource_553n7")
+goal = ""
+solution = ""

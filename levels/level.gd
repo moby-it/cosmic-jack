@@ -62,14 +62,8 @@ func _process(_delta: float) -> void:
 			curr_wave_idx += 1
 			print("wave completed")
 			create_wave(true)
-	if resolving() and all_convoys_rendered() and no_rendered_pfs():
+	if resolving() and no_rendered_pfs():
 		round_status = ROUND_STATUS.RESOLVED
-
-func all_convoys_rendered() -> bool:
-	return curr_wave().convoys.all(func(c): return c.rendered)
-
-func no_rendered_pfs():
-	return waves_container.get_children().all(func(c): return c.get_node("Path2D").get_child_count() == 0)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Menu"):
@@ -103,8 +97,6 @@ func add_active_fruit():
 func _on_resolve_button_down() -> void:
 	if not resolving():
 		round_status = ROUND_STATUS.RESOLVING
-		for c in curr_wave().convoys:
-			c.rendered = false
 		create_wave(false)
 
 # we are adding the active_fruit when the mouse enters the play area
@@ -187,29 +179,36 @@ func create_wave(preview: bool):
 		ExplosionBus.enemies_exploded[c.get_instance_id()] = 0
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
-		var beat_fn = func(_i: int): add_enemy(c, river, preview)
+		var beat_fn = func(i: int): 
+			var duration = largest_duration()
+			var remainder = i % duration if i >= duration else i
+			print("remainder: %s, count: %s" % [remainder, c.count])
+			if remainder < c.count:
+				return add_enemy_preview(c, river) if preview else add_enemy_resolve(c,river)
 		beat_fns.push_back(beat_fn)
 		BpmManager.on_beat.connect(beat_fn)
 		waves_container.add_child(river_node)
-
-func add_enemy(convoy: Convoy, path: Path2D, preview: bool):
-	if path.get_child_count() + ExplosionBus.enemies_exploded[convoy.get_instance_id()] == convoy.count:
-		convoy.rendered = true
-		return
-	if convoy.rendered and not preview:
-		return
-	convoy.rendered = false
+	
+func add_enemy_resolve(convoy: Convoy, path: Path2D):
 	var pf = PathFollow2D.new()
 	pf.set_script(load("res://waves/rivers/_river.gd"))
 	pf.duration = convoy.duration
 	var enemy: Node2D = convoy.enemy.instantiate()
 	enemy.queue_animation = true
 	enemy.convoy_id =  convoy.get_instance_id()
-	if round_status == ROUND_STATUS.PREVIEW:
-		enemy.collision = false
-	else:
-		pf.enemy_passed.connect(enemy_passed)
-		pf.loop = false
+	pf.enemy_passed.connect(enemy_passed)
+	pf.loop = false
+	pf.add_child(enemy)
+	path.add_child(pf)
+
+func add_enemy_preview(convoy: Convoy, path: Path2D):
+	var pf = PathFollow2D.new()
+	pf.set_script(load("res://waves/rivers/_river.gd"))
+	pf.duration = convoy.duration
+	var enemy: Node2D = convoy.enemy.instantiate()
+	enemy.queue_animation = true
+	enemy.convoy_id =  convoy.get_instance_id()
+	enemy.collision = false
 	pf.add_child(enemy)
 	path.add_child(pf)
 
@@ -254,6 +253,14 @@ func resume_movement():
 	wave_audio.play(audio_position)
 	audio_position = 0.0
 
+func _on_level_change(idx: int, hp: int):
+	self.get_node("Menu").closed.emit()
+	clear_wave()
+	health = hp
+	health_count.text = str(hp)
+	curr_wave_idx = idx
+	create_wave(true)
+	
 func clear_wave():
 	for c in waves_container.get_children():
 		c.queue_free()
@@ -263,13 +270,12 @@ func clear_wave():
 	BpmManager.reset()
 	ExplosionBus.enemies_exploded = {}
 
-func _on_level_change(idx: int, hp: int):
-	self.get_node("Menu").closed.emit()
-	clear_wave()
-	health = hp
-	health_count.text = str(hp)
-	curr_wave_idx = idx
-	create_wave(true)
-	
 func update_wave_label():
 	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]
+
+func no_rendered_pfs():
+	return waves_container.get_children().all(func(c): return c.get_node("Path2D").get_child_count() == 0)
+
+func largest_duration() -> int:
+	return curr_wave().convoys.map(func(c): return c.duration).max()
+	

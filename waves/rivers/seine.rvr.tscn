@@ -4,14 +4,15 @@
 
 [sub_resource type="Curve2D" id="Curve2D_7etg2"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1303.66, 41, 228.533, -210.224, -228.533, 210.224, 323.657, 299, 0, 0, 0, 0, 402.657, 1342)
+"points": PackedVector2Array(0, 0, 0, 0, 773, 25, 201.815, -94.1798, -201.815, 94.1798, 529, 328, 0, -237.133, 0, 237.133, -226, 659, -260.677, -97.5439, 260.677, 97.5439, 846, 1051, 0, 0, 0, 0, 1495, 1381)
 }
-point_count = 3
+point_count = 5
 
 [node name="Seine" type="Node2D"]
+editor_description = "Simple circular path. It's easy to kill many enemies with an apple on the circular pattern."
 
 [node name="Path2D" type="Path2D" parent="." groups=["paths"]]
-position = Vector2(377.343, -47)
+position = Vector2(1465, -47)
 curve = SubResource("Curve2D_7etg2")
 
 [node name="PlayArea" parent="." instance=ExtResource("1_47p6t")]

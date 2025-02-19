@@ -82,3 +82,17 @@ But mostly, I have to consider - do I want to make a tight game, or do I want to
 
 It seems that most stuff works, and the puzzles can be actually tough, which is nice. I have a bug with timings when pausing and unpausing on a wave
 that is never rendered compeltely once.
+
+## 20/2 12:29
+
+Wokring on wave design.
+Each wave should serve a purpose. I intend to create 10 waves for the prototype. Waves should also have "hacks". 
+A player can finish the wave with using less than suggested resources, rewarding a hidden score.
+1st wave is a simple apple puzzle.
+2nd is a harder apple puzzle.
+3rd introduces the watermelon, but CAN be solved with an apple, if placed correctly.
+4th level, you are forced to use a watermelon.
+5th level introduces chain-reaction watermelons.
+6th level introduces the cherry.
+7th level combines cherries with watermelons.
+8th, 9th, 10th should be challenges for the player.

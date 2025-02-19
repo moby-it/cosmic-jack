@@ -3,20 +3,20 @@
 [ext_resource type="Script" path="res://waves/_convoy.gd" id="1_denl3"]
 [ext_resource type="Script" path="res://waves/ammo.gd" id="1_ig3f2"]
 [ext_resource type="PackedScene" uid="uid://dy1ndkh3j6my7" path="res://enemies/croc/croc.tscn" id="2_n8nmf"]
-[ext_resource type="PackedScene" uid="uid://ctnw6hyjola0a" path="res://waves/rivers/seine.rvr.tscn" id="3_16iyf"]
 [ext_resource type="Script" path="res://waves/wave.gd" id="4_atpr4"]
+[ext_resource type="PackedScene" uid="uid://cyiqlvkw0lje4" path="res://waves/rivers/clyde.rvr.tscn" id="4_pxf1i"]
 
 [sub_resource type="Resource" id="Resource_pupxp"]
 script = ExtResource("1_ig3f2")
 apples = 1
-watermelons = 2
-cherries = 1
+watermelons = 1
+cherries = 0
 
 [sub_resource type="Resource" id="Resource_pdekj"]
 script = ExtResource("1_denl3")
-duration = 12
-count = 4
-river = ExtResource("3_16iyf")
+duration = 8
+count = 2
+river = ExtResource("4_pxf1i")
 enemy = ExtResource("2_n8nmf")
 
 [resource]
