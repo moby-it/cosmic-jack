@@ -96,3 +96,15 @@ A player can finish the wave with using less than suggested resources, rewarding
 6th level introduces the cherry.
 7th level combines cherries with watermelons.
 8th, 9th, 10th should be challenges for the player.
+
+## 20/2 16:00
+
+Working on wave design.
+1st introducing the apple - simple puzzle based on a circular movement.
+2nd challenge on apple - fast moving enemies that have a path in which they return to the trigger spot.
+3rd introducting watermelon - simple pattern that forces watermelon resolution.
+4th challenge on the watermelon - chain explosions with an apple as trigger.
+5th introducting the cherry - linear movement, simple puzzle.
+6th small challenge on cherry - enemies cross paths.
+7th cherry as watermelon activator
+8th, 9th, 10th, challenge levels

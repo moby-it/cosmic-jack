@@ -15,14 +15,14 @@ cherries = 0
 
 [sub_resource type="Resource" id="Resource_sbo23"]
 script = ExtResource("1_cuspu")
-duration = 24
+duration = 16
 count = 1
 river = ExtResource("4_jjpja")
 enemy = ExtResource("2_khpvr")
 
 [sub_resource type="Resource" id="Resource_c34hn"]
 script = ExtResource("1_cuspu")
-duration = 16
+duration = 8
 count = 2
 river = ExtResource("5_ktvlb")
 enemy = ExtResource("2_khpvr")
@@ -34,5 +34,5 @@ convoys = Array[ExtResource("1_cuspu")]([SubResource("Resource_sbo23"), SubResou
 audio_track = "res://levels/1/track1.wav"
 bpm = 120
 ammo = SubResource("Resource_0lca4")
-goal = ""
+goal = "introduce watermelon"
 solution = ""

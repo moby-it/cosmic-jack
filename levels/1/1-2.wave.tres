@@ -9,12 +9,12 @@
 [sub_resource type="Resource" id="Resource_pupxp"]
 script = ExtResource("1_ig3f2")
 apples = 1
-watermelons = 1
+watermelons = 0
 cherries = 0
 
 [sub_resource type="Resource" id="Resource_pdekj"]
 script = ExtResource("1_denl3")
-duration = 8
+duration = 10
 count = 2
 river = ExtResource("4_pxf1i")
 enemy = ExtResource("2_n8nmf")
@@ -26,5 +26,5 @@ convoys = Array[ExtResource("1_denl3")]([SubResource("Resource_pdekj")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120
 ammo = SubResource("Resource_pupxp")
-goal = ""
-solution = ""
+goal = "apple: distance and time"
+solution = "Placing the apple in a correct spot to solve this."

@@ -30,7 +30,7 @@ var active_waves: Array[Wave]
 var beat_fns = []
 
 var active_fruit: Node2D
-var active_fruit_name = "apple"
+var active_fruit_name: String
 var dragging_fruits = []
 var curr_wave_idx = 0
 var resolving_progres = 0
@@ -42,7 +42,7 @@ func _ready() -> void:
 	active_waves = waves.filter(func(w): return w.enabled)
 	level_completed.connect(on_level_completed)
 	health_depleted.connect(on_health_depleted)
-	
+	active_fruit_name = Fruits.find_first_fruit_with_ammo(curr_wave())
 	WaveHistory.add_wave(curr_wave_idx, health)
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
@@ -180,6 +180,7 @@ func create_wave(preview: bool):
 	wave_audio.play()
 
 	for c in wave.convoys:
+		c.rendered = false
 		ExplosionBus.enemies_exploded[c.get_instance_id()] = 0
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
@@ -195,8 +196,8 @@ func create_wave(preview: bool):
 		waves_container.add_child(river_node)
 	
 func add_enemy_resolve(convoy: Convoy, path: Path2D):
-	print("path child count %s" % path.get_child_count())
-	print("rendered %s" % convoy.rendered)
+	#print("path child count %s" % path.get_child_count())
+	#print("rendered %s" % convoy.rendered)
 	var pf = PathFollow2D.new()
 	pf.set_script(load("res://waves/rivers/_river.gd"))
 	pf.duration = convoy.duration
@@ -206,7 +207,7 @@ func add_enemy_resolve(convoy: Convoy, path: Path2D):
 	pf.enemy_passed.connect(enemy_passed)
 	pf.add_child(enemy)
 	path.add_child(pf)
-	if path.get_child_count() == convoy.count:
+	if path.get_child_count() + ExplosionBus.enemies_exploded[convoy.get_instance_id()] == convoy.count:
 		convoy.rendered = true
 
 func add_enemy_preview(convoy: Convoy, path: Path2D):

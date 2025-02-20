@@ -21,7 +21,7 @@ enemy = ExtResource("2_6g6j6")
 
 [resource]
 script = ExtResource("2_7fv10")
-enabled = false
+enabled = true
 convoys = Array[ExtResource("1_ug3o7")]([SubResource("Resource_8v38k")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120

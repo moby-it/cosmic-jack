@@ -2,17 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://bjcxaxlx6qt5e" path="res://levels/play_area.tscn" id="1_5a0yc"]
 
-[sub_resource type="Curve2D" id="Curve2D_7etg2"]
+[sub_resource type="Curve2D" id="Curve2D_0dq45"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 3464.66, 872, 204.648, 10.5946, -204.648, -10.5946, 3025.66, 240, 2.85288, -301.277, -2.85288, 301.277, 2578.66, 653, 2.03138, -187.138, -2.03138, 187.138, 3266.66, 1103, 224.76, -1.18921, -224.76, 1.18921, 2884.66, 1308, 305.125, 95.3515, -305.125, -95.3515, 1209.66, 1253, 222.965, -3.91451, -222.965, 3.91451, 71.657, 206, -1.12396, -228.392, 1.12396, 228.392, -161.343, 776, 0, 0, 0, 0, -107.343, 1346)
+"points": PackedVector2Array(0, 0, 0, 0, 922, -25, -410, -96, 410, 96, 1006, 647, 6, -312, -6, 312, 2972, 399, 0, 0, 0, 0, 1550, 1317)
 }
-point_count = 9
+point_count = 4
 
 [node name="Seine" type="Node2D"]
 
 [node name="Path2D" type="Path2D" parent="." groups=["paths"]]
-position = Vector2(377.343, -47)
-curve = SubResource("Curve2D_7etg2")
+curve = SubResource("Curve2D_0dq45")
 
 [node name="PlayArea" parent="." instance=ExtResource("1_5a0yc")]
-visible = false

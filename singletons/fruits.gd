@@ -22,6 +22,14 @@ var ammo = {}
 
 var ammo_labels = {}
 
+func find_first_fruit_with_ammo(wave: Wave):
+	var ammo = wave.ammo.get_fruits()
+	for k in ammo:
+		if ammo[k]:
+			return k
+	return null
+		
+
 func create_fruit_list_hud(node: VBoxContainer, wave: Wave):
 	if not is_instance_valid(node):
 		return

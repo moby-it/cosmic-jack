@@ -9,19 +9,22 @@
 [sub_resource type="Resource" id="Resource_3e5qf"]
 script = ExtResource("1_1mkqe")
 apples = 1
-watermelons = 2
-cherries = 1
+watermelons = 3
+cherries = 0
 
 [sub_resource type="Resource" id="Resource_sbo23"]
 script = ExtResource("1_4mtsd")
 duration = 16
-count = 4
+count = 12
 river = ExtResource("3_v051c")
 enemy = ExtResource("2_gtpgt")
 
 [resource]
 script = ExtResource("4_h5rd3")
+enabled = true
 convoys = Array[ExtResource("1_4mtsd")]([SubResource("Resource_sbo23")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120
 ammo = SubResource("Resource_3e5qf")
+goal = "watermelon chain reactions"
+solution = "Chain multiple explosions with 1 apple and multiple watermelons in order to solve this."
