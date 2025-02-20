@@ -50,20 +50,24 @@ func _ready() -> void:
 	create_wave(true)
 	
 func _process(_delta: float) -> void:
+	#print("all convoys rendered %s" % all_convoys_rendered())
+	#print("rendered_pfs_count %s" % rendered_pfs_count())
 	if health <= 0:
 		return
-	if round_status == ROUND_STATUS.RESOLVED:
-		if len(active_waves) == curr_wave_idx + 1:
-			level_completed.emit()
-			return
-		else:
-			print("wave passed")
-			WaveHistory.add_wave(curr_wave_idx + 1, health)
-			curr_wave_idx += 1
-			print("wave completed")
-			create_wave(true)
-	if resolving() and no_rendered_pfs():
-		round_status = ROUND_STATUS.RESOLVED
+	match round_status:
+		ROUND_STATUS.RESOLVED:
+			if len(active_waves) == curr_wave_idx + 1:
+				level_completed.emit()
+				return
+			else:
+				print("wave passed")
+				WaveHistory.add_wave(curr_wave_idx + 1, health)
+				curr_wave_idx += 1
+				print("wave completed")
+				create_wave(true)
+		ROUND_STATUS.RESOLVING:
+			if all_convoys_rendered() and rendered_pfs_count() == 0:
+				round_status = ROUND_STATUS.RESOLVED
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Menu"):
@@ -180,9 +184,10 @@ func create_wave(preview: bool):
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
 		var beat_fn = func(i: int): 
+			if c.rendered: 
+				return
 			var duration = largest_duration()
 			var remainder = i % duration if i >= duration else i
-			print("remainder: %s, count: %s" % [remainder, c.count])
 			if remainder < c.count:
 				return add_enemy_preview(c, river) if preview else add_enemy_resolve(c,river)
 		beat_fns.push_back(beat_fn)
@@ -190,6 +195,8 @@ func create_wave(preview: bool):
 		waves_container.add_child(river_node)
 	
 func add_enemy_resolve(convoy: Convoy, path: Path2D):
+	print("path child count %s" % path.get_child_count())
+	print("rendered %s" % convoy.rendered)
 	var pf = PathFollow2D.new()
 	pf.set_script(load("res://waves/rivers/_river.gd"))
 	pf.duration = convoy.duration
@@ -197,9 +204,10 @@ func add_enemy_resolve(convoy: Convoy, path: Path2D):
 	enemy.queue_animation = true
 	enemy.convoy_id =  convoy.get_instance_id()
 	pf.enemy_passed.connect(enemy_passed)
-	pf.loop = false
 	pf.add_child(enemy)
 	path.add_child(pf)
+	if path.get_child_count() == convoy.count:
+		convoy.rendered = true
 
 func add_enemy_preview(convoy: Convoy, path: Path2D):
 	var pf = PathFollow2D.new()
@@ -273,9 +281,11 @@ func clear_wave():
 func update_wave_label():
 	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]
 
-func no_rendered_pfs():
-	return waves_container.get_children().all(func(c): return c.get_node("Path2D").get_child_count() == 0)
+func rendered_pfs_count() -> int:
+	return waves_container.get_children().reduce(func(acc, c): return acc + c.get_node("Path2D").get_child_count(), 0)
 
 func largest_duration() -> int:
 	return curr_wave().convoys.map(func(c): return c.duration).max()
 	
+func all_convoys_rendered() -> bool:
+	return curr_wave().convoys.all(func(c): return c.rendered)

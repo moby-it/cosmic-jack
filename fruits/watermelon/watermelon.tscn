@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_db4lq"]
 script = ExtResource("2_mfnav")
-radius = 250.0
+radius = 300.0
 detonation_delay = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qd3wy"]

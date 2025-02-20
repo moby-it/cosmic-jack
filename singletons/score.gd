@@ -1,4 +1,3 @@
 extends Node
 
-func calc_score() -> int:
-	return 100
+var score = 0
