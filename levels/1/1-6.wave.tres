@@ -29,6 +29,9 @@ enemy = ExtResource("3_8ybl5")
 
 [resource]
 script = ExtResource("5_od0hx")
+title = "Wave Title"
+subtitle = "Waves subtite"
+description = "Wave Description"
 enabled = true
 convoys = Array[ExtResource("2_tmjem")]([SubResource("Resource_ynjn3"), SubResource("Resource_6c62t")])
 audio_track = "res://levels/1/track1.wav"

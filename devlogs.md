@@ -108,3 +108,12 @@ Working on wave design.
 6th small challenge on cherry - enemies cross paths.
 7th cherry as watermelon activator
 8th, 9th, 10th, challenge levels
+
+## 21/2 12:25
+
+It's getting better. 
+I added a wave intro screen. Seems to work fine. However, the issue is that a music track is tied to a wave, meaning that it starts abruptly after you close the wave announcer.
+We could do multiple things here - we can consider adding a separate song for each wave. I think it would be awesome to have each wave song split into layers. I want to give
+hints in coordination with fruits.
+For example, drum 'n' bass could mean that the level can be solved exclusively with apples. Drum 'n' bass + guitar could mean that the watermelon is mandatory.
+In addition, if everything is split into phrases, I can mix & match phrases more easily.
