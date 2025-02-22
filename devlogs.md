@@ -117,3 +117,11 @@ We could do multiple things here - we can consider adding a separate song for ea
 hints in coordination with fruits.
 For example, drum 'n' bass could mean that the level can be solved exclusively with apples. Drum 'n' bass + guitar could mean that the watermelon is mandatory.
 In addition, if everything is split into phrases, I can mix & match phrases more easily.
+
+## 22/2 20:08
+
+I intend to make the following loop in the 1st leveld design:
+	- teach something new
+	- challenge the player with it
+The 1st 6 levels are of the above pattern. The last 3 levels have to challenge the player.
+7th level idea - chain explosion reactions, that get triggered by a cherry. Try to add an apple, just to mess with the player.

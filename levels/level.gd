@@ -190,7 +190,9 @@ func create_wave(preview: bool):
 			print("beat %s" % i)
 			print("remainder %s" % remainder)
 			print("count %s" % c.count)
-			if remainder < c.count:
+			print("delay %s" % c.delay)
+			var adjusted_remaidner = remainder - c.delay
+			if adjusted_remaidner >= 0 and adjusted_remaidner < c.count:
 				return add_enemy_preview(c, river) if preview else add_enemy_resolve(c,river)
 		beat_fns.push_back(beat_fn)
 		BpmManager.on_beat.connect(beat_fn)
@@ -246,8 +248,9 @@ func on_wave_completed():
 	show_announcer()
 
 func on_health_depleted():
-	var menu: Node2D = load("res://menu/in_game_menu.tscn").instantiate()
+	var menu = load("res://menu/in_game_menu.tscn").instantiate()
 	menu.name = "Menu"
+	menu.get_node("ColorRect/VBoxContainer/Label").text = "Wave Lost!"
 	menu.get_node("ColorRect").get_node("CloseMenu").queue_free()
 	clear_wave()
 	self.add_child(menu)
@@ -293,7 +296,7 @@ func clear_wave():
 	ExplosionBus.enemies_exploded = {}
 
 func update_wave_label():
-	wave_no.text = "Wave \n %s - %s" % [self.get_parent().name, curr_wave_idx + 1]
+	wave_no.text = curr_wave().title
 
 func rendered_pfs_count() -> int:
 	return waves_container.get_children().reduce(func(acc, c): return acc + c.get_node("Path2D").get_child_count(), 0)
@@ -320,6 +323,8 @@ func show_announcer():
 	self.add_child(wave_announcer)
 
 func hide_announcer():
+	if not is_instance_valid(wave_announcer):
+		return
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_LINEAR)

@@ -16,18 +16,19 @@ cherries = 0
 script = ExtResource("1_ug3o7")
 duration = 16
 count = 4
+delay = 0
 river = ExtResource("3_56xl0")
 enemy = ExtResource("2_6g6j6")
 
 [resource]
 script = ExtResource("2_7fv10")
+enabled = false
 title = "Wave 1-1"
-subtitle = "Apples"
-description = "Lorem ipsum dolor"
-enabled = true
+subtitle = "Apple Story"
+description = "Apples explode after 4 beats of enemy contact."
 convoys = Array[ExtResource("1_ug3o7")]([SubResource("Resource_8v38k")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120
 ammo = SubResource("Resource_553n7")
-goal = ""
-solution = ""
+goal = "Introduce apples"
+solution = "Place an apple at a circular path point"

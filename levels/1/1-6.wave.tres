@@ -17,6 +17,7 @@ cherries = 2
 script = ExtResource("2_tmjem")
 duration = 8
 count = 2
+delay = 0
 river = ExtResource("4_iwfoq")
 enemy = ExtResource("3_8ybl5")
 
@@ -24,15 +25,16 @@ enemy = ExtResource("3_8ybl5")
 script = ExtResource("2_tmjem")
 duration = 8
 count = 2
+delay = 0
 river = ExtResource("5_1hwqd")
 enemy = ExtResource("3_8ybl5")
 
 [resource]
 script = ExtResource("5_od0hx")
-title = "Wave Title"
-subtitle = "Waves subtite"
-description = "Wave Description"
-enabled = true
+enabled = false
+title = "Wave 1-6"
+subtitle = "Crossroads"
+description = ""
 convoys = Array[ExtResource("2_tmjem")]([SubResource("Resource_ynjn3"), SubResource("Resource_6c62t")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120

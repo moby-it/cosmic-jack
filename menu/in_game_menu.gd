@@ -1,8 +1,8 @@
-extends Node2D
+extends Control
 
 signal closed
 
-@onready var container = $ColorRect/History
+@onready var container = $ColorRect/VBoxContainer/History
 
 func _ready() -> void:
 	closed.connect(func(): self.queue_free())

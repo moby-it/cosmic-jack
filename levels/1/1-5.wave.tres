@@ -16,15 +16,16 @@ cherries = 4
 script = ExtResource("1_6mvc1")
 duration = 8
 count = 4
+delay = 0
 river = ExtResource("4_1763f")
 enemy = ExtResource("2_ue14f")
 
 [resource]
 script = ExtResource("4_m4nau")
-title = "Wave Title"
-subtitle = "Waves subtite"
-description = "Wave Description"
-enabled = true
+enabled = false
+title = "Wave 1-5"
+subtitle = "Cherry on top"
+description = "Cherries explode immidiately after enemy touch."
 convoys = Array[ExtResource("1_6mvc1")]([SubResource("Resource_ynjn3")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120
