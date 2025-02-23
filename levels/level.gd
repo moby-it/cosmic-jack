@@ -64,7 +64,9 @@ func _ready() -> void:
 	wave_completed.connect(on_wave_completed)
 	health_depleted.connect(on_health_depleted)
 	active_fruit_name = Fruits.find_first_fruit_with_ammo(curr_wave())
-	WaveHistory.add_wave(curr_wave_idx, health, curr_wave())
+	for w in active_waves:
+		WaveHistory.add_wave(1, health, w)
+	#WaveHistory.add_wave(curr_wave_idx, health, curr_wave())
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
 	health_count.text = str(health)
@@ -270,7 +272,7 @@ func on_health_depleted():
 		return
 	menu = load("res://menu/in_game_menu.tscn").instantiate()
 	menu.name = "Menu"
-	menu.get_node("ColorRect/VBoxContainer/MarginContainer/Label").text = "Wave Lost!"
+	menu.get_node("ColorRect/MarginContainer/VBoxContainer/Label").text = "Wave Lost!"
 	menu.get_node("ColorRect").get_node("CloseMenu").queue_free()
 	clear_wave()
 	self.add_child(menu)
@@ -282,11 +284,13 @@ func _on_level_change(idx: int, hp: int):
 	if menu:
 		menu.closed.emit()
 	clear_wave()
+	
 	health = hp
 	health_count.text = str(hp)
 	curr_wave_idx = idx
 	show_announcer()
-	
+
+## clears enemies enemies from screen, and associated structures
 func clear_wave():
 	for c in waves_container.get_children():
 		c.queue_free()
@@ -294,6 +298,12 @@ func clear_wave():
 		AudioManager.on_beat.disconnect(f)
 	beat_fns.clear()
 	ExplosionBus.enemies_exploded = {}
+
+## removes all fruits from the play area
+func clear_fruits():
+	var fruits = self.get_tree().get_nodes_in_group("fruits")
+	for f in fruits:
+		f.queue_free()
 
 func update_wave_label():
 	wave_no.text = curr_wave().title
@@ -310,6 +320,7 @@ func all_convoys_rendered() -> bool:
 func show_announcer():
 	if is_instance_valid(wave_announcer):
 		return
+	clear_fruits()
 	var wave = curr_wave()
 	wave_announcer = load("res://levels/wave_announcer.tscn").instantiate()
 	wave_announcer.get_node("VBoxContainer/Title").text = wave.title

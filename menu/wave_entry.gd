@@ -8,9 +8,9 @@ extends VBoxContainer
 
 func _ready() -> void:
 	var title = create_label(wave.title)
-	title.add_theme_font_size_override("font_size", 62)
+	title.add_theme_font_size_override("font_size", 48)
 	var subtitle = create_label(wave.subtitle)
-	subtitle.add_theme_font_size_override("font_size", 48)
+	subtitle.add_theme_font_size_override("font_size", 32)
 	container.add_child(title)
 	#container.add_child(subtitle)
 	#container.add_child(create_label("hp: %s" % hp))

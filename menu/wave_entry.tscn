@@ -31,7 +31,7 @@ theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 140
 
 [node name="WaveProps" type="VBoxContainer" parent="Panel/MarginContainer"]
-custom_minimum_size = Vector2(500, 300)
+custom_minimum_size = Vector2(400, 200)
 layout_mode = 2
 
 [node name="Retry" type="Button" parent="."]

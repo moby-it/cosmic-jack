@@ -23,8 +23,8 @@ enemy = ExtResource("2_ue14f")
 [resource]
 script = ExtResource("4_m4nau")
 enabled = true
-title = "1-5: With a cherry on top"
-subtitle = "Cherries explode immidiately after enemy touch."
+title = "1-4: With a cherry on top"
+subtitle = ""
 description = "Ammo: 4 cherries"
 convoys = Array[ExtResource("1_6mvc1")]([SubResource("Resource_ynjn3")])
 bpm = 120

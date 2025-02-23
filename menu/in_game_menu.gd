@@ -2,7 +2,7 @@ extends Control
 
 signal closed
 
-@onready var container = $ColorRect/VBoxContainer/MarginContainer/History
+@onready var container = $ColorRect/MarginContainer/VBoxContainer/History
 
 func _ready() -> void:
 	closed.connect(func(): self.queue_free())
