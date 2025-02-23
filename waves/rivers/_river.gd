@@ -10,7 +10,7 @@ func _ready() -> void:
 	
 func _process(delta):
 	if not paused:
-		progress_ratio += delta / (duration * BpmManager.seconds_per_beat)
+		progress_ratio += delta / (duration * AudioManager.seconds_per_beat)
 		if progress_ratio >= 1.0:
 			enemy_passed.emit()
 			queue_free()

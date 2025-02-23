@@ -12,6 +12,8 @@ signal on_beat
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	if not bpm:
+		return
 	var time = (Time.get_ticks_usec() - time_begin) / 1000000.0 
 	time -= time_delay # it seems that the time delay is not needed
 	time_to_next_beat = next_beat_time - time

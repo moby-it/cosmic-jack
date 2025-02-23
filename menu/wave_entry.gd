@@ -18,6 +18,7 @@ func _ready() -> void:
 func create_label(text: String):
 	var l = Label.new()
 	l.text = text
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	return l
 
 func _on_retry_gui_input(event: InputEvent) -> void:

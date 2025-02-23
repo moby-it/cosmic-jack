@@ -11,7 +11,8 @@ var timer: Timer
 
 func draw_explosive_radius(node: Node2D) -> void:
 	_add_explosive_radius(node, radius)
-	node.draw_circle(node.get_node("Sprite2D").position, radius, border_color, false, border_width)
+	# issue with drawing outside of the draw function. consider how to rewrite this
+	node.draw_circle(node.get_node("Sprite2D").position, radius, border_color, false, border_width) 
 
 func start_explosion_timer(node: Node2D) -> void:
 	if detonation_delay == 0:
@@ -19,7 +20,7 @@ func start_explosion_timer(node: Node2D) -> void:
 		explode(node)
 		return
 	# delay is always in sync with bpm
-	# var delay = (detonation_delay * BpmManager.seconds_per_beat) # remove time_to_next_beat when the movement is disrete
+	# var delay = (detonation_delay * AudioManager.seconds_per_beat) # remove time_to_next_beat when the movement is disrete
 	var detonation_timer: Node2D = load("res://fruits/detonation_timer.tscn").instantiate()
 	detonation_timer.duration = detonation_delay
 	detonation_timer.timeout.connect(explode.bind(node))

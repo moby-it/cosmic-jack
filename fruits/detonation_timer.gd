@@ -7,7 +7,7 @@ var duration = 2.0
 
 func _ready() -> void:
 	label.text = str(int(duration))
-	BpmManager.on_beat.connect(_on_beat)
+	AudioManager.on_beat.connect(_on_beat)
 
 func _on_beat(_i: int):
 		duration -= 1

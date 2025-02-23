@@ -1,34 +1,42 @@
-[gd_resource type="Resource" script_class="Wave" load_steps=8 format=3 uid="uid://gm6rx4ol8qlt"]
+[gd_resource type="Resource" script_class="Wave" load_steps=10 format=3 uid="uid://c7rsdvfn0u5jx"]
 
 [ext_resource type="Script" path="res://waves/_convoy.gd" id="1_6mvc1"]
 [ext_resource type="Script" path="res://waves/ammo.gd" id="1_ycvf0"]
 [ext_resource type="PackedScene" uid="uid://dy1ndkh3j6my7" path="res://enemies/croc/croc.tscn" id="2_ue14f"]
-[ext_resource type="PackedScene" uid="uid://dtfdakxf28tdi" path="res://waves/rivers/yangtze.rvr.tscn" id="4_1763f"]
 [ext_resource type="Script" path="res://waves/wave.gd" id="4_m4nau"]
+[ext_resource type="PackedScene" uid="uid://cjqqey5j73cdp" path="res://waves/rivers/lena.rvr.tscn" id="4_pof7r"]
+[ext_resource type="PackedScene" uid="uid://drdlqpkffy44y" path="res://waves/rivers/amur.rvr.tscn" id="5_a4eoi"]
 
 [sub_resource type="Resource" id="Resource_osxrm"]
 script = ExtResource("1_ycvf0")
-apples = 0
+apples = 1
 watermelons = 0
-cherries = 4
+cherries = 2
 
 [sub_resource type="Resource" id="Resource_ynjn3"]
 script = ExtResource("1_6mvc1")
 duration = 8
-count = 4
+count = 2
 delay = 0
-river = ExtResource("4_1763f")
+river = ExtResource("4_pof7r")
+enemy = ExtResource("2_ue14f")
+
+[sub_resource type="Resource" id="Resource_6c62t"]
+script = ExtResource("1_6mvc1")
+duration = 8
+count = 2
+delay = 0
+river = ExtResource("5_a4eoi")
 enemy = ExtResource("2_ue14f")
 
 [resource]
 script = ExtResource("4_m4nau")
 enabled = true
-title = "1-5: With a cherry on top"
-subtitle = "Cherries explode immidiately after enemy touch."
-description = "Ammo: 4 cherries"
-convoys = Array[ExtResource("1_6mvc1")]([SubResource("Resource_ynjn3")])
-audio_track = "res://levels/1/track1.wav"
+title = "1-6: Crossroads"
+subtitle = ""
+description = "Ammo: 1 apple, 1 cherry"
+convoys = Array[ExtResource("1_6mvc1")]([SubResource("Resource_ynjn3"), SubResource("Resource_6c62t")])
 bpm = 120
 ammo = SubResource("Resource_osxrm")
-goal = "introduce cherries"
+goal = "cherry intesection"
 solution = "cherries explode immediately on enemy touch"

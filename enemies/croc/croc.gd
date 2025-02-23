@@ -19,8 +19,8 @@ func _ready() -> void:
 
 func create_animation():
 	tween = self.create_tween().set_loops()
-	tween.tween_property(self, "scale", Vector2(1.2, 1.2), BpmManager.seconds_per_beat / 2).set_trans(Tween.TRANS_QUINT)
-	tween.tween_property(self, "scale", Vector2(1, 1), BpmManager.seconds_per_beat / 2).set_trans(Tween.TRANS_QUINT)
+	tween.tween_property(self, "scale", Vector2(1.2, 1.2), AudioManager.seconds_per_beat / 2).set_trans(Tween.TRANS_QUINT)
+	tween.tween_property(self, "scale", Vector2(1, 1), AudioManager.seconds_per_beat / 2).set_trans(Tween.TRANS_QUINT)
 	tween.bind_node(self)
 
 func disable_collision():

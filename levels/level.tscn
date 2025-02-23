@@ -99,54 +99,7 @@ text = "Wave 1-1"
 
 [node name="WaveAudio" type="AudioStreamPlayer" parent="."]
 
-[node name="WaveAnnouncer" type="Control" parent="."]
-visible = false
-z_index = 20
-layout_mode = 3
-anchors_preset = 0
-offset_right = 3840.0
-offset_bottom = 2160.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="WaveAnnouncer"]
-custom_minimum_size = Vector2(1920, 1080)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 30
-
-[node name="Title" type="Label" parent="WaveAnnouncer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 96
-text = "Wave 1 -1"
-
-[node name="Subtitle" type="Label" parent="WaveAnnouncer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.450648, 0.450648, 0.450648, 1)
-text = "An apple"
-
-[node name="Description" type="Label" parent="WaveAnnouncer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.714212, 0.714212, 0.714212, 1)
-text = "Lorem ipsum dolor"
-
-[node name="ColorRect" type="ColorRect" parent="WaveAnnouncer"]
-z_index = -1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.705882)
-
 [connection signal="gui_input" from="PlayArea" to="." method="_on_play_area_gui_input"]
 [connection signal="mouse_entered" from="PlayArea" to="." method="_on_play_area_mouse_entered"]
 [connection signal="mouse_exited" from="PlayArea" to="." method="_on_play_area_mouse_exited"]
 [connection signal="button_down" from="Resolve" to="." method="_on_resolve_button_down"]
-[connection signal="gui_input" from="WaveAnnouncer" to="." method="_on_wave_announcer_gui_input"]

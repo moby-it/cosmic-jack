@@ -36,7 +36,6 @@ title = "1-3: Spina"
 subtitle = "Watermelon explode 2 beats after an overlapping explosion."
 description = "Ammo: 1 apple, 1 watermelon"
 convoys = Array[ExtResource("1_cuspu")]([SubResource("Resource_sbo23"), SubResource("Resource_c34hn")])
-audio_track = "res://levels/1/track1.wav"
 bpm = 120
 ammo = SubResource("Resource_0lca4")
 goal = "introduce watermelon"
