@@ -125,3 +125,13 @@ I intend to make the following loop in the 1st leveld design:
 	- challenge the player with it
 The 1st 6 levels are of the above pattern. The last 3 levels have to challenge the player.
 7th level idea - chain explosion reactions, that get triggered by a cherry. Try to add an apple, just to mess with the player.
+
+## 23/2 21:00
+
+- Refactor audio: each level has a continous song that does not stop on user input.
+- You can restart the preview pressing R
+- Added wave titles and description
+
+Consider if you're going to carry over unused ammo on next levels. This will decrease the difficulty of the latest levels, giving players choices earlier on
+that impact later levels. I think this is a must. To do that I need to:
+	- restore the functionalities of saving ammo per wave and restoring it when backtracking.
