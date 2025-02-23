@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://b5ysse882du7i"]
 
 [node name="WaveAnnouncer" type="Control"]
-visible = false
 z_index = 20
 layout_mode = 3
 anchors_preset = 0
@@ -28,7 +27,7 @@ text = "Wave 1 -1"
 [node name="Subtitle" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.450648, 0.450648, 0.450648, 1)
-text = "An apple"
+text = "Wave subtitle"
 
 [node name="Description" type="Label" parent="VBoxContainer"]
 layout_mode = 2

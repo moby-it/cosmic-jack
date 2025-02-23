@@ -10,19 +10,16 @@ func _process(delta: float) -> void:
 		t.autostart = true
 		t.wait_time = 3
 		t.one_shot = true
-		t.timeout.connect(_on_logo_timer_end)
+		t.timeout.connect(go_to_menu)
 		self.get_parent().add_child(t)
 
 func _on_timer_timeout() -> void:
 	show_logo = true
 
-func _on_logo_timer_end():
-	var n = load("res://menu/welcome.tscn").instantiate()
-	SceneManager.change_scene.emit(n)
-	
-
-
 func _on_color_rect_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		var n = load("res://menu/main_menu.tscn")
-		SceneManager.change_scene.emit(n)
+		go_to_menu()
+
+func go_to_menu():
+	var n = load("res://menu/main_menu.tscn").instantiate()
+	SceneManager.change_scene.emit(n)

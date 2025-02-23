@@ -20,7 +20,7 @@ func _process(_delta: float) -> void:
 		if not paused:
 			on_beat.emit(beat)
 			beat += 1
-			print("on beat %s" % beat)
+			#print("on beat %s" % beat)
 		next_beat_time += seconds_per_beat
 		time_to_next_beat = seconds_per_beat
 		#print("time %s" % time)

@@ -22,10 +22,10 @@ enemy = ExtResource("2_6g6j6")
 
 [resource]
 script = ExtResource("2_7fv10")
-enabled = false
-title = "Wave 1-1"
-subtitle = "Apple Story"
-description = "Apples explode after 4 beats of enemy contact."
+enabled = true
+title = "1-1: Apple Story"
+subtitle = "Apples explode after 4 beats of enemy contact."
+description = "Ammo: 1 apple"
 convoys = Array[ExtResource("1_ug3o7")]([SubResource("Resource_8v38k")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120

@@ -22,10 +22,10 @@ enemy = ExtResource("2_gtpgt")
 
 [resource]
 script = ExtResource("4_h5rd3")
-enabled = false
-title = "Wave 1-4"
-subtitle = "Domino"
-description = " Can we pretend that fruits in the night sky are like shooting stars?"
+enabled = true
+title = "1-4: Domino"
+subtitle = "Can we pretend that fruits in the night sky are like shooting stars?"
+description = "Ammo: 1 apple, 3 watermelon"
 convoys = Array[ExtResource("1_4mtsd")]([SubResource("Resource_sbo23")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120

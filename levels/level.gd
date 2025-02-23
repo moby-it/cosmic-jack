@@ -171,7 +171,7 @@ func create_wave(preview: bool):
 	# wire up wave completed for non preview
 	if not preview:
 		var wave_completed_fn = func(i: int):
-			if all_convoys_rendered() and rendered_pfs_count() == 0:
+			if all_convoys_rendered() and rendered_pfs_count() == 0 and health > 0:
 				wave_completed.emit()
 				BpmManager.reset()
 		BpmManager.on_beat.connect(wave_completed_fn)

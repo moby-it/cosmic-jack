@@ -50,9 +50,9 @@ enemy = ExtResource("3_wr6lf")
 [resource]
 script = ExtResource("6_scj3i")
 enabled = true
-title = "Wave 1-7"
-subtitle = "Fruitopia Explodium"
-description = ""
+title = "1-7: Fruitopia Explodium"
+subtitle = "Apples or Watermelons?"
+description = "Ammo: 1 apple, 3 watermelons, 1 cherry"
 convoys = Array[ExtResource("2_yam5t")]([SubResource("Resource_ynjn3"), SubResource("Resource_qappp"), SubResource("Resource_pw26j"), SubResource("Resource_wx6cg")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120

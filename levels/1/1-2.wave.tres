@@ -22,10 +22,10 @@ enemy = ExtResource("2_n8nmf")
 
 [resource]
 script = ExtResource("4_atpr4")
-enabled = false
-title = "Wave 1-2"
-subtitle = "Speeduo"
-description = "Try to find the optimal spot to elimiate enemies at the same time"
+enabled = true
+title = "1-2 - Speeduo"
+subtitle = "Try to find the optimal spot to elimiate enemies at the same time."
+description = "Ammo: 1 apple"
 convoys = Array[ExtResource("1_denl3")]([SubResource("Resource_pdekj")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120

@@ -18,13 +18,19 @@ theme_override_constants/separation = 30
 script = ExtResource("1_ish8f")
 
 [node name="Panel" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(500, 600)
+custom_minimum_size = Vector2(500, 300)
 layout_mode = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_qkbhk")
 
-[node name="WaveProps" type="VBoxContainer" parent="Panel"]
-custom_minimum_size = Vector2(300, 400)
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 140
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 140
+
+[node name="WaveProps" type="VBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6

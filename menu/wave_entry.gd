@@ -4,7 +4,7 @@ extends VBoxContainer
 @export var index: int
 @export var hp: int = 0
 
-@onready var container = $Panel/WaveProps
+@onready var container = $Panel/MarginContainer/WaveProps
 
 func _ready() -> void:
 	var title = create_label(wave.title)
@@ -12,7 +12,7 @@ func _ready() -> void:
 	var subtitle = create_label(wave.subtitle)
 	subtitle.add_theme_font_size_override("font_size", 48)
 	container.add_child(title)
-	container.add_child(subtitle)
+	#container.add_child(subtitle)
 	#container.add_child(create_label("hp: %s" % hp))
 
 func create_label(text: String):
