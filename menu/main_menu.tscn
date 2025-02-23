@@ -48,12 +48,5 @@ size_flags_vertical = 4
 text = "tutorial
 "
 
-[node name="info" type="Button" parent="container/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 5
-size_flags_vertical = 4
-text = "info"
-
 [connection signal="button_down" from="container/VBoxContainer/VBoxContainer/start" to="." method="_on_start_button_down"]
 [connection signal="button_down" from="container/VBoxContainer/VBoxContainer/tutorial" to="." method="_on_tutorial_button_down"]
-[connection signal="button_down" from="container/VBoxContainer/VBoxContainer/info" to="." method="_on_info_button_down"]

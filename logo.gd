@@ -24,5 +24,5 @@ func _on_logo_timer_end():
 
 func _on_color_rect_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		var n = load("res://menu/welcome.tscn").instantiate()
+		var n = load("res://menu/main_menu.tscn")
 		SceneManager.change_scene.emit(n)
