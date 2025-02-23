@@ -21,7 +21,7 @@ var audio_position = 0.0
 
 @export var waves: Array[Wave]
 var active_waves: Array[Wave]
-@export var health = 3 
+@export var health = 1
 
 @onready var play_area: ColorRect = $PlayArea
 @onready var fruit_list = $FruitList
@@ -51,7 +51,7 @@ func _ready() -> void:
 	wave_completed.connect(on_wave_completed)
 	health_depleted.connect(on_health_depleted)
 	active_fruit_name = Fruits.find_first_fruit_with_ammo(curr_wave())
-	WaveHistory.add_wave(curr_wave_idx, health)
+	WaveHistory.add_wave(curr_wave_idx, health, curr_wave())
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
 	health_count.text = str(health)
@@ -242,8 +242,8 @@ func on_wave_completed():
 		level_completed.emit()
 		return
 	print("wave passed")
-	WaveHistory.add_wave(curr_wave_idx + 1, health)
 	curr_wave_idx += 1
+	WaveHistory.add_wave(curr_wave_idx + 1, health,curr_wave())
 	clear_wave()
 	show_announcer()
 
@@ -258,7 +258,10 @@ func on_health_depleted():
 func stop_movement():
 	audio_position = wave_audio.get_playback_position()
 	wave_audio.stop()
-	BpmManager.bpm = 0
+	BpmManager.paused = true
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	for e in enemies:
+		e.pause_animate()
 	var paths = get_tree().get_nodes_in_group("paths")
 	for p in paths:
 		for pf in p.get_children():
@@ -268,11 +271,14 @@ func stop_movement():
 func resume_movement():
 	var paths = get_tree().get_nodes_in_group("paths")
 	var wave = curr_wave()
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	for e in enemies:
+		e.resume_animate()
 	for p in paths:
 		for pf in p.get_children():
 			if pf is PathFollow2D:
 				pf.paused = false
-	BpmManager.bpm = wave.bpm
+	BpmManager.paused = false
 	wave_audio.play(audio_position)
 	audio_position = 0.0
 

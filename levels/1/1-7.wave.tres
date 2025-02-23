@@ -11,7 +11,7 @@
 
 [sub_resource type="Resource" id="Resource_osxrm"]
 script = ExtResource("1_py6ov")
-apples = 0
+apples = 1
 watermelons = 3
 cherries = 1
 
@@ -58,4 +58,4 @@ audio_track = "res://levels/1/track1.wav"
 bpm = 120
 ammo = SubResource("Resource_osxrm")
 goal = "cherry activator"
-solution = "cherries are great activators for watermelons"
+solution = "cherries are great activators for watermelons. Or maybe just an apple works"
