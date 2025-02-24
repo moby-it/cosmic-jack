@@ -135,3 +135,7 @@ The 1st 6 levels are of the above pattern. The last 3 levels have to challenge t
 Consider if you're going to carry over unused ammo on next levels. This will decrease the difficulty of the latest levels, giving players choices earlier on
 that impact later levels. I think this is a must. To do that I need to:
 	- restore the functionalities of saving ammo per wave and restoring it when backtracking.
+
+## 25/2 12:24
+
+Added level 8, interruptions. Need to create 2 more levels.

@@ -2,6 +2,7 @@ extends Node
 
 signal level_change
 
+var level_index = 1
 var history = []
 
 func _ready() -> void:

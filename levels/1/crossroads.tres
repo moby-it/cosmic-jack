@@ -32,9 +32,9 @@ enemy = ExtResource("2_ue14f")
 [resource]
 script = ExtResource("4_m4nau")
 enabled = true
-title = "1-6: Crossroads"
-subtitle = ""
-description = "Ammo: 1 apple, 1 cherry"
+title = "Crossroads"
+subtitle = "Sometimes you need to be in two places at once."
+description = ""
 convoys = Array[ExtResource("1_6mvc1")]([SubResource("Resource_ynjn3"), SubResource("Resource_6c62t")])
 bpm = 120
 ammo = SubResource("Resource_osxrm")

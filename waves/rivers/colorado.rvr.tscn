@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf6er0u7hksei"]
+
+[ext_resource type="PackedScene" uid="uid://bjcxaxlx6qt5e" path="res://levels/play_area.tscn" id="1_yldev"]
+
+[sub_resource type="Curve2D" id="Curve2D_g50po"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3043, -145.244, 124.14, -184.036, -124.14, 184.036, 2989, 419.818, 52.0587, 59.951, -52.0587, -59.951, 2507, 369.683, -77.4207, 71.1047, 77.4207, -71.1047, 2534, 96.0303, -62.7375, -83.6524, 62.7375, 83.6524, 2778, 167.055, 0, 0, 0, 0, 2836, 1327.47)
+}
+point_count = 6
+
+[node name="Colorado" type="Node2D"]
+editor_description = "Relatively linear path, favors fast exlposives"
+
+[node name="Path2D" type="Path2D" parent="." groups=["paths"]]
+editor_description = "Duration 8 - Count 2 - can be solved by single apple"
+position = Vector2(-248, 120.059)
+scale = Vector2(1, 0.957417)
+curve = SubResource("Curve2D_g50po")
+
+[node name="PlayArea" parent="." instance=ExtResource("1_yldev")]
+z_index = -10
+metadata/_edit_lock_ = true

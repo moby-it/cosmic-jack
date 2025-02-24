@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://d32rqeqetqtx5"]
+
+[ext_resource type="PackedScene" uid="uid://bjcxaxlx6qt5e" path="res://levels/play_area.tscn" id="1_uhy6u"]
+
+[sub_resource type="Curve2D" id="Curve2D_g50po"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1522, -132.71, -270, 1.90735e-05, 270, -1.90735e-05, 1892, 986.969, -246, 14.6227, 246, -14.6227, 2502, 253.746, -10, -254.852, 10, 254.852, 3880, 462.642, 0, 0, 0, 0, 3746, 1239.73)
+}
+point_count = 5
+
+[node name="Yellow River" type="Node2D"]
+editor_description = "Relatively linear path, favors fast exlposives"
+
+[node name="Path2D" type="Path2D" parent="." groups=["paths"]]
+editor_description = "Duration 8 - Count 2 - can be solved by single apple"
+position = Vector2(-248, 120.059)
+scale = Vector2(1, 0.957417)
+curve = SubResource("Curve2D_g50po")
+
+[node name="PlayArea" parent="." instance=ExtResource("1_uhy6u")]
+z_index = -10
+metadata/_edit_lock_ = true

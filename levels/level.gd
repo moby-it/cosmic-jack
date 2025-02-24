@@ -27,7 +27,7 @@ func set_preview():
 # used for pausing
 var audio_position = 0.0
 var health = 1
-
+@export var level_index: int = 1
 @export var waves: Array[Wave]
 var active_waves: Array[Wave]
 
@@ -64,9 +64,8 @@ func _ready() -> void:
 	wave_completed.connect(on_wave_completed)
 	health_depleted.connect(on_health_depleted)
 	active_fruit_name = Fruits.find_first_fruit_with_ammo(curr_wave())
-	for w in active_waves:
-		WaveHistory.add_wave(1, health, w)
-	#WaveHistory.add_wave(curr_wave_idx, health, curr_wave())
+	WaveHistory.level_index = level_index
+	WaveHistory.add_wave(curr_wave_idx, health, curr_wave())
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
 	health_count.text = str(health)
@@ -87,7 +86,7 @@ func _input(event: InputEvent) -> void:
 		return
 	if Input.is_key_pressed(KEY_CTRL) and is_instance_valid(active_fruit):
 		active_fruit.queue_free()
-	if not Input.is_key_pressed(KEY_CTRL) and not is_instance_valid(active_fruit):
+	if not Input.is_key_pressed(KEY_CTRL) and not is_instance_valid(active_fruit) and not is_instance_valid(wave_announcer):
 		add_active_fruit()
 	if event.is_action_pressed("Restart") and preview():
 		clear_wave()
@@ -306,7 +305,7 @@ func clear_fruits():
 		f.queue_free()
 
 func update_wave_label():
-	wave_no.text = curr_wave().title
+	wave_no.text = "%s - %s" % [level_index, curr_wave_idx + 1]
 
 func rendered_pfs_count() -> int:
 	return waves_container.get_children().reduce(func(acc, c): return acc + c.get_node("Path2D").get_child_count(), 0)
@@ -320,6 +319,8 @@ func all_convoys_rendered() -> bool:
 func show_announcer():
 	if is_instance_valid(wave_announcer):
 		return
+	if is_instance_valid(active_fruit):
+		active_fruit.queue_free()
 	clear_fruits()
 	var wave = curr_wave()
 	wave_announcer = load("res://levels/wave_announcer.tscn").instantiate()
@@ -346,6 +347,9 @@ func hide_announcer():
 	if is_instance_valid(wave_announcer):
 		wave_announcer.queue_free()
 	set_preview()
+	active_fruit_name = Fruits.find_first_fruit_with_ammo(curr_wave())
+	if play_area.get_rect().has_point(get_global_mouse_position()):
+		add_active_fruit()
 
 func _on_wave_announcer_gui_input(event: InputEvent) -> void:
 	if Utils.is_mouse_left(event):

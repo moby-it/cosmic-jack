@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="Wave" load_steps=8 format=3 uid="uid://b0paimt48qm1d"]
+
+[ext_resource type="Script" path="res://waves/ammo.gd" id="1_l3oel"]
+[ext_resource type="Script" path="res://waves/_convoy.gd" id="2_v6bg3"]
+[ext_resource type="PackedScene" uid="uid://dy1ndkh3j6my7" path="res://enemies/croc/croc.tscn" id="3_luft1"]
+[ext_resource type="PackedScene" uid="uid://cf12x1x0rhtha" path="res://waves/rivers/mississippi.tscn" id="4_456p2"]
+[ext_resource type="Script" path="res://waves/wave.gd" id="5_hg0wc"]
+
+[sub_resource type="Resource" id="Resource_3e5qf"]
+script = ExtResource("1_l3oel")
+apples = 1
+watermelons = 3
+cherries = 0
+
+[sub_resource type="Resource" id="Resource_sbo23"]
+script = ExtResource("2_v6bg3")
+duration = 20
+count = 12
+delay = 0
+river = ExtResource("4_456p2")
+enemy = ExtResource("3_luft1")
+
+[resource]
+script = ExtResource("5_hg0wc")
+enabled = true
+title = "Domino"
+subtitle = "Can we pretend that fruits in the night sky are like shooting stars??"
+description = ""
+convoys = Array[ExtResource("2_v6bg3")]([SubResource("Resource_sbo23")])
+bpm = 120
+ammo = SubResource("Resource_3e5qf")
+goal = "watermelon chain reactions"
+solution = "Chain multiple explosions with 1 apple and multiple watermelons in order to solve this."

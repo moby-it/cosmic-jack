@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="Wave" load_steps=14 format=3 uid="uid://cp8hmackl1wf0"]
+
+[ext_resource type="Script" path="res://waves/ammo.gd" id="1_acyal"]
+[ext_resource type="Script" path="res://waves/_convoy.gd" id="2_1urn3"]
+[ext_resource type="PackedScene" uid="uid://dy1ndkh3j6my7" path="res://enemies/croc/croc.tscn" id="3_3pugc"]
+[ext_resource type="PackedScene" uid="uid://cpupndp5vyayt" path="res://waves/rivers/nile.rvr.tscn" id="4_d7wew"]
+[ext_resource type="PackedScene" uid="uid://d32rqeqetqtx5" path="res://waves/rivers/yellow-river.tscn" id="5_jhiwm"]
+[ext_resource type="PackedScene" uid="uid://bf6er0u7hksei" path="res://waves/rivers/colorado.rvr.tscn" id="6_3jivp"]
+[ext_resource type="PackedScene" uid="uid://do6e10k86iqft" path="res://waves/rivers/ganges.rvr.tscn" id="7_mp8bx"]
+[ext_resource type="Script" path="res://waves/wave.gd" id="8_7oe7c"]
+
+[sub_resource type="Resource" id="Resource_3e5qf"]
+script = ExtResource("1_acyal")
+apples = 1
+watermelons = 2
+cherries = 1
+
+[sub_resource type="Resource" id="Resource_he7ue"]
+script = ExtResource("2_1urn3")
+duration = 8
+count = 1
+delay = 0
+river = ExtResource("4_d7wew")
+enemy = ExtResource("3_3pugc")
+
+[sub_resource type="Resource" id="Resource_w3a7h"]
+script = ExtResource("2_1urn3")
+duration = 16
+count = 2
+delay = 2
+river = ExtResource("5_jhiwm")
+enemy = ExtResource("3_3pugc")
+
+[sub_resource type="Resource" id="Resource_4m5r8"]
+script = ExtResource("2_1urn3")
+duration = 16
+count = 8
+delay = 0
+river = ExtResource("6_3jivp")
+enemy = ExtResource("3_3pugc")
+
+[sub_resource type="Resource" id="Resource_fvprt"]
+script = ExtResource("2_1urn3")
+duration = 18
+count = 8
+delay = 1
+river = ExtResource("7_mp8bx")
+enemy = ExtResource("3_3pugc")
+
+[resource]
+script = ExtResource("8_7oe7c")
+enabled = true
+title = "Interruptions"
+subtitle = "Faster isn't always better, especially with explosives"
+description = ""
+convoys = Array[ExtResource("2_1urn3")]([SubResource("Resource_he7ue"), SubResource("Resource_w3a7h"), SubResource("Resource_4m5r8"), SubResource("Resource_fvprt")])
+bpm = 120
+ammo = SubResource("Resource_3e5qf")
+goal = "watermelon chain reactions"
+solution = "Chain multiple explosions with 1 apple and multiple watermelons in order to solve this."

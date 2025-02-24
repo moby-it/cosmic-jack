@@ -23,9 +23,9 @@ enemy = ExtResource("2_n8nmf")
 [resource]
 script = ExtResource("4_atpr4")
 enabled = true
-title = "1-2 - Speeduo"
-subtitle = "Try to find the optimal spot to elimiate enemies at the same time."
-description = "Ammo: 1 apple"
+title = "Speeduo"
+subtitle = "Two birds, one boom"
+description = "Two birds, one boom"
 convoys = Array[ExtResource("1_denl3")]([SubResource("Resource_pdekj")])
 bpm = 120
 ammo = SubResource("Resource_pupxp")

@@ -7,7 +7,7 @@ extends VBoxContainer
 @onready var container = $Panel/MarginContainer/WaveProps
 
 func _ready() -> void:
-	var title = create_label(wave.title)
+	var title = create_label("%s-%s: %s" % [WaveHistory.level_index, index + 1, wave.title])
 	title.add_theme_font_size_override("font_size", 48)
 	var subtitle = create_label(wave.subtitle)
 	subtitle.add_theme_font_size_override("font_size", 32)
