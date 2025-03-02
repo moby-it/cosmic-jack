@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccr1lk04khsux"]
+[gd_scene load_steps=12 format=3 uid="uid://ccr1lk04khsux"]
 
 [ext_resource type="PackedScene" uid="uid://bf5fa6pqes1hj" path="res://levels/level.tscn" id="1_4wsep"]
 [ext_resource type="Script" path="res://waves/wave.gd" id="2_c33gm"]
+[ext_resource type="Resource" uid="uid://0akonhtqwvjj" path="res://levels/1/tenacious_d.tres" id="3_cpa4f"]
 [ext_resource type="Resource" uid="uid://bt6oexdghyrwo" path="res://levels/1/apple_intro.wave.tres" id="3_cqc8b"]
 [ext_resource type="Resource" uid="uid://be7kwxqprngjr" path="res://levels/1/speed_apple.tres" id="4_eq06m"]
 [ext_resource type="Resource" uid="uid://3aywhtajvgit" path="res://levels/1/watermelon_intro.tres" id="5_p22at"]
@@ -14,6 +15,6 @@
 [node name="1" type="Node2D"]
 
 [node name="Level" parent="." instance=ExtResource("1_4wsep")]
-waves = Array[ExtResource("2_c33gm")]([ExtResource("10_4snpu"), ExtResource("3_cqc8b"), ExtResource("4_eq06m"), ExtResource("5_p22at"), ExtResource("6_cjsrn"), ExtResource("9_6fnao"), ExtResource("8_vhvej"), ExtResource("6_7inwc")])
+waves = Array[ExtResource("2_c33gm")]([ExtResource("3_cqc8b"), ExtResource("4_eq06m"), ExtResource("5_p22at"), ExtResource("6_cjsrn"), ExtResource("9_6fnao"), ExtResource("8_vhvej"), ExtResource("10_4snpu"), ExtResource("6_7inwc"), ExtResource("3_cpa4f")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120.0

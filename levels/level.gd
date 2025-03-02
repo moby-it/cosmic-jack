@@ -160,8 +160,7 @@ func place_fruit(p: Vector2) -> void:
 		active_fruit.queue_free()
 
 func create_fruit_list(wave: Wave):
-	for c in $FruitList.get_children():
-		c.queue_free()
+	clear_fruit_hud()
 	Fruits.create_fruit_list_hud($FruitList, wave)
 	Fruits.fruit_selected.connect(on_fruit_list_selected)
 		
@@ -304,6 +303,10 @@ func clear_fruits():
 	for f in fruits:
 		f.queue_free()
 
+func clear_fruit_hud():
+	for c in $FruitList.get_children():
+		c.queue_free()
+
 func update_wave_label():
 	wave_no.text = "%s - %s" % [level_index, curr_wave_idx + 1]
 
@@ -322,6 +325,7 @@ func show_announcer():
 	if is_instance_valid(active_fruit):
 		active_fruit.queue_free()
 	clear_fruits()
+	clear_fruit_hud()
 	var wave = curr_wave()
 	wave_announcer = load("res://levels/wave_announcer.tscn").instantiate()
 	wave_announcer.get_node("VBoxContainer/Title").text = wave.title

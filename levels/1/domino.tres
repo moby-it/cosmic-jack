@@ -30,4 +30,6 @@ convoys = Array[ExtResource("2_v6bg3")]([SubResource("Resource_sbo23")])
 bpm = 120
 ammo = SubResource("Resource_3e5qf")
 goal = "watermelon chain reactions"
-solution = "Chain multiple explosions with 1 apple and multiple watermelons in order to solve this."
+solution = "1 apple -> 2 watermelon -> 1 watermelon
+
+remember that watermelon, when triggered simultaneously, you can make use of ALL their radius."

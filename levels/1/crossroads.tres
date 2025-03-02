@@ -9,7 +9,7 @@
 
 [sub_resource type="Resource" id="Resource_osxrm"]
 script = ExtResource("1_ycvf0")
-apples = 1
+apples = 0
 watermelons = 0
 cherries = 2
 

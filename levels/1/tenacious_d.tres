@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="Wave" load_steps=10 format=3 uid="uid://0akonhtqwvjj"]
+
+[ext_resource type="Script" path="res://waves/ammo.gd" id="1_3kaly"]
+[ext_resource type="Script" path="res://waves/_convoy.gd" id="2_20imy"]
+[ext_resource type="PackedScene" uid="uid://dy1ndkh3j6my7" path="res://enemies/croc/croc.tscn" id="3_biksw"]
+[ext_resource type="PackedScene" uid="uid://cf12x1x0rhtha" path="res://waves/rivers/mississippi.tscn" id="4_knqst"]
+[ext_resource type="PackedScene" uid="uid://ctnw6hyjola0a" path="res://waves/rivers/seine.rvr.tscn" id="5_4avob"]
+[ext_resource type="Script" path="res://waves/wave.gd" id="6_v3kkc"]
+
+[sub_resource type="Resource" id="Resource_3e5qf"]
+script = ExtResource("1_3kaly")
+apples = 2
+watermelons = 3
+cherries = 0
+
+[sub_resource type="Resource" id="Resource_sbo23"]
+script = ExtResource("2_20imy")
+duration = 16
+count = 4
+delay = 4
+river = ExtResource("4_knqst")
+enemy = ExtResource("3_biksw")
+
+[sub_resource type="Resource" id="Resource_6lj13"]
+script = ExtResource("2_20imy")
+duration = 16
+count = 12
+delay = 0
+river = ExtResource("5_4avob")
+enemy = ExtResource("3_biksw")
+
+[resource]
+script = ExtResource("6_v3kkc")
+enabled = true
+title = "Tenacious Defence"
+subtitle = "From Whence You Came You Shall Remain"
+description = "Until you are complete again.
+NoOoOoOoOo"
+convoys = Array[ExtResource("2_20imy")]([SubResource("Resource_sbo23"), SubResource("Resource_6lj13")])
+bpm = 120
+ammo = SubResource("Resource_3e5qf")
+goal = ""
+solution = "Place watermelon \"backwards\" on the path, meaning that after the apple explodes, watermelon \"anticipate\" the entry of the enemies and explode close to the spawn point."
