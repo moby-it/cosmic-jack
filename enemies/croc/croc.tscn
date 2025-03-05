@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dy1ndkh3j6my7"]
 
-[ext_resource type="Script" path="res://enemies/croc/croc.gd" id="1_82s2i"]
+[ext_resource type="Script" uid="uid://byhildhvl4561" path="res://enemies/croc/croc.gd" id="1_82s2i"]
 [ext_resource type="Texture2D" uid="uid://ufqmqwe88t4d" path="res://enemies/croc/croc.png" id="1_qilu0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l7qrp"]
@@ -12,7 +12,7 @@ length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s0505"]
 _data = {
-"RESET": SubResource("Animation_16vpe")
+&"RESET": SubResource("Animation_16vpe")
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mm7kt"]

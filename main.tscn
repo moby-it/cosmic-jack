@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1i44l6vbgk6c"]
 
-[ext_resource type="Script" path="res://logo.gd" id="2_d4iki"]
+[ext_resource type="Script" uid="uid://six0xkq676uy" path="res://logo.gd" id="2_d4iki"]
 [ext_resource type="Texture2D" uid="uid://d3eo7d0ws2ow3" path="res://assets/Moby logo.png" id="2_q3adg"]
 
 [node name="Main" type="Node2D"]

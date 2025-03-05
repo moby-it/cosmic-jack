@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://gxcc8oidvhch"]
 
-[ext_resource type="Script" path="res://menu/in_game_menu.gd" id="1_ar3js"]
+[ext_resource type="Script" uid="uid://bqjpyeo675l8" path="res://menu/in_game_menu.gd" id="1_ar3js"]
 [ext_resource type="Texture2D" uid="uid://d1o5ocbydf4ng" path="res://assets/xmark.png" id="2_ywnst"]
 
 [node name="InGameMenu" type="Control"]

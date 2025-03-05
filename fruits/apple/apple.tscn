@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cxvhh5yd3tff6"]
 
-[ext_resource type="Script" path="res://fruits/apple/apple.gd" id="1_qox7n"]
-[ext_resource type="Script" path="res://fruits/explosive.gd" id="2_dn3uh"]
+[ext_resource type="Script" uid="uid://d2xf77xj5e231" path="res://fruits/apple/apple.gd" id="1_qox7n"]
+[ext_resource type="Script" uid="uid://cdd4twkrsyar0" path="res://fruits/explosive.gd" id="2_dn3uh"]
 [ext_resource type="Texture2D" uid="uid://ba7gkxun6ov03" path="res://fruits/apple/apple.png" id="2_sd6fq"]
 
 [sub_resource type="Resource" id="Resource_ad5qp"]

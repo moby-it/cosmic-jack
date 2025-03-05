@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="Wave" load_steps=8 format=3 uid="uid://gm6rx4ol8qlt"]
 
-[ext_resource type="Script" path="res://waves/ammo.gd" id="1_y7d5u"]
-[ext_resource type="Script" path="res://waves/_convoy.gd" id="2_u0r13"]
+[ext_resource type="Script" uid="uid://j8irjw0kooa4" path="res://waves/ammo.gd" id="1_y7d5u"]
+[ext_resource type="Script" uid="uid://dkr5usye5smxg" path="res://waves/_convoy.gd" id="2_u0r13"]
 [ext_resource type="PackedScene" uid="uid://dy1ndkh3j6my7" path="res://enemies/croc/croc.tscn" id="3_smjrv"]
 [ext_resource type="PackedScene" uid="uid://dtfdakxf28tdi" path="res://waves/rivers/yangtze.rvr.tscn" id="4_x1wsf"]
-[ext_resource type="Script" path="res://waves/wave.gd" id="5_qj7k8"]
+[ext_resource type="Script" uid="uid://di7oa5dm0elbt" path="res://waves/wave.gd" id="5_qj7k8"]
 
 [sub_resource type="Resource" id="Resource_osxrm"]
 script = ExtResource("1_y7d5u")

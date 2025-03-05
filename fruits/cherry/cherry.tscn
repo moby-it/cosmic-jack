@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwsdcklwnqpng"]
+[gd_scene load_steps=6 format=3 uid="uid://dwsdwklwnqpng"]
 
-[ext_resource type="Script" path="res://fruits/cherry/cherry.gd" id="1_odd54"]
-[ext_resource type="Script" path="res://fruits/explosive.gd" id="2_mfnav"]
+[ext_resource type="Script" uid="uid://d1426c0e8x6it" path="res://fruits/cherry/cherry.gd" id="1_odd54"]
+[ext_resource type="Script" uid="uid://cdd4twkrsyar0" path="res://fruits/explosive.gd" id="2_mfnav"]
 [ext_resource type="Texture2D" uid="uid://cd4xf15acrplb" path="res://fruits/cherry/cherry.png" id="3_l2g4c"]
 
 [sub_resource type="Resource" id="Resource_db4lq"]

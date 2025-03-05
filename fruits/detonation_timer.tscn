@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://jt2i7mcuogpb"]
 
-[ext_resource type="Script" path="res://fruits/detonation_timer.gd" id="1_uw8fh"]
+[ext_resource type="Script" uid="uid://6p68vu4kachn" path="res://fruits/detonation_timer.gd" id="1_uw8fh"]
 
 [node name="TimerLine" type="Node2D"]
 script = ExtResource("1_uw8fh")
