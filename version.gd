@@ -8,6 +8,6 @@ func _ready() -> void:
 	self.text = version
 
 func get_text_file_content(filePath):
-	var file = FileAccess.open(filePath, FileAccess.READ)
-	var content = file.get_as_text()
+	var f = FileAccess.open(filePath, FileAccess.READ)
+	var content = f.get_as_text()
 	return content

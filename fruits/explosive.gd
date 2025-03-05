@@ -10,7 +10,7 @@ var border_width: float = 2.0
 var timer: Timer
 
 func draw_explosive_radius(node: Node2D) -> void:
-	_add_explosive_radius(node, radius)
+	add_explosive_radius(node, radius)
 	# issue with drawing outside of the draw function. consider how to rewrite this
 	node.draw_circle(node.get_node("Sprite2D").position, radius, border_color, false, border_width) 
 
@@ -26,7 +26,7 @@ func start_explosion_timer(node: Node2D) -> void:
 	detonation_timer.timeout.connect(explode.bind(node))
 	node.add_child(detonation_timer)
 
-func _add_explosive_radius(node: Node2D, r: float):
+func add_explosive_radius(node: Node2D, r: float):
 	var area: Area2D = Area2D.new()
 	area.name = "ExplosiveRadius"
 	area.set_collision_layer_value(1, true)

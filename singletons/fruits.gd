@@ -23,9 +23,9 @@ var ammo = {}
 var ammo_labels = {}
 
 func find_first_fruit_with_ammo(wave: Wave):
-	var ammo = wave.ammo.get_fruits()
-	for k in ammo:
-		if ammo[k]:
+	var a = wave.ammo.get_fruits()
+	for k in a:
+		if a[k]:
 			return k
 	return null
 		
@@ -72,19 +72,16 @@ func reduce_fruit_ammo(fruit: String) -> void:
 
 func add_fruit_ammo(fruit: String):
 	ammo[fruit] += 1
-	if not ammo_labels[fruit]:
-		ammo_labels[fruit]
+	#if not ammo_labels[fruit]:
+		#ammo_labels[fruit]
 	ammo_labels[fruit].text = str(ammo[fruit])
 
 func create_fruit(active_fruit_name: String) -> Node2D:
 	var fruit: Node2D = available_fruits[active_fruit_name].instantiate()
 	fruit.name = active_fruit_name
-	fruit.explosive.draw_explosive_radius(fruit)
+	fruit.explosive.add_explosive_radius(fruit,fruit.explosive.radius)
 	return fruit
 	
 func find_fruits_under_cursor() -> Array[Node]:
 	var placed_fruits = get_tree().get_nodes_in_group("fruits").filter(func (f): return f.hovered)
 	return placed_fruits
-
-func add_fruit_label(fruit: String):
-	pass

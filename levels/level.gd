@@ -33,7 +33,7 @@ var active_waves: Array[Wave]
 
 @export_subgroup("Audio")
 @export_file("*.wav", "*.mp3") var audio_track: String
-@export var bpm = 0.0
+@export var bpm = 0
 
 @onready var play_area: ColorRect = $PlayArea
 @onready var fruit_list = $FruitList
@@ -174,7 +174,7 @@ func create_wave():
 
 	# wire up wave completed for non preview
 	if not preview():
-		var wave_completed_fn = func(i: int):
+		var wave_completed_fn = func(_i: int):
 			if not resolving():
 				return
 			if all_convoys_rendered() and rendered_pfs_count() == 0 and health > 0:
