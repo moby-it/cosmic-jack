@@ -12,13 +12,13 @@ script = ExtResource("1_6fb17")
 
 [node name="WavesContainer" type="Node2D" parent="."]
 
-[node name="FruitList" type="VBoxContainer" parent="." groups=["hud"]]
+[node name="FruitList" type="VBoxContainer" parent="."]
 z_index = 10
 offset_left = 2455.0
 offset_top = 1747.0
 offset_right = 2455.0
 offset_bottom = 1747.0
-theme_override_constants/separation = 10
+theme_override_constants/separation = 30
 
 [node name="Health" type="Node2D" parent="."]
 visible = false
@@ -41,7 +41,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Ship" parent="." groups=["hud"] instance=ExtResource("4_chuaq")]
+[node name="Ship" parent="." instance=ExtResource("4_chuaq")]
 position = Vector2(2077, 1885)
 
 [node name="Background" parent="." instance=ExtResource("5_sp8rb")]
@@ -51,6 +51,7 @@ rotation = -0.000444478
 [node name="PlayArea" parent="." instance=ExtResource("4_pmx5f")]
 
 [node name="Version" type="Label" parent="."]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -65,6 +66,7 @@ grow_vertical = 0
 script = ExtResource("6_n7bey")
 
 [node name="FPS Counter" type="Label" parent="."]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -90,12 +92,26 @@ offset_right = 1186.0
 offset_bottom = 2010.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_default_cursor_shape = 2
 text = "resolve wave"
 
 [node name="WaveNo" type="Label" parent="."]
 offset_right = 137.0
 offset_bottom = 94.0
 text = "Wave 1-1"
+
+[node name="Controls" type="RichTextLabel" parent="."]
+offset_left = 109.0
+offset_top = 1363.0
+offset_right = 596.0
+offset_bottom = 1498.0
+bbcode_enabled = true
+text = "[font_size=40]Controls[/font_size]
+
+ctrl + left click = move fruit
+ctrl + right click = remove fruit
+r = restart wave preview"
+fit_content = true
 
 [node name="WaveAudio" type="AudioStreamPlayer" parent="."]
 

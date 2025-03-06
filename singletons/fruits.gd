@@ -40,10 +40,13 @@ func create_fruit_list_hud(node: VBoxContainer, wave: Wave):
 			continue
 		var container = HBoxContainer.new()
 		container.add_theme_constant_override("separation", 20)
+		container.name = key
 		
 		# render fruit texture
 		var fruit = TextureRect.new()
+		fruit.name = "texture"
 		fruit.texture = available_fruits_png[key]
+		fruit.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		fruit.gui_input.connect(func(event): if Utils.is_mouse_left(event): fruit_selected.emit(key))
 		container.add_child(fruit)
 		

@@ -5,6 +5,8 @@ signal health_depleted
 signal level_completed
 signal wave_completed
 
+var control_tooltips = "ctrl + left_click = move fruit, ctrl + right click = remove fruit, r = restart wave preview"
+
 enum ROUND_STATUS {
 	PREVIEW,
 	RESOLVING,
@@ -63,7 +65,6 @@ func _ready() -> void:
 	level_completed.connect(on_level_completed)
 	wave_completed.connect(on_wave_completed)
 	health_depleted.connect(on_health_depleted)
-	active_fruit_name = Fruits.find_first_fruit_with_ammo(curr_wave())
 	WaveHistory.level_index = level_index
 	WaveHistory.add_wave(curr_wave_idx, health, curr_wave())
 	WaveHistory.level_change.connect(_on_level_change)
@@ -78,7 +79,6 @@ func _input(event: InputEvent) -> void:
 		if is_instance_valid(menu):
 			menu.closed.emit()
 		else:
-			# add menu
 			menu = load("res://menu/in_game_menu.tscn").instantiate()
 			menu.name = "Menu"
 			self.add_child(menu)
@@ -94,6 +94,12 @@ func _input(event: InputEvent) -> void:
 
 func on_fruit_list_selected(i: String) -> void:
 	active_fruit_name = i
+	for c: HBoxContainer in fruit_list.get_children():
+		if c.name != i:
+			c.get_node("texture").material = ShaderMaterial.new()
+			c.get_node("texture").material.shader = load("res://fruits/grayscale.gdshader")
+		else:
+			c.get_node("texture").material = null
 
 func add_active_fruit():
 	if not is_instance_valid(active_fruit) && not resolving():
@@ -103,6 +109,7 @@ func add_active_fruit():
 		self.add_child(active_fruit)
 
 func _on_resolve_button_down() -> void:
+	print("resolve btn down")
 	if not resolving():
 		round_status = ROUND_STATUS.RESOLVING
 		resolve_btn.disabled = true
@@ -162,6 +169,7 @@ func place_fruit(p: Vector2) -> void:
 func create_fruit_list(wave: Wave):
 	clear_fruit_hud()
 	Fruits.create_fruit_list_hud($FruitList, wave)
+	on_fruit_list_selected(Fruits.find_first_fruit_with_ammo(wave))
 	Fruits.fruit_selected.connect(on_fruit_list_selected)
 		
 func create_wave():

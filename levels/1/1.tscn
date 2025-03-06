@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccr1lk04khsux"]
+[gd_scene load_steps=13 format=3 uid="uid://ccr1lk04khsux"]
 
 [ext_resource type="PackedScene" uid="uid://bf5fa6pqes1hj" path="res://levels/level.tscn" id="1_4wsep"]
 [ext_resource type="Script" uid="uid://di7oa5dm0elbt" path="res://waves/wave.gd" id="2_c33gm"]
@@ -12,9 +12,12 @@
 [ext_resource type="Resource" uid="uid://dd8vrweiuc8v0" path="res://levels/1/relay.tres" id="9_6fnao"]
 [ext_resource type="Resource" uid="uid://cp8hmackl1wf0" path="res://levels/1/interruptions.tres" id="10_4snpu"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jy478"]
+
 [node name="1" type="Node2D"]
 
 [node name="Level" parent="." instance=ExtResource("1_4wsep")]
-waves = Array[ExtResource("2_c33gm")]([ExtResource("3_cqc8b"), ExtResource("4_eq06m"), ExtResource("5_p22at"), ExtResource("6_cjsrn"), ExtResource("9_6fnao"), ExtResource("8_vhvej"), ExtResource("10_4snpu"), ExtResource("6_7inwc"), ExtResource("3_cpa4f")])
+material = SubResource("ShaderMaterial_jy478")
+waves = Array[ExtResource("2_c33gm")]([ExtResource("3_cpa4f"), ExtResource("3_cqc8b"), ExtResource("4_eq06m"), ExtResource("5_p22at"), ExtResource("6_cjsrn"), ExtResource("9_6fnao"), ExtResource("8_vhvej"), ExtResource("10_4snpu"), ExtResource("6_7inwc")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120

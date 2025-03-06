@@ -34,8 +34,7 @@ script = ExtResource("6_v3kkc")
 enabled = true
 title = "Tenacious Defence"
 subtitle = "From Whence You Came You Shall Remain"
-description = "Until you are complete again.
-NoOoOoOoOo"
+description = "Until you are complete again."
 convoys = Array[ExtResource("2_20imy")]([SubResource("Resource_sbo23"), SubResource("Resource_6lj13")])
 bpm = 120
 ammo = SubResource("Resource_3e5qf")

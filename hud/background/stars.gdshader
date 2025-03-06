@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform vec2 resolution = vec2(1920.0, 1080.0);
+uniform vec2 resolution = vec2(3840, 2160);
 uniform sampler2D noise_texture: filter_nearest, repeat_enable;
 uniform float speed_x: hint_range(-100.0, 100.0, 0.1) = 0.0;
 uniform float speed_y: hint_range(-100.0, 100.0, 0.1) = -20.0;
