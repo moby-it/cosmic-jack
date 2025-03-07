@@ -4,6 +4,7 @@ class_name Level
 signal health_depleted
 signal level_completed
 signal wave_completed
+signal fruit_placed
 
 var control_tooltips = "ctrl + left_click = move fruit, ctrl + right click = remove fruit, r = restart wave preview"
 
@@ -161,6 +162,7 @@ func place_fruit(p: Vector2) -> void:
 	var node = Fruits.create_fruit(active_fruit_name)
 	node.position = Vector2(p)
 	self.add_child(node)
+	fruit_placed.emit(node)
 	# if you cannot place any more fruits of the same stack, we remove the active fruit element
 	Fruits.reduce_fruit_ammo(active_fruit_name)
 	if not Fruits.can_place_fruit(active_fruit_name):

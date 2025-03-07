@@ -75,8 +75,6 @@ func reduce_fruit_ammo(fruit: String) -> void:
 
 func add_fruit_ammo(fruit: String):
 	ammo[fruit] += 1
-	#if not ammo_labels[fruit]:
-		#ammo_labels[fruit]
 	ammo_labels[fruit].text = str(ammo[fruit])
 
 func create_fruit(active_fruit_name: String) -> Node2D:
@@ -87,4 +85,5 @@ func create_fruit(active_fruit_name: String) -> Node2D:
 	
 func find_fruits_under_cursor() -> Array[Node]:
 	var placed_fruits = get_tree().get_nodes_in_group("fruits").filter(func (f): return f.hovered)
+	print("fruits under cursor", len(placed_fruits))
 	return placed_fruits

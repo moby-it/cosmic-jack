@@ -21,9 +21,22 @@ func start_explosion_timer(node: Node2D) -> void:
 		return
 	# delay is always in sync with bpm
 	# var delay = (detonation_delay * AudioManager.seconds_per_beat) # remove time_to_next_beat when the movement is disrete
-	var detonation_timer: Node2D = load("res://fruits/detonation_timer.tscn").instantiate()
+	var detonation_timer = load("res://fruits/detonation_timer.tscn").instantiate()
 	detonation_timer.duration = detonation_delay
 	detonation_timer.timeout.connect(explode.bind(node))
+	node.add_child(detonation_timer)
+
+func loop_explosion_timer(node: Node2D) -> void:
+	if detonation_delay == 0:
+		await node.get_tree().create_timer(0.1).timeout
+		explode(node)
+		return
+	# delay is always in sync with bpm
+	# var delay = (detonation_delay * AudioManager.seconds_per_beat) # remove time_to_next_beat when the movement is disrete
+	var detonation_timer = load("res://fruits/detonation_timer.tscn").instantiate()
+	detonation_timer.duration = detonation_delay
+	detonation_timer.timeout.connect(func(): 
+		loop_explosion_timer(node))
 	node.add_child(detonation_timer)
 
 func add_explosive_radius(node: Node2D, r: float):

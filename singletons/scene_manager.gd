@@ -8,7 +8,7 @@ signal change_scene
 func _ready() -> void:
 	change_scene.connect(on_change_scene)
 
-func on_change_scene(node: Node2D):
+func on_change_scene(node):
 	for n in main_node.get_children():
 		n.queue_free()
 	main_node.add_child(node)

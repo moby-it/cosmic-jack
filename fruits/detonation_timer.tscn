@@ -2,9 +2,7 @@
 
 [ext_resource type="Script" uid="uid://6p68vu4kachn" path="res://fruits/detonation_timer.gd" id="1_uw8fh"]
 
-[node name="TimerLine" type="Node2D"]
+[node name="Label" type="Label"]
+offset_right = 1.0
+offset_bottom = 79.0
 script = ExtResource("1_uw8fh")
-
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 76.0
