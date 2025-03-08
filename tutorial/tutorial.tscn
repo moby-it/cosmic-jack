@@ -57,11 +57,13 @@ alignment = 1
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+focus_mode = 0
 text = "previous"
 
 [node name="Next" type="Button" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
 text = "next"
 
 [node name="Complete" type="Button" parent="Panel/MarginContainer/VBoxContainer2/HBoxContainer"]
