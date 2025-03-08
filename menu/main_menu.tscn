@@ -39,14 +39,13 @@ theme_override_constants/separation = 20
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 4
-text = "start"
+text = "play"
 
 [node name="tutorial" type="Button" parent="container/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 4
-text = "tutorial
-"
+text = "tutorial"
 
 [connection signal="button_down" from="container/VBoxContainer/VBoxContainer/start" to="." method="_on_start_button_down"]
 [connection signal="button_down" from="container/VBoxContainer/VBoxContainer/tutorial" to="." method="_on_tutorial_button_down"]

@@ -322,6 +322,7 @@ func clear_fruits():
 func clear_fruit_hud():
 	for c in $FruitList.get_children():
 		c.queue_free()
+	Fruits.fruit_selected.disconnect(on_fruit_list_selected)
 
 func update_wave_label():
 	wave_no.text = "%s - %s" % [level_index, curr_wave_idx + 1]
@@ -340,6 +341,7 @@ func show_announcer():
 		return
 	if is_instance_valid(active_fruit):
 		active_fruit.queue_free()
+	resolve_btn.release_focus()
 	clear_fruits()
 	clear_fruit_hud()
 	var wave = curr_wave()
