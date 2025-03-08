@@ -24,8 +24,13 @@ func preview():
 
 func set_preview():
 	round_status = ROUND_STATUS.PREVIEW
-	resolve_btn.disabled = false
-	resolve_btn.text = "resolve wave"
+	# we need to duplicate the button because if we just re enable it, it ignores the first click instasnce, which is incredibly annoying
+	var btn: Button = resolve_btn.duplicate()
+	btn.text = "resolve wave"
+	btn.disabled = false
+	resolve_btn.queue_free()
+	self.add_child(btn)
+	resolve_btn = btn
 
 # used for pausing
 var audio_position = 0.0

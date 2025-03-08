@@ -7,3 +7,6 @@ func _on_start_button_down() -> void:
 func _on_tutorial_button_down() -> void:
 	var tutorial = load("res://tutorial/tutorial.tscn").instantiate()
 	SceneManager.change_scene.emit(tutorial)
+
+func _on_exit_button_down() -> void:
+	get_tree().quit()

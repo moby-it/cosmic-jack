@@ -2,9 +2,24 @@ extends Control
 
 var panel_init_y = 335.0
 var panel_next_y = 1350.0
+var idx = 0
 
+@onready var text = %TutorialText
 @onready var level: Level = $Level
 @onready var panel = $Panel
+
+var labels = [
+	"Basic concepts",
+	"Convoys &  Play Area",
+	"Phases",
+	"Ammo",
+	"Fruit Triggers",
+	"Place a fruit",
+	"Detonation Timer",
+	"Manipulate your placement",
+	"Solve the puzzle",
+	"Congratulations!",
+]
 
 var txt_1 = """
 Cosmic Jack is a rhythm puzzle game. 
@@ -36,6 +51,7 @@ You can already see the enemy pathing preview for the tutorial wave.
 
 var txt_4 = """
 Each wave comes with a set of fruit ammo. These are your tools to eliminate your enemies.
+Ammo can be found at the bottom right of your screen.
 
 This wave has a single apple as ammo.
 """
@@ -71,10 +87,8 @@ After you feel confident about your placement, you can press the resolve button 
 In this phase the wave actually resolves and you get to see weather your fruit placement solved the puzzle.
 """
 
-var txt_9 = """[font_size=62]Congratulations, you finished our tutorial! You can go ahead and play our demo level.[/font_size]"""
+var txt_9 = """You finished our tutorial! You can go ahead and play our demo level."""
 
-@onready var text = %TutorialText
-var idx = 0
 
 var texts = [
 	{ "text": txt_1, "fn": null },
@@ -105,6 +119,7 @@ var revert_fns = [
 func _ready() -> void:
 	level.start_audio()
 	text.text = txt_1
+	%Title.text = "%s - %s/%s" % [labels[idx], str(idx + 1), str(len(labels))]
 	level.wave_completed.connect(on_wave_resolved)
 	level.health_depleted.connect(on_wave_resolved)
 
@@ -125,6 +140,7 @@ func update():
 			c.call()
 	var i = texts[idx]
 	text.text = i["text"]
+	%Title.text = "%s - %s/%s" % [labels[idx], str(idx + 1), str(len(labels))]
 	if i["fn"]:
 		i["fn"].call()
 

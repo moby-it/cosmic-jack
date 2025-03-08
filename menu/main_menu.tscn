@@ -47,5 +47,12 @@ size_flags_horizontal = 5
 size_flags_vertical = 4
 text = "tutorial"
 
+[node name="exit" type="Button" parent="container/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 5
+size_flags_vertical = 4
+text = "exit"
+
 [connection signal="button_down" from="container/VBoxContainer/VBoxContainer/start" to="." method="_on_start_button_down"]
 [connection signal="button_down" from="container/VBoxContainer/VBoxContainer/tutorial" to="." method="_on_tutorial_button_down"]
+[connection signal="button_down" from="container/VBoxContainer/VBoxContainer/exit" to="." method="_on_exit_button_down"]
