@@ -74,6 +74,7 @@ func _ready() -> void:
 	WaveHistory.level_index = level_index
 	WaveHistory.add_wave(curr_wave_idx, health, curr_wave())
 	WaveHistory.level_change.connect(_on_level_change)
+	AudioManager.on_beat.connect(preview_loop)
 	update_wave_label()
 	health_count.text = str(health)
 	show_announcer()
@@ -207,6 +208,7 @@ func create_wave():
 
 func render_convoys(wave: Wave):
 	var duration = largest_duration()
+	print("larget duration", duration)
 	var offset = AudioManager.beat % duration if AudioManager.beat >= duration else AudioManager.beat
 	print("wave offset %s" % offset)
 	for c in wave.convoys:
@@ -214,6 +216,7 @@ func render_convoys(wave: Wave):
 		ExplosionBus.enemies_exploded[c.get_instance_id()] = 0
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
+		river.set_meta("name", river_node.name)
 		
 		var beat_fn = convoy_beat_fn(c, river, offset)
 		beat_fns.push_back(beat_fn)
@@ -226,40 +229,32 @@ func convoy_beat_fn(c: Convoy, river: Path2D, offset: int):
 		if c.rendered:
 			return
 		var remainder = (i - offset) % duration if i >= offset else i
-		#print("beat %s" % i)
-		#print("remainder %s" % remainder)
-		#print("count %s" % c.count)
-		#print("delay %s" % c.delay)
 		var adjusted_remainder = remainder - c.delay
 		if adjusted_remainder >= 0 and adjusted_remainder < c.count:
-			#print("adding enemy")
-			return add_enemy_preview(c, river) if preview() else add_enemy_resolve(c,river)
+			add_enemy(c, river, not preview())
 
-func add_enemy_resolve(convoy: Convoy, path: Path2D):
-	#print("path child count %s" % path.get_child_count())
-	#print("rendered %s" % convoy.rendered)
+func add_enemy(convoy: Convoy, path: Path2D, collision: bool) -> void:
+	print("adding enemy ", path.get_meta("name"))
 	var pf = PathFollow2D.new()
 	pf.set_script(load("res://waves/rivers/_river.gd"))
 	pf.duration = convoy.duration
 	var enemy: Node2D = convoy.enemy.instantiate()
 	enemy.queue_animation = true
 	enemy.convoy_id =  convoy.get_instance_id()
-	pf.enemy_passed.connect(enemy_passed)
+	enemy.collision = collision
+	if collision:
+		pf.enemy_passed.connect(enemy_passed)
 	pf.add_child(enemy)
 	path.add_child(pf)
 	if path.get_child_count() + ExplosionBus.enemies_exploded[convoy.get_instance_id()] == convoy.count:
 		convoy.rendered = true
-
-func add_enemy_preview(convoy: Convoy, path: Path2D):
-	var pf = PathFollow2D.new()
-	pf.set_script(load("res://waves/rivers/_river.gd"))
-	pf.duration = convoy.duration
-	var enemy: Node2D = convoy.enemy.instantiate()
-	enemy.queue_animation = true
-	enemy.convoy_id =  convoy.get_instance_id()
-	enemy.collision = false
-	pf.add_child(enemy)
-	path.add_child(pf)
+		
+func preview_loop(i: int):
+	if preview() and all_convoys_rendered() and rendered_pfs_count() == 0:
+		print("should loop preview")
+		print("on beat %s" % i)
+		clear_wave()
+		render_convoys(curr_wave())
 
 func enemy_passed():
 	if health > 0:
@@ -327,7 +322,8 @@ func clear_fruits():
 func clear_fruit_hud():
 	for c in $FruitList.get_children():
 		c.queue_free()
-	Fruits.fruit_selected.disconnect(on_fruit_list_selected)
+	if Fruits.fruit_selected.is_connected(on_fruit_list_selected):
+		Fruits.fruit_selected.disconnect(on_fruit_list_selected)
 
 func update_wave_label():
 	wave_no.text = "%s - %s" % [level_index, curr_wave_idx + 1]

@@ -18,6 +18,6 @@
 
 [node name="Level" parent="." instance=ExtResource("1_4wsep")]
 material = SubResource("ShaderMaterial_jy478")
-waves = Array[ExtResource("2_c33gm")]([ExtResource("3_cqc8b"), ExtResource("4_eq06m"), ExtResource("5_p22at"), ExtResource("6_cjsrn"), ExtResource("9_6fnao"), ExtResource("8_vhvej"), ExtResource("10_4snpu"), ExtResource("3_cpa4f"), ExtResource("6_7inwc")])
+waves = Array[ExtResource("2_c33gm")]([ExtResource("10_4snpu"), ExtResource("3_cqc8b"), ExtResource("4_eq06m"), ExtResource("5_p22at"), ExtResource("6_cjsrn"), ExtResource("9_6fnao"), ExtResource("8_vhvej"), ExtResource("3_cpa4f"), ExtResource("6_7inwc")])
 audio_track = "res://levels/1/track1.wav"
 bpm = 120
