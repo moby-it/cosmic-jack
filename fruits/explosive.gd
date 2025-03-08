@@ -3,11 +3,10 @@ class_name Explosive
 
 @export var radius: float = 0.0
 ## in beats
-@export var detonation_delay: float = 1.0
+@export var detonation_delay: int = 1
 
 var border_color: Color = Color.RED
 var border_width: float = 2.0
-var timer: Timer
 
 func draw_explosive_radius(node: Node2D) -> void:
 	add_explosive_radius(node, radius)
@@ -22,6 +21,7 @@ func start_explosion_timer(node: Node2D) -> void:
 	# delay is always in sync with bpm
 	# var delay = (detonation_delay * AudioManager.seconds_per_beat) # remove time_to_next_beat when the movement is disrete
 	var detonation_timer = load("res://fruits/detonation_timer.tscn").instantiate()
+	detonation_timer.name = "DetonationTimer"
 	detonation_timer.duration = detonation_delay
 	detonation_timer.timeout.connect(explode.bind(node))
 	node.add_child(detonation_timer)

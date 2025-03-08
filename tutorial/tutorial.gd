@@ -1,60 +1,74 @@
 extends Control
 
 var panel_init_y = 335.0
-var panel_next_y = 1400.0
+var panel_next_y = 1350.0
 
 @onready var level: Level = $Level
 @onready var panel = $Panel
+
 var txt_1 = """
 Cosmic Jack is a rhythm puzzle game. 
 
 You have to place fruits in patterns in order to defeat your enemies.
 
-Enemies come in waves. Each wave consists of one (or more) convoys of enemies.
-	"""
-var txt_2 = """
-Α convoy is simply a series of enemies walking down a path. Here you see a wave with 1 convoy that has 4 enemies.
-The gray area above indicates the play area.
+Enemies come in [u]waves[/u]. Each wave consists of one (or more) [u]convoys[/u] of enemies.
 
 """
+var txt_2 = """
+Α convoy is simply a series of enemies walking down a path. 
+Here you see a wave with 1 convoy that has 4 enemies.
+
+The red highlighted area above indicates the [u]play area[/u].
+In each wave you must eliminate all enemies before the exit the play area.
+
+"""
+
 var txt_3 = """
-Cosmic Jack is a rhythm game. Notice the animations and the music. Everything should be ON BEAT.
-This applies for your ammo as well.
+Each wave takes place in 2 phases. The [u]planning phase[/u] and the [u]resolution phase[/u].
+
+In the planning phase you can:
+	- study the enemy pathing as it loops constantly.
+	- place your fruits and estimate the outcome.
+
+You can already see the enemy pathing preview for the tutorial wave.
+
 """
 
 var txt_4 = """
 Each wave comes with a set of fruit ammo. These are your tools to eliminate your enemies.
 
-Fruits have different trigger conditions. For example, the apple explodes 4 beats after enemy contact.
+This wave has a single apple as ammo.
+"""
+var txt_4_1 = """
+Fruits have different trigger conditions. For example, the apple explodes 4 [u]beats[/u] after enemy contact.
 
+It's music beats, not seconds!
 """
 
 var txt_5 = """
-Each wave takes place in 2 phases. The Planning phase and the Resolution phase.
-Right now, you see the planning phase.
-In the planning phase the enemy movement loops constantly, as a preview.
+You can select a fruit by clicking on it.
+After you select the apple, move your mouse to the play area and press <left click> to place your fruit.
 
 """
+
 var txt_6 = """
-In the planning phase you can place your fruits anywhere you want. You can select a fruit by clicking on it's sprite.
-After you select the apple, move your mouse to the play area to place your fruit.
+After placing your fruit, you will notice a countdown on it.
+This is a helper counter, in order to help you build some some intuition regarding when the explosion will happen.
 
-"""
-var txt_6_1 = """
-After placing your fruit, you will notice a countdown on it. This is the countdown that is in sync with the song beat.
-It helps you estimate when the fruit will explode.
-This will not be present in the actual gameplay, you'll have to count to the beat by yourself!
+This will not be present during the preparation phase in the actual gameplay. It will only be present at the resolution phase.
+In the preparation phase, you'll have to count to the beat by yourself!
 
 """
 var txt_7 = """
-Play area actions:
+Some Play area actions:
 <ctrl + left click> moves an already placed fruit.
 <ctrl + right click> removes an already placed fruit.
 <r> restarts the wave enemy movement.
 """
 
 var txt_8 = """
-After you feel confident about your placement, you can press the resolve button to resolve the wave.
+After you feel confident about your placement, you can press the resolve button to transition into the resolution phase.
+In this phase the wave actually resolves and you get to see weather your fruit placement solved the puzzle.
 """
 
 var txt_9 = """[font_size=62]Congratulations, you finished our tutorial! You can go ahead and play our demo level.[/font_size]"""
@@ -67,9 +81,9 @@ var texts = [
 	{ "text": txt_2 , "fn": slide_2_fn },
 	{ "text": txt_3 , "fn": null },
 	{ "text": txt_4 , "fn": slide_4_fn },
-	{ "text": txt_5 , "fn": null },
-	{ "text": txt_6 , "fn": slide_6_fn },
-	{ "text": txt_6_1 , "fn": slide_6_fn },
+	{ "text": txt_4_1 , "fn": null },
+	{ "text": txt_5 , "fn": slide_5_fn },
+	{ "text": txt_6 , "fn": null },
 	{ "text": txt_7 , "fn": null },
 	{ "text": txt_8 , "fn": slide_8_fn },
 	{ "text": txt_9 , "fn": null },
@@ -80,7 +94,8 @@ var revert_fns = [
 	null,
 	slide_4_fn_revert,
 	null,
-	slide_6_fn_revert,
+	slide_5_fn_revert,
+	null,
 	null,
 	slide_8_fn_revert,
 	null
@@ -135,17 +150,19 @@ func slide_2_fn_revert():
 	level.clear_wave()
 
 func slide_4_fn():
-	level.clear_fruit_hud()
 	level.create_fruit_list(level.curr_wave())
-	level.fruit_placed.connect(on_fruit_placed)
-	
+	level.render_active_fruit_ui()
+
 func slide_4_fn_revert():
 	level.clear_fruit_hud()
-	level.fruit_placed.disconnect(on_fruit_placed)
-func slide_6_fn():
+	
+func slide_5_fn():
 	level.input_enabled = true
+	level.fruit_placed.connect(on_fruit_placed)
 
-func slide_6_fn_revert():
+func slide_5_fn_revert():
+	if level.fruit_placed.has_connections():
+		level.fruit_placed.disconnect(on_fruit_placed)
 	level.input_enabled = false
 	
 func slide_8_fn():

@@ -34,7 +34,7 @@ func create_fruit_list_hud(node: VBoxContainer, wave: Wave):
 	if not is_instance_valid(node):
 		return
 	ammo = wave.ammo.get_fruits()
-	print("creating new fruit list", ammo)
+	#print("creating new fruit list", ammo)
 	for key in available_fruits:
 		if not wave.ammo.get_fruits()[key]:
 			continue
@@ -85,5 +85,4 @@ func create_fruit(active_fruit_name: String) -> Node2D:
 	
 func find_fruits_under_cursor() -> Array[Node]:
 	var placed_fruits = get_tree().get_nodes_in_group("fruits").filter(func (f): return f.hovered)
-	print("fruits under cursor", len(placed_fruits))
 	return placed_fruits

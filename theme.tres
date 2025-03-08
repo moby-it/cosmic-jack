@@ -23,7 +23,6 @@ corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
 [sub_resource type="SystemFont" id="SystemFont_xwa45"]
-font_names = PackedStringArray("IBM Plex Sans")
 
 [resource]
 default_font = SubResource("SystemFont_xwa45")

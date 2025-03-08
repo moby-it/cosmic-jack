@@ -39,7 +39,7 @@ var active_waves: Array[Wave]
 @export var bpm = 0
 
 @onready var play_area: ColorRect = $PlayArea
-@onready var fruit_list = $FruitList
+@onready var fruit_list: VBoxContainer = $FruitList
 @onready var waves_container = $WavesContainer
 @onready var health_count = $Health/HBoxContainer/Count
 @onready var wave_no = $WaveNo
@@ -53,7 +53,7 @@ var wave_announcer
 var beat_fns = []
 
 var active_fruit: Node2D
-var active_fruit_name: String
+var active_fruit_name: String = ""
 var dragging_fruits = []
 var curr_wave_idx = 0
 var resolving_progres = 0
@@ -93,17 +93,20 @@ func _input(event: InputEvent) -> void:
 		clear_wave()
 		render_convoys(curr_wave())
 
-func on_fruit_list_selected(i: String) -> void:
-	active_fruit_name = i
+func on_fruit_list_selected(fruit_name: String) -> void:
+	active_fruit_name = fruit_name
+	render_active_fruit_ui()
+
+func render_active_fruit_ui():
 	for c: HBoxContainer in fruit_list.get_children():
-		if c.name != i:
+		if c.name != active_fruit_name:
 			c.get_node("texture").material = ShaderMaterial.new()
 			c.get_node("texture").material.shader = load("res://fruits/grayscale.gdshader")
 		else:
 			c.get_node("texture").material = null
 
 func add_active_fruit():
-	if not is_instance_valid(active_fruit) && not resolving():
+	if not is_instance_valid(active_fruit) && not resolving() and active_fruit_name:
 		active_fruit = Fruits.create_fruit(active_fruit_name)
 		active_fruit.modulate.a = 0.3
 		active_fruit.position = get_global_mouse_position()
@@ -171,14 +174,17 @@ func place_fruit(p: Vector2) -> void:
 func create_fruit_list(wave: Wave):
 	clear_fruit_hud()
 	Fruits.create_fruit_list_hud($FruitList, wave)
-	on_fruit_list_selected(Fruits.find_first_fruit_with_ammo(wave))
 	Fruits.fruit_selected.connect(on_fruit_list_selected)
+
+func select_first_fruit(wave: Wave):
+	on_fruit_list_selected(Fruits.find_first_fruit_with_ammo(wave))
 		
 func create_wave():
 	var wave = curr_wave()
 	update_wave_label()
 	if preview():
 		create_fruit_list(wave)
+		select_first_fruit(wave)
 	
 	print("create wave %s, preview %s" % [curr_wave_idx, preview()])
 
