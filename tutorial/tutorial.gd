@@ -34,7 +34,7 @@ var txt_2 = """
 Here you see a wave with 1 convoy that has 4 enemies.
 
 The red highlighted area above indicates the [u]play area[/u].
-In each wave you must eliminate all enemies before the exit the play area.
+In each wave you must eliminate all enemies before they exit the play area.
 
 """
 
@@ -62,7 +62,8 @@ It's music beats, not seconds!
 """
 
 var txt_5 = """
-You can select a fruit by clicking on it.
+You can select a fruit by clicking on it. Go ahead and click the apple. It should become colorized.
+
 After you select the apple, move your mouse to the play area and press <left click> to place your fruit.
 
 """
@@ -77,9 +78,9 @@ In the preparation phase, you'll have to count to the beat by yourself!
 """
 var txt_7 = """
 Some Play area actions:
-<ctrl + left click> moves an already placed fruit.
-<ctrl + right click> removes an already placed fruit.
-<r> restarts the wave enemy movement.
+<ctrl + left click> on the fruit -  moves an already placed fruit.
+<ctrl + right click> on the fruit - removes an already placed fruit.
+<r> inside the play area - restarts the wave enemy movement.
 """
 
 var txt_8 = """
