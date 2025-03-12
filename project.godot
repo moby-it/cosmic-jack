@@ -66,3 +66,7 @@ Restart={
 
 2d_physics/layer_1="fruits"
 2d_physics/layer_2="enemies"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
