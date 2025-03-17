@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://b5ysse882du7i"]
+[gd_scene load_steps=0 format=3 uid="uid://b5ysse882du7i"]
 
 [node name="WaveAnnouncer" type="Control"]
 z_index = 20

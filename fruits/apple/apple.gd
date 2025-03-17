@@ -1,4 +1,4 @@
-# apple triggers on enemy touch
+# apple triggers on wave init
 
 extends Node2D
 
@@ -13,12 +13,15 @@ func _draw() -> void:
 	explosive.draw_explosive_radius(self)
 
 func _ready() -> void:
-	var ex_radius: Area2D = self.get_node("ExplosiveRadius")
-	ex_radius.area_entered.connect(enemy_entered)
 	to_movable()
+	# Connect to level to detect when wave is initialized
+	var level = get_tree().get_first_node_in_group("level")
+	if level:
+		# Start explosion countdown when wave resolving begins
+		level.wave_resolving.connect(on_wave_resolving)
 
-func enemy_entered(a: Area2D) -> void:
-	if a.get_parent().is_in_group("enemies") && not exploding:
+func on_wave_resolving() -> void:
+	if not exploding:
 		exploding = true
 		explosive.start_explosion_timer(self)
 

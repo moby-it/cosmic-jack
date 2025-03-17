@@ -4,6 +4,7 @@ class_name Level
 signal health_depleted
 signal level_completed
 signal wave_completed
+signal wave_resolving
 signal fruit_placed
 
 var control_tooltips = "ctrl + left_click = move fruit, ctrl + right click = remove fruit, r = restart wave preview"
@@ -126,6 +127,8 @@ func _on_resolve_button_down() -> void:
 		resolve_btn.disabled = true
 		resolve_btn.text = "resolving"
 		clear_wave()
+		# Emit signal to trigger apples to start countdown
+		wave_resolving.emit()
 		create_wave()
 
 # we are adding the active_fruit when the mouse enters the play area

@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://bskkd332a4oyt" path="res://levels/frames.gd" id="6_26sqf"]
 [ext_resource type="Script" uid="uid://bc1cij0kstu21" path="res://version.gd" id="6_n7bey"]
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="Node2D" groups=["level"]]
 script = ExtResource("1_6fb17")
 
 [node name="WavesContainer" type="Node2D" parent="."]
