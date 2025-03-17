@@ -1,11 +1,6 @@
 extends Node2D
 class_name Level
 
-signal health_depleted
-signal level_completed
-signal wave_completed
-signal fruit_placed
-
 var control_tooltips = "ctrl + left_click = move fruit, ctrl + right click = remove fruit, r = restart wave preview"
 
 enum ROUND_STATUS {
@@ -69,9 +64,9 @@ func curr_wave() -> Wave:
 
 func _ready() -> void:
 	active_waves = waves.filter(func(w): return w.enabled)
-	level_completed.connect(on_level_completed)
-	wave_completed.connect(on_wave_completed)
-	health_depleted.connect(on_health_depleted)
+	LevelManager.level_completed.connect(on_level_completed)
+	LevelManager.wave_completed.connect(on_wave_completed)
+	LevelManager.health_depleted.connect(on_health_depleted)
 	WaveHistory.level_index = level_index
 	WaveHistory.add_wave(curr_wave_idx, health, curr_wave())
 	WaveHistory.level_change.connect(_on_level_change)
@@ -121,6 +116,7 @@ func add_active_fruit():
 func _on_resolve_button_down() -> void:
 	print("resolve btn down")
 	if not resolving():
+		LevelManager.wave_resolving.emit()
 		save_placed_fruits()
 		round_status = ROUND_STATUS.RESOLVING
 		resolve_btn.disabled = true
@@ -172,7 +168,7 @@ func place_fruit(p: Vector2) -> void:
 	var node = Fruits.create_fruit(active_fruit_name)
 	node.position = Vector2(p)
 	self.add_child(node)
-	fruit_placed.emit(node)
+	LevelManager.fruit_placed.emit(node)
 	# if you cannot place any more fruits of the same stack, we remove the active fruit element
 	Fruits.reduce_fruit_ammo(active_fruit_name)
 	if not Fruits.can_place_fruit(active_fruit_name) and is_instance_valid(active_fruit):
@@ -205,7 +201,7 @@ func create_wave():
 			if not resolving():
 				return
 			if all_convoys_rendered() and rendered_pfs_count() == 0 and health > 0:
-				wave_completed.emit()
+				LevelManager.wave_completed.emit()
 		AudioManager.on_beat.connect(wave_completed_fn)
 		beat_fns.push_back(wave_completed_fn)
 	
@@ -217,7 +213,7 @@ func render_convoys(wave: Wave):
 	print("wave offset %s" % offset)
 	for c in wave.convoys:
 		c.rendered = false
-		ExplosionBus.enemies_exploded[c.get_instance_id()] = 0
+		LevelManager.enemies_exploded[c.get_instance_id()] = 0
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
 		
@@ -253,7 +249,7 @@ func add_enemy_resolve(convoy: Convoy, path: Path2D):
 	pf.enemy_passed.connect(enemy_passed)
 	pf.add_child(enemy)
 	path.add_child(pf)
-	if path.get_child_count() + ExplosionBus.enemies_exploded[convoy.get_instance_id()] == convoy.count:
+	if path.get_child_count() + LevelManager.enemies_exploded[convoy.get_instance_id()] == convoy.count:
 		convoy.rendered = true
 
 func add_enemy_preview(convoy: Convoy, path: Path2D):
@@ -272,7 +268,7 @@ func enemy_passed():
 		health -= 1
 		health_count.text = str(health)
 	if health == 0:
-		health_depleted.emit()
+		LevelManager.health_depleted.emit()
 
 func on_level_completed():
 	print("level completed!")
@@ -284,7 +280,7 @@ func on_wave_completed():
 	last_fruit_positions = []
 	round_status = ROUND_STATUS.RESOLVED
 	if len(active_waves) == curr_wave_idx + 1:
-		level_completed.emit()
+		LevelManager.level_completed.emit()
 		return
 	print("wave passed")
 	curr_wave_idx += 1
@@ -326,7 +322,7 @@ func clear_wave():
 	for f in beat_fns:
 		AudioManager.on_beat.disconnect(f)
 	beat_fns.clear()
-	ExplosionBus.enemies_exploded = {}
+	LevelManager.enemies_exploded = {}
 
 ## removes all fruits from the play area
 func clear_fruits():

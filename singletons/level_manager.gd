@@ -1,9 +1,13 @@
 extends Node
 
-# Dictionary[convoy_id][enemy_killed_no]
-var enemies_exploded = {}
-
+signal health_depleted
+signal level_completed
+signal wave_completed
+signal fruit_placed
+signal wave_resolving
 signal exploded
+
+var enemies_exploded = {}
 
 func _ready() -> void:
 	exploded.connect(add_enemy_exploded)

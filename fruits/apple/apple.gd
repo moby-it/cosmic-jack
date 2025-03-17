@@ -13,14 +13,12 @@ func _draw() -> void:
 	explosive.draw_explosive_radius(self)
 
 func _ready() -> void:
-	var ex_radius: Area2D = self.get_node("ExplosiveRadius")
-	ex_radius.area_entered.connect(enemy_entered)
+	LevelManager.wave_resolving.connect(trigger_explosion)
 	to_movable()
 
-func enemy_entered(a: Area2D) -> void:
-	if a.get_parent().is_in_group("enemies") && not exploding:
-		exploding = true
-		explosive.start_explosion_timer(self)
+func trigger_explosion() -> void:
+	exploding = true
+	explosive.start_explosion_timer(self)
 
 func to_movable():
 	area.mouse_entered.connect(func(): hovered = true)

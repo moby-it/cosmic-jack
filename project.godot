@@ -21,12 +21,12 @@ driver/output_latency=1
 
 [autoload]
 
-ExplosionBus="*res://singletons/explosion_bus.gd"
 Fruits="*res://singletons/fruits.gd"
 SceneManager="*res://singletons/scene_manager.gd"
 Utils="*res://singletons/utils.gd"
 WaveHistory="*res://singletons/wave_history.gd"
 AudioManager="*res://singletons/audio_manager.gd"
+LevelManager="*res://singletons/level_manager.gd"
 
 [display]
 

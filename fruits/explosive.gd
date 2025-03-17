@@ -62,5 +62,5 @@ func explode(fruit: Node2D):
 			enemies_killed.push_back(enemy)
 			var pf = enemy.get_parent()
 			pf.queue_free()
-	ExplosionBus.exploded.emit(fruit, enemies_killed)
+	LevelManager.exploded.emit(fruit, enemies_killed)
 	fruit.queue_free()
