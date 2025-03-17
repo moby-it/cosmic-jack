@@ -15,6 +15,7 @@ enum ROUND_STATUS {
 }
 
 var round_status = ROUND_STATUS.PREVIEW
+var last_fruit_positions = []
 
 func resolving():
 	return round_status == ROUND_STATUS.RESOLVING
@@ -120,6 +121,7 @@ func add_active_fruit():
 func _on_resolve_button_down() -> void:
 	print("resolve btn down")
 	if not resolving():
+		save_placed_fruits()
 		round_status = ROUND_STATUS.RESOLVING
 		resolve_btn.disabled = true
 		resolve_btn.text = "resolving"
@@ -173,7 +175,7 @@ func place_fruit(p: Vector2) -> void:
 	fruit_placed.emit(node)
 	# if you cannot place any more fruits of the same stack, we remove the active fruit element
 	Fruits.reduce_fruit_ammo(active_fruit_name)
-	if not Fruits.can_place_fruit(active_fruit_name):
+	if not Fruits.can_place_fruit(active_fruit_name) and is_instance_valid(active_fruit):
 		active_fruit.queue_free()
 
 func create_fruit_list(wave: Wave):
@@ -189,6 +191,10 @@ func create_wave():
 	update_wave_label()
 	if preview():
 		create_fruit_list(wave)
+		if not last_fruit_positions.is_empty():
+			for f in last_fruit_positions:
+				active_fruit_name = f.name
+				place_fruit(f.position)
 		select_first_fruit(wave)
 	
 	print("create wave %s, preview %s" % [curr_wave_idx, preview()])
@@ -275,6 +281,7 @@ func on_level_completed():
 	SceneManager.change_scene.emit(level_won)
 	
 func on_wave_completed():
+	last_fruit_positions = []
 	round_status = ROUND_STATUS.RESOLVED
 	if len(active_waves) == curr_wave_idx + 1:
 		level_completed.emit()
@@ -303,7 +310,10 @@ func _on_level_change(idx: int, hp: int):
 	if menu:
 		menu.closed.emit()
 	clear_wave()
-	
+	if idx == WaveHistory.history.size() - 1:
+		for f in last_fruit_positions:
+			active_fruit_name = f.name
+			place_fruit(f.position)
 	health = hp
 	health_count.text = str(hp)
 	curr_wave_idx = idx
@@ -327,7 +337,8 @@ func clear_fruits():
 func clear_fruit_hud():
 	for c in $FruitList.get_children():
 		c.queue_free()
-	Fruits.fruit_selected.disconnect(on_fruit_list_selected)
+	if Fruits.fruit_selected.is_connected(on_fruit_list_selected):
+		Fruits.fruit_selected.disconnect(on_fruit_list_selected)
 
 func update_wave_label():
 	wave_no.text = "%s - %s" % [level_index, curr_wave_idx + 1]
@@ -395,3 +406,11 @@ func start_audio():
 	AudioManager.seconds_per_beat = 60.0 / bpm
 	wave_audio.play()
 	wave_audio.finished.connect((func(): wave_audio.play()))
+
+func save_placed_fruits() -> void:
+	for f: Node2D in get_tree().get_nodes_in_group("fruits"):
+		print("%s, id: %s, position: %s,%s" % [f.name, f.get_instance_id(), f.position.x, f.position.y])
+		last_fruit_positions.push_front({
+			"name": f.get_meta("name"),
+			"position": f.position
+		})

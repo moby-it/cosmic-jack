@@ -34,6 +34,6 @@ texture = ExtResource("1_qilu0")
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_s0505"),
-"enemies": SubResource("AnimationLibrary_mm7kt")
+&"": SubResource("AnimationLibrary_s0505"),
+&"enemies": SubResource("AnimationLibrary_mm7kt")
 }
