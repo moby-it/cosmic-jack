@@ -56,7 +56,7 @@ Ammo can be found at the bottom right of your screen.
 This wave has a single apple as ammo.
 """
 var txt_4_1 = """
-Fruits have different trigger conditions. For example, the apple explodes 4 [u]beats[/u] after enemy contact.
+Fruits have different trigger conditions. For example, the apple explodes 8 [u]beats[/u] after wave start.
 
 It's music beats, not seconds!
 """
