@@ -80,6 +80,10 @@ func add_fruit_ammo(fruit: String):
 func create_fruit(active_fruit_name: String) -> Node2D:
 	var fruit: Node2D = available_fruits[active_fruit_name].instantiate()
 	fruit.name = active_fruit_name
+	# Add a meta property for easy identification when saving/restoring
+	fruit.set_meta("name", active_fruit_name)
+	# Add to a group with the fruit type name for another way to identify it
+	fruit.add_to_group(active_fruit_name)
 	fruit.explosive.add_explosive_radius(fruit,fruit.explosive.radius)
 	return fruit
 	

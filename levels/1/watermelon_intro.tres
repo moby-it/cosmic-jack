@@ -10,7 +10,7 @@
 [sub_resource type="Resource" id="Resource_0lca4"]
 script = ExtResource("1_7pcus")
 apples = 1
-watermelons = 1
+watermelons = 2
 cherries = 0
 
 [sub_resource type="Resource" id="Resource_sbo23"]

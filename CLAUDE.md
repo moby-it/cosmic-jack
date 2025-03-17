@@ -28,3 +28,6 @@
 - Report errors with: `push_error("error message")`
 - Use null/validity checks: `if not is_instance_valid(node):`
 - Implement guard clauses for early returns
+
+### Git commit guidelines
+- Never co-author commits made by Claude

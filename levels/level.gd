@@ -121,11 +121,15 @@ func add_active_fruit():
 func _on_resolve_button_down() -> void:
 	print("resolve btn down")
 	if not resolving():
+		# Save the current fruit positions before resolving
+		# This is the right time to save them, before they potentially explode
+		save_current_fruit_positions()
+		print("Saved current fruit positions at resolve time")
+		
 		round_status = ROUND_STATUS.RESOLVING
 		resolve_btn.disabled = true
 		resolve_btn.text = "resolving"
 		clear_wave()
-		# Emit signal to trigger apples to start countdown
 		wave_resolving.emit()
 		create_wave()
 
@@ -292,12 +296,95 @@ func on_health_depleted():
 	var menu = self.get_node_or_null("Menu")
 	if is_instance_valid(menu):
 		return
+	
+	# We no longer save positions here - it happens at resolve time instead
+	
 	menu = load("res://menu/in_game_menu.tscn").instantiate()
 	menu.name = "Menu"
 	menu.get_node("ColorRect/MarginContainer/VBoxContainer/Label").text = "Wave Lost!"
 	menu.get_node("ColorRect").get_node("CloseMenu").queue_free()
+	menu.disable_replay_past_levels = true
 	clear_wave()
 	self.add_child(menu)
+	
+func save_current_fruit_positions():
+	var fruits = self.get_tree().get_nodes_in_group("fruits")
+	var fruits_data = []
+	print("Saving positions of " + str(fruits.size()) + " fruits")
+	
+	for fruit in fruits:
+		# Try multiple approaches to determine the fruit type
+		var fruit_type = ""
+		
+		# Method 1: Check if the fruit has a meta "name" property set when created
+		if fruit.has_meta("name"):
+			fruit_type = fruit.get_meta("name")
+			
+		# Method 2: Check if it's in one of the available_fruits scenes
+		if fruit_type == "":
+			for type in Fruits.available_fruits.keys():
+				if fruit.is_in_group(type) or (fruit.name.begins_with(type) and not fruit.name.contains("@")):
+					fruit_type = type
+					break
+					
+		# Method 3: Check direct against Fruits dictionary
+		if fruit_type == "":
+			for type in Fruits.available_fruits.keys():
+				if Fruits.available_fruits[type].get_path() == fruit.get_parent().get_path():
+					fruit_type = type
+					break
+		
+		if fruit_type == "":
+			print("WARNING: Could not determine fruit type for " + fruit.name)
+			continue
+		
+		print("Saving fruit: " + fruit_type)
+		fruits_data.append({
+			"fruit_type": fruit_type,
+			"position": fruit.position
+		})
+	
+	# Save to WaveHistory singleton
+	WaveHistory.save_failed_fruits(fruits_data)
+	
+func restore_fruit_positions():
+	var failed_fruits = WaveHistory.get_failed_fruits()
+	
+	if failed_fruits.is_empty():
+		print("No failed fruits to restore")
+		return
+		
+	print("Restoring " + str(failed_fruits.size()) + " fruits")
+	
+	# Place each fruit from the saved positions
+	for fruit_data in failed_fruits:
+		# Check if we're using the new format with fruit_type key
+		var fruit_type = fruit_data.get("fruit_type", fruit_data.get("name", ""))
+		var position = fruit_data["position"]
+		
+		print("Trying to restore fruit: " + fruit_type)
+		
+		# Check if we have ammo for this fruit and if it's a valid fruit type
+		if not fruit_type in Fruits.available_fruits:
+			print("Invalid fruit type: " + fruit_type)
+			continue
+			
+		if not Fruits.can_place_fruit(fruit_type):
+			print("No ammo for fruit: " + fruit_type)
+			continue
+			
+		# Place the fruit at the saved position
+		var fruit = Fruits.create_fruit(fruit_type)
+		fruit.position = position
+		self.add_child(fruit)
+		fruit_placed.emit(fruit)
+		
+		# Reduce fruit ammo
+		Fruits.reduce_fruit_ammo(fruit_type)
+		print("Restored fruit: " + fruit_type)
+	
+	# Clear the saved positions after restoring
+	WaveHistory.clear_failed_fruits()
 
 func _on_level_change(idx: int, hp: int):
 	if is_instance_valid(wave_announcer):
@@ -310,7 +397,15 @@ func _on_level_change(idx: int, hp: int):
 	health = hp
 	health_count.text = str(hp)
 	curr_wave_idx = idx
-	show_announcer()
+	
+	# Check if this is a retry after failure (last wave in history)
+	var is_retry_after_failure = idx == WaveHistory.history.size() - 1
+	
+	if is_retry_after_failure and not WaveHistory.last_failed_fruits.is_empty():
+		# We'll restore fruits after the wave announcer is dismissed
+		show_announcer(true)
+	else:
+		show_announcer(false)
 
 ## clears enemies enemies from screen, and associated structures
 func clear_wave():
@@ -344,7 +439,7 @@ func largest_duration() -> int:
 func all_convoys_rendered() -> bool:
 	return curr_wave().convoys.all(func(c): return c.rendered)
 
-func show_announcer():
+func show_announcer(restore_failed_fruits: bool = false):
 	if is_instance_valid(wave_announcer):
 		return
 	if is_instance_valid(active_fruit):
@@ -357,13 +452,23 @@ func show_announcer():
 	wave_announcer.get_node("VBoxContainer/Title").text = wave.title
 	wave_announcer.get_node("VBoxContainer/Subtitle").text = wave.subtitle
 	wave_announcer.get_node("VBoxContainer/Description").text = wave.description
+	
+	# Add a note if we're restoring previous fruit positions
+	if restore_failed_fruits and not WaveHistory.last_failed_fruits.is_empty():
+		wave_announcer.get_node("VBoxContainer/Description").text += "\n\nYour previous fruit placement will be restored."
+	
 	wave_announcer.visible = true
 	wave_announcer.modulate.a = 0
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN)
 	tween.set_trans(Tween.TRANS_LINEAR)
 	tween.tween_property(wave_announcer, "modulate:a", 1.0, 1.0)
-	wave_announcer.gui_input.connect(_on_wave_announcer_gui_input)
+	
+	if restore_failed_fruits:
+		wave_announcer.gui_input.connect(func(event): _on_wave_announcer_gui_input_with_restore(event))
+	else:
+		wave_announcer.gui_input.connect(_on_wave_announcer_gui_input)
+		
 	self.add_child(wave_announcer)
 
 func hide_announcer():
@@ -385,6 +490,13 @@ func _on_wave_announcer_gui_input(event: InputEvent) -> void:
 	if Utils.is_mouse_left(event):
 		await hide_announcer()
 		create_wave()
+		
+func _on_wave_announcer_gui_input_with_restore(event: InputEvent) -> void:
+	if Utils.is_mouse_left(event):
+		await hide_announcer()
+		create_wave()
+		# Restore fruit positions
+		restore_fruit_positions()
 
 func start_audio():
 	wave_audio.stream = load(audio_track)
