@@ -40,28 +40,17 @@ func create_fruit_list_hud(node: VBoxContainer, wave: Wave):
 			continue
 		var container = HBoxContainer.new()
 		container.add_theme_constant_override("separation", 20)
-		container.name = key
+		container.set_meta("name", key)
 		
-		# render fruit texture
-		var fruit = TextureRect.new()
-		fruit.name = "texture"
-		fruit.texture = available_fruits_png[key]
-		fruit.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-		fruit.gui_input.connect(func(event): if Utils.is_mouse_left(event): fruit_selected.emit(key))
-		container.add_child(fruit)
 		
-		# render ammo label
-		var label = Label.new()
-		label.text = str(wave.ammo.get_fruits()[key])
-		ammo_labels[key] = label
-		container.add_child(label)
-		
-		# render tooltip
-		var tooltip = Label.new()
-		tooltip.text = tooltips[key]
-		tooltip.add_theme_font_size_override("font_size", 32)
-		container.add_child(tooltip)
-		
+		for a in wave.ammo.get_fruits()[key]:
+			# render fruit texture
+			var fruit = TextureRect.new()
+			fruit.name = "texture"
+			fruit.texture = available_fruits_png[key]
+			fruit.mouse_default_cursor_shape = Control.CURSOR_DRAG
+			fruit.gui_input.connect(func(event): if Utils.is_mouse_left_down(event): fruit_selected.emit(key, a))
+			container.add_child(fruit)		
 		node.add_child(container)
 
 func can_place_fruit(fruit: String) -> bool:
@@ -77,9 +66,10 @@ func add_fruit_ammo(fruit: String):
 	ammo[fruit] += 1
 	ammo_labels[fruit].text = str(ammo[fruit])
 
-func create_fruit(active_fruit_name: String) -> Node2D:
-	var fruit: Node2D = available_fruits[active_fruit_name].instantiate()
-	fruit.name = active_fruit_name
+func create_fruit(name: String) -> Node2D:
+	var fruit: Node2D = available_fruits[name].instantiate()
+	fruit.name = name
+	fruit.set_meta("name", name)
 	fruit.explosive.add_explosive_radius(fruit,fruit.explosive.radius)
 	return fruit
 	

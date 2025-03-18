@@ -19,6 +19,5 @@ func _on_close_menu_button_down() -> void:
 func _render_history(history):
 	var wave_entry = load("res://menu/wave_entry.tscn").instantiate()
 	wave_entry.index = history["index"]
-	wave_entry.hp = history["hp"]
 	wave_entry.wave = history["wave"]
 	container.add_child(wave_entry)

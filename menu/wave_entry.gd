@@ -22,5 +22,5 @@ func create_label(text: String):
 	return l
 
 func _on_retry_gui_input(event: InputEvent) -> void:
-	if Utils.is_mouse_left(event):
+	if Utils.is_mouse_left_down(event):
 		WaveHistory.level_change.emit(index, hp)

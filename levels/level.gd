@@ -3,34 +3,6 @@ class_name Level
 
 var control_tooltips = "ctrl + left_click = move fruit, ctrl + right click = remove fruit, r = restart wave preview"
 
-enum ROUND_STATUS {
-	PREVIEW,
-	RESOLVING,
-	RESOLVED
-}
-
-var round_status = ROUND_STATUS.PREVIEW
-var last_fruit_positions = []
-
-func resolving():
-	return round_status == ROUND_STATUS.RESOLVING
-	
-func preview():
-	return round_status == ROUND_STATUS.PREVIEW
-
-func set_preview():
-	round_status = ROUND_STATUS.PREVIEW
-	# we need to duplicate the button because if we just re enable it, it ignores the first click instasnce, which is incredibly annoying
-	var btn: Button = resolve_btn.duplicate()
-	btn.text = "resolve wave"
-	btn.disabled = false
-	resolve_btn.queue_free()
-	self.add_child(btn)
-	resolve_btn = btn
-
-# used for pausing
-var audio_position = 0.0
-var health = 1
 @export var level_index: int = 1
 @export var waves: Array[Wave]
 var active_waves: Array[Wave]
@@ -42,22 +14,14 @@ var active_waves: Array[Wave]
 @onready var play_area: ColorRect = $PlayArea
 @onready var fruit_list: VBoxContainer = $FruitList
 @onready var waves_container = $WavesContainer
-@onready var health_count = $Health/HBoxContainer/Count
 @onready var wave_no = $WaveNo
-@onready var resolve_btn:Button = $Resolve
+@onready var wave_audio: AudioStreamPlayer = $WaveAudio
 
 # Wave Announcer Control
 var wave_announcer
-
-@onready var wave_audio: AudioStreamPlayer = $WaveAudio
-
 var beat_fns = []
-
-var active_fruit: Node2D
-var active_fruit_name: String = ""
-var dragging_fruits = []
+var dragging_fruit: Node2D
 var curr_wave_idx = 0
-var resolving_progres = 0
 
 func curr_wave() -> Wave:
 	return active_waves[curr_wave_idx]
@@ -66,12 +30,11 @@ func _ready() -> void:
 	active_waves = waves.filter(func(w): return w.enabled)
 	LevelManager.level_completed.connect(on_level_completed)
 	LevelManager.wave_completed.connect(on_wave_completed)
-	LevelManager.health_depleted.connect(on_health_depleted)
+	Fruits.fruit_selected.connect(add_dragging_fruit)
 	WaveHistory.level_index = level_index
-	WaveHistory.add_wave(curr_wave_idx, health, curr_wave())
+	WaveHistory.add_wave(curr_wave_idx, curr_wave())
 	WaveHistory.level_change.connect(_on_level_change)
 	update_wave_label()
-	health_count.text = str(health)
 	show_announcer()
 	start_audio()
 
@@ -84,126 +47,83 @@ func _input(event: InputEvent) -> void:
 			menu = load("res://menu/in_game_menu.tscn").instantiate()
 			menu.name = "Menu"
 			self.add_child(menu)
-	if not play_area.get_rect().has_point(get_global_mouse_position()):
-		return
-	if Input.is_key_pressed(KEY_CTRL) and is_instance_valid(active_fruit):
-		active_fruit.queue_free()
-	if not Input.is_key_pressed(KEY_CTRL) and not is_instance_valid(active_fruit) and not is_instance_valid(wave_announcer):
-		add_active_fruit()
-	if event.is_action_pressed("Restart") and preview():
-		clear_wave()
-		render_convoys(curr_wave())
-
-func on_fruit_list_selected(fruit_name: String) -> void:
-	active_fruit_name = fruit_name
-	render_active_fruit_ui()
-
-func render_active_fruit_ui():
-	for c: HBoxContainer in fruit_list.get_children():
-		if c.name != active_fruit_name:
-			c.get_node("texture").material = ShaderMaterial.new()
-			c.get_node("texture").material.shader = load("res://fruits/grayscale.gdshader")
+	if event.is_action_pressed("Restart"):
+		enemy_passed()
+	if event is InputEventMouseMotion and is_instance_valid(dragging_fruit):
+		dragging_fruit.position = get_global_mouse_position()
+	elif Utils.is_mouse_left_up(event) and dragging_fruit:
+		if play_area.get_rect().has_point(get_global_mouse_position()):
+			var f = place_fruit(dragging_fruit, get_global_mouse_position())
+			LevelManager.edit_fruit_placed(f)
+			gray_out_fruit(f)
 		else:
-			c.get_node("texture").material = null
-
-func add_active_fruit():
-	if not is_instance_valid(active_fruit) && not resolving() and active_fruit_name:
-		active_fruit = Fruits.create_fruit(active_fruit_name)
-		active_fruit.modulate.a = 0.3
-		active_fruit.position = get_global_mouse_position()
-		self.add_child(active_fruit)
-
-func _on_resolve_button_down() -> void:
-	print("resolve btn down")
-	if not resolving():
-		LevelManager.wave_resolving.emit()
-		save_placed_fruits()
-		round_status = ROUND_STATUS.RESOLVING
-		resolve_btn.disabled = true
-		resolve_btn.text = "resolving"
-		clear_wave()
-		create_wave()
-
-# we are adding the active_fruit when the mouse enters the play area
-func _on_play_area_mouse_entered() -> void:
-	if not is_instance_valid(active_fruit) and not resolving and Fruits.can_place_fruit(active_fruit_name):
-		active_fruit = Fruits.create_fruit(active_fruit_name)
-		active_fruit.modulate.a = 0.3
-		active_fruit.position = get_global_mouse_position()
-		self.add_child(active_fruit)
-
-# we are removing the active_fruit when the mouse leaves the play area
-func _on_play_area_mouse_exited() -> void:
-	if is_instance_valid(active_fruit):
-		active_fruit.queue_free()
-
-func _on_play_area_gui_input(event: InputEvent) -> void:
-	if Input.is_key_pressed(KEY_CTRL) and not resolving():
-		if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT:
-			if event.is_pressed():
-				dragging_fruits = Fruits.find_fruits_under_cursor()
-			else:
-				dragging_fruits = []
-		elif event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-			if len(dragging_fruits) > 0:
-				for df in dragging_fruits:
-					df.position = get_global_mouse_position()
-		elif Utils.is_mouse_right(event):
-			var fruits = Fruits.find_fruits_under_cursor()
-			if len(fruits):
-				for f in fruits:
-					Fruits.add_fruit_ammo(f.get_meta("name"))
-					f.queue_free()
-	else:
-		if not is_instance_valid(active_fruit):
+			remove_fruit(dragging_fruit)
+	elif Utils.is_mouse_left_down(event) and not is_instance_valid(dragging_fruit):
+		var f = Fruits.find_fruits_under_cursor()
+		if f.is_empty():
 			return
-		if Utils.is_mouse_left(event):
-			place_fruit(get_global_mouse_position())
-		elif Utils.is_mouse_move(event):
-			active_fruit.position = get_global_mouse_position()
+		if not f[0].exploding:
+			dragging_fruit = f[0]
 
-func place_fruit(p: Vector2) -> void:
-	if not Fruits.can_place_fruit(active_fruit_name):
-		return
-	var node = Fruits.create_fruit(active_fruit_name)
-	node.position = Vector2(p)
-	self.add_child(node)
-	LevelManager.fruit_placed.emit(node)
-	# if you cannot place any more fruits of the same stack, we remove the active fruit element
-	Fruits.reduce_fruit_ammo(active_fruit_name)
-	if not Fruits.can_place_fruit(active_fruit_name) and is_instance_valid(active_fruit):
-		active_fruit.queue_free()
+func gray_out_fruit(fruit: Node2D):
+	for i in fruit_list.get_child_count():
+		var f = fruit_list.get_child(i)
+		if f.get_meta("name") == fruit.get_meta("name"):
+			var hud_node = f.get_child(fruit.get_meta("hud_idx"))
+			hud_node.material = ShaderMaterial.new()
+			hud_node.material.shader = load("res://fruits/grayscale.gdshader")
+
+func ungray_out_fruit(fruit: Node2D):
+	for i in fruit_list.get_child_count():
+		var f = fruit_list.get_child(i)
+		if f.get_meta("name") == fruit.get_meta("name"):
+			var hud_node = f.get_child(fruit.get_meta("hud_idx"))
+			hud_node.material = null
+
+func remove_fruit(fruit: Node2D):
+		ungray_out_fruit(fruit)
+		LevelManager.remove_fruit_placed(dragging_fruit)
+		dragging_fruit.queue_free()
+		dragging_fruit = null
+
+func add_dragging_fruit(name: String, idx: int):
+	dragging_fruit = Fruits.create_fruit(name)
+	dragging_fruit.set_meta("hud_idx", idx)
+	dragging_fruit.modulate.a = 0.3
+	dragging_fruit.position = get_global_mouse_position()
+	var area: Area2D = dragging_fruit.get_node("ExplosiveRadius")
+	area.monitoring = false
+	# should disable collisions
+	self.add_child(dragging_fruit)
+	
+
+
+func place_fruit(fruit: Node2D, p: Vector2) -> Node2D:
+	fruit.position = Vector2(p)
+	fruit.modulate.a = 1
+	var area: Area2D = fruit.get_node("ExplosiveRadius")
+	area.monitoring = true
+	self.add_child(fruit)
+	dragging_fruit = null
+	return fruit
 
 func create_fruit_list(wave: Wave):
 	clear_fruit_hud()
 	Fruits.create_fruit_list_hud($FruitList, wave)
-	Fruits.fruit_selected.connect(on_fruit_list_selected)
 
-func select_first_fruit(wave: Wave):
-	on_fruit_list_selected(Fruits.find_first_fruit_with_ammo(wave))
-		
-func create_wave():
-	var wave = curr_wave()
-	update_wave_label()
-	if preview():
-		create_fruit_list(wave)
-		if not last_fruit_positions.is_empty():
-			for f in last_fruit_positions:
-				active_fruit_name = f.name
-				place_fruit(f.position)
-		select_first_fruit(wave)
 	
-	print("create wave %s, preview %s" % [curr_wave_idx, preview()])
+func create_wave(wave: Wave):
+	update_wave_label()
+	
+	print("create wave %s" % [curr_wave_idx])
 
-	# wire up wave completed for non preview
-	if not preview():
-		var wave_completed_fn = func(_i: int):
-			if not resolving():
-				return
-			if all_convoys_rendered() and rendered_pfs_count() == 0 and health > 0:
-				LevelManager.wave_completed.emit()
-		AudioManager.on_beat.connect(wave_completed_fn)
-		beat_fns.push_back(wave_completed_fn)
+	# Wire up wave completion checker
+	var wave_completed_fn = func(_i: int):
+		# If all enemies have been spawned and none are left on the screen, the wave is completed
+		if all_convoys_rendered() and rendered_pfs_count() == 0:
+			LevelManager.wave_completed.emit()
+	AudioManager.on_beat.connect(wave_completed_fn)
+	beat_fns.push_back(wave_completed_fn)
 	
 	render_convoys(wave)
 
@@ -235,9 +155,9 @@ func convoy_beat_fn(c: Convoy, river: Path2D, offset: int):
 		var adjusted_remainder = remainder - c.delay
 		if adjusted_remainder >= 0 and adjusted_remainder < c.count:
 			#print("adding enemy")
-			return add_enemy_preview(c, river) if preview() else add_enemy_resolve(c,river)
+			return add_enemy(c,river)
 
-func add_enemy_resolve(convoy: Convoy, path: Path2D):
+func add_enemy(convoy: Convoy, path: Path2D):
 	#print("path child count %s" % path.get_child_count())
 	#print("rendered %s" % convoy.rendered)
 	var pf = PathFollow2D.new()
@@ -252,23 +172,19 @@ func add_enemy_resolve(convoy: Convoy, path: Path2D):
 	if path.get_child_count() + LevelManager.enemies_exploded[convoy.get_instance_id()] == convoy.count:
 		convoy.rendered = true
 
-func add_enemy_preview(convoy: Convoy, path: Path2D):
-	var pf = PathFollow2D.new()
-	pf.set_script(load("res://waves/rivers/_river.gd"))
-	pf.duration = convoy.duration
-	var enemy: Node2D = convoy.enemy.instantiate()
-	enemy.queue_animation = true
-	enemy.convoy_id =  convoy.get_instance_id()
-	enemy.collision = false
-	pf.add_child(enemy)
-	path.add_child(pf)
-
 func enemy_passed():
-	if health > 0:
-		health -= 1
-		health_count.text = str(health)
-	if health == 0:
-		LevelManager.health_depleted.emit()
+	# Restart the level when an enemy passes
+	clear_wave()
+	clear_fruits()
+	re_place_fruits(LevelManager.fruits_placed)
+	create_wave(curr_wave())
+
+func re_place_fruits(fruits: Dictionary):
+	LevelManager.fruits_placed = {}
+	for f_id in fruits:
+		var f = fruits[f_id]
+		place_fruit(f, f.position)
+		LevelManager.edit_fruit_placed(f)
 
 func on_level_completed():
 	print("level completed!")
@@ -277,27 +193,16 @@ func on_level_completed():
 	SceneManager.change_scene.emit(level_won)
 	
 func on_wave_completed():
-	last_fruit_positions = []
-	round_status = ROUND_STATUS.RESOLVED
 	if len(active_waves) == curr_wave_idx + 1:
 		LevelManager.level_completed.emit()
 		return
+	LevelManager.fruits_placed = {}
 	print("wave passed")
 	curr_wave_idx += 1
-	WaveHistory.add_wave(curr_wave_idx, health,curr_wave())
+	WaveHistory.add_wave(curr_wave_idx, curr_wave())
 	clear_wave()
+	clear_fruits()
 	show_announcer()
-
-func on_health_depleted():
-	var menu = self.get_node_or_null("Menu")
-	if is_instance_valid(menu):
-		return
-	menu = load("res://menu/in_game_menu.tscn").instantiate()
-	menu.name = "Menu"
-	menu.get_node("ColorRect/MarginContainer/VBoxContainer/Label").text = "Wave Lost!"
-	menu.get_node("ColorRect").get_node("CloseMenu").queue_free()
-	clear_wave()
-	self.add_child(menu)
 
 func _on_level_change(idx: int, hp: int):
 	if is_instance_valid(wave_announcer):
@@ -306,12 +211,6 @@ func _on_level_change(idx: int, hp: int):
 	if menu:
 		menu.closed.emit()
 	clear_wave()
-	if idx == WaveHistory.history.size() - 1:
-		for f in last_fruit_positions:
-			active_fruit_name = f.name
-			place_fruit(f.position)
-	health = hp
-	health_count.text = str(hp)
 	curr_wave_idx = idx
 	show_announcer()
 
@@ -333,8 +232,6 @@ func clear_fruits():
 func clear_fruit_hud():
 	for c in $FruitList.get_children():
 		c.queue_free()
-	if Fruits.fruit_selected.is_connected(on_fruit_list_selected):
-		Fruits.fruit_selected.disconnect(on_fruit_list_selected)
 
 func update_wave_label():
 	wave_no.text = "%s - %s" % [level_index, curr_wave_idx + 1]
@@ -351,9 +248,6 @@ func all_convoys_rendered() -> bool:
 func show_announcer():
 	if is_instance_valid(wave_announcer):
 		return
-	if is_instance_valid(active_fruit):
-		active_fruit.queue_free()
-	resolve_btn.release_focus()
 	clear_fruits()
 	clear_fruit_hud()
 	var wave = curr_wave()
@@ -380,15 +274,12 @@ func hide_announcer():
 	await tween.finished
 	if is_instance_valid(wave_announcer):
 		wave_announcer.queue_free()
-	set_preview()
-	active_fruit_name = Fruits.find_first_fruit_with_ammo(curr_wave())
-	if play_area.get_rect().has_point(get_global_mouse_position()):
-		add_active_fruit()
+	create_fruit_list(curr_wave())
 
 func _on_wave_announcer_gui_input(event: InputEvent) -> void:
-	if Utils.is_mouse_left(event):
+	if Utils.is_mouse_left_down(event):
 		await hide_announcer()
-		create_wave()
+		create_wave(curr_wave())
 
 func start_audio():
 	wave_audio.stream = load(audio_track)
@@ -402,11 +293,3 @@ func start_audio():
 	AudioManager.seconds_per_beat = 60.0 / bpm
 	wave_audio.play()
 	wave_audio.finished.connect((func(): wave_audio.play()))
-
-func save_placed_fruits() -> void:
-	for f: Node2D in get_tree().get_nodes_in_group("fruits"):
-		print("%s, id: %s, position: %s,%s" % [f.name, f.get_instance_id(), f.position.x, f.position.y])
-		last_fruit_positions.push_front({
-			"name": f.get_meta("name"),
-			"position": f.position
-		})

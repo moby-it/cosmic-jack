@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_ad5qp"]
 script = ExtResource("2_dn3uh")
 radius = 300.0
-detonation_delay = 8
+detonation_delay = 4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ajhhp"]
 radius = 48.0

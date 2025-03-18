@@ -3,7 +3,7 @@ class_name Explosive
 
 @export var radius: float = 0.0
 ## in beats
-@export var detonation_delay: int = 1
+@export var detonation_delay: int = 4
 
 var border_color: Color = Color.RED
 var border_width: float = 2.0

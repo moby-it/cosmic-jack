@@ -139,3 +139,25 @@ that impact later levels. I think this is a must. To do that I need to:
 ## 25/2 12:24
 
 Added level 8, interruptions. Need to create 2 more levels.
+
+## 19/3 11:56
+
+On the 9th of March I sent out the 0.2.0 prototype. So far I have 8 responses. The critical take aways so far are:
+	- The game is a spacial game, rather than a rythm game. It's strong aspect is the spacial part.
+	- The music sometimes becomes a nuance. While people enjoy it as an aesthetic, they don't enjoy it as a mechanic.
+	- Remove the tutorial. Try to to a level design that does not need a tutorial.
+	- Make the UI more intuitive. Drag-n-drop the bombs, instead of this ctrl click shit.
+
+I'm working on the following:
+	- remove the resolution and preview phase. There's only one phase in which 
+		- place fruits
+		- fruits interact with enemies
+		- if any enemy escapes the pattern placement, the puzzle automatically replays, until you solve it.
+		
+This way everything is still on beat, but the game is more of a trial and error game. You have a sense of progress as well. You built your solution like legos.
+Resembles a physical puzzle!
+
+Next steps:
+	- Remove the level retry screen. It does not make sense.
+	- refine the code, simplify things. Go closer to pure functions, based on singleton classes.
+	- Test the level end to end.
