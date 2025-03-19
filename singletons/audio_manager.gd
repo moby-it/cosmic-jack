@@ -8,6 +8,7 @@ var next_beat_time = 0.0
 var seconds_per_beat: float
 var time_to_next_beat = 0.0
 var paused = false
+var paused_time_offset: float
 signal on_beat
 signal on_pause
 
@@ -30,8 +31,18 @@ func _process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Pause"):
-		paused = !paused
-		on_pause.emit()
+		if not paused:
+			var time = (Time.get_ticks_usec() - time_begin) / 1000000.0
+			paused_time_offset = seconds_per_beat - time_to_next_beat
+			#print("pause at offset: ", paused_time_offset)
+			#print("next beat after: ", time_to_next_beat)
+			paused = true
+			on_pause.emit()
+		else:
+			await get_tree().create_timer(time_to_next_beat + paused_time_offset).timeout
+			paused = false
+			paused_time_offset = 0.0
+			on_pause.emit()
 
 func reset():
 	paused = false

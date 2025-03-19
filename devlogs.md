@@ -169,3 +169,10 @@ There's an incosistent distance between the enemies. Play with pause and unpause
 
 I need to fix the above issue, for sure. And also, I want to clean up the logic. It seems that on all games, the mutations on rendered stuff is the almost the same thing as state.
 Each change in state typically needs to be rendered. It much like resembles front end work, but with performance in mind.
+
+## 20/3 12:43
+
+It seems that I fixed the pause/unpause sync issue.
+I need to read the code again and try to simplify the level.gd, LevelState etc.
+
+Consider introducing buttons for pause/unpause, and restart
