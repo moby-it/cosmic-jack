@@ -161,3 +161,11 @@ Next steps:
 	- Remove the level retry screen. It does not make sense.
 	- refine the code, simplify things. Go closer to pure functions, based on singleton classes.
 	- Test the level end to end.
+
+## 19/3 20:13
+
+I did most of the previous entry's work regarding functionality. An issue is with the pause function - right now after you pause, the convoys don't render correctly.
+There's an incosistent distance between the enemies. Play with pause and unpause BEFORE all enemies are rendered, to see that.
+
+I need to fix the above issue, for sure. And also, I want to clean up the logic. It seems that on all games, the mutations on rendered stuff is the almost the same thing as state.
+Each change in state typically needs to be rendered. It much like resembles front end work, but with performance in mind.

@@ -11,7 +11,7 @@ func _draw() -> void:
 	explosive.draw_explosive_radius(self)
 
 func _ready() -> void:
-	LevelManager.exploded.connect(_on_explosion)
+	LevelState.exploded.connect(_on_explosion)
 	to_movable()
 
 # watermelon triggers on adjacent explosion

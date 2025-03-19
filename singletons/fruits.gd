@@ -68,8 +68,8 @@ func add_fruit_ammo(fruit: String):
 
 func create_fruit(name: String) -> Node2D:
 	var fruit: Node2D = available_fruits[name].instantiate()
-	fruit.name = name
 	fruit.set_meta("name", name)
+	fruit.remove_from_group("fruits")
 	fruit.explosive.add_explosive_radius(fruit,fruit.explosive.radius)
 	return fruit
 	

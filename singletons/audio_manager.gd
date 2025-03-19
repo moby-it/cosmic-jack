@@ -9,6 +9,7 @@ var seconds_per_beat: float
 var time_to_next_beat = 0.0
 var paused = false
 signal on_beat
+signal on_pause
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -26,6 +27,11 @@ func _process(_delta: float) -> void:
 		next_beat_time += seconds_per_beat
 		time_to_next_beat = seconds_per_beat
 		#print("time %s" % time)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("Pause"):
+		paused = !paused
+		on_pause.emit()
 
 func reset():
 	paused = false
