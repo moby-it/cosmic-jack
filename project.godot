@@ -45,7 +45,7 @@ paths=""
 
 [gui]
 
-theme/custom="res://theme.tres"
+theme/custom="res://styles/theme.tres"
 
 [input]
 

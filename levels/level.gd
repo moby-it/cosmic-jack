@@ -14,6 +14,7 @@ var active_waves: Array[Wave]
 @onready var waves_container = $WavesContainer
 @onready var wave_no = $WaveNo
 @onready var wave_audio: AudioStreamPlayer = $WaveAudio
+@onready var play_btn: Button = $Controls/play
 
 # Wave Announcer Control
 var wave_announcer
@@ -280,3 +281,18 @@ func start_audio():
 	AudioManager.seconds_per_beat = 60.0 / bpm
 	wave_audio.play()
 	wave_audio.finished.connect((func(): wave_audio.play()))
+
+func on_pause():
+	if AudioManager.paused:
+		play_btn.icon = load("res://assets/play-button.png")
+	else:
+		play_btn.icon = load("res://assets/pause-button.png")
+		
+
+
+func _on_play_button_down() -> void:
+	await AudioManager.trigger_pause()
+	on_pause()
+
+func _on_restart_button_down() -> void:
+	restart_wave()

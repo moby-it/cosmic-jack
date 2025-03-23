@@ -33,14 +33,13 @@ autowrap_mode = 0
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 20
+theme_override_constants/separation = 40
 
 [node name="start" type="Button" parent="container/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 5
 size_flags_vertical = 4
 text = "play"
-
 
 [node name="exit" type="Button" parent="container/VBoxContainer/VBoxContainer"]
 layout_mode = 2

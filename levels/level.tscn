@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bf5fa6pqes1hj"]
+[gd_scene load_steps=9 format=3 uid="uid://bf5fa6pqes1hj"]
 
 [ext_resource type="Script" uid="uid://v3o1qrnsc2g2" path="res://levels/level.gd" id="1_6fb17"]
 [ext_resource type="PackedScene" uid="uid://13dothaq8nub" path="res://hud/ship.tscn" id="4_chuaq"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dcpxt7vufytv5" path="res://hud/background/background.tscn" id="5_sp8rb"]
 [ext_resource type="Script" uid="uid://bskkd332a4oyt" path="res://levels/frames.gd" id="6_26sqf"]
 [ext_resource type="Script" uid="uid://bc1cij0kstu21" path="res://version.gd" id="6_n7bey"]
+[ext_resource type="Texture2D" uid="uid://laxnuhm7p4k6" path="res://assets/pause-button.png" id="7_d5x7l"]
+[ext_resource type="Texture2D" uid="uid://d3c17fhapytu0" path="res://assets/reload.png" id="8_rtcij"]
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_6fb17")
@@ -28,6 +30,7 @@ z_index = -10
 rotation = -0.000444478
 
 [node name="PlayArea" parent="." instance=ExtResource("4_pmx5f")]
+scale = Vector2(1.00104, 1)
 
 [node name="Version" type="Label" parent="."]
 visible = false
@@ -66,4 +69,24 @@ text = "Wave 1-1"
 
 [node name="WaveAudio" type="AudioStreamPlayer" parent="."]
 
+[node name="Controls" type="HBoxContainer" parent="."]
+offset_left = 49.0
+offset_top = 1330.0
+offset_right = 1189.0
+offset_bottom = 1850.0
+scale = Vector2(0.108935, 0.107467)
+theme_override_constants/separation = 400
+
+[node name="play" type="Button" parent="Controls"]
+layout_mode = 2
+theme_type_variation = &"ControlButton"
+icon = ExtResource("7_d5x7l")
+
+[node name="restart" type="Button" parent="Controls"]
+layout_mode = 2
+theme_type_variation = &"ControlButton"
+icon = ExtResource("8_rtcij")
+
 [connection signal="gui_input" from="PlayArea" to="." method="_on_play_area_gui_input"]
+[connection signal="button_down" from="Controls/play" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Controls/restart" to="." method="_on_restart_button_down"]

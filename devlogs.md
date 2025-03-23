@@ -176,3 +176,7 @@ It seems that I fixed the pause/unpause sync issue.
 I need to read the code again and try to simplify the level.gd, LevelState etc.
 
 Consider introducing buttons for pause/unpause, and restart
+
+## 23/3 2:47
+
+Add pause and restart buttons.

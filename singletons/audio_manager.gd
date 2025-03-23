@@ -31,19 +31,25 @@ func _process(_delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Pause"):
-		if not paused:
-			var time = (Time.get_ticks_usec() - time_begin) / 1000000.0
-			paused_time_offset = seconds_per_beat - time_to_next_beat
-			#print("pause at offset: ", paused_time_offset)
-			#print("next beat after: ", time_to_next_beat)
-			paused = true
-			on_pause.emit()
-		else:
-			await get_tree().create_timer(time_to_next_beat + paused_time_offset).timeout
-			paused = false
-			paused_time_offset = 0.0
-			on_pause.emit()
+		await trigger_pause()
 
+func trigger_pause():
+		pause() if not paused else await unpause()
+
+func pause():
+	var time = (Time.get_ticks_usec() - time_begin) / 1000000.0
+	paused_time_offset = seconds_per_beat - time_to_next_beat
+	#print("pause at offset: ", paused_time_offset)
+	#print("next beat after: ", time_to_next_beat)
+	paused = true
+	on_pause.emit()
+
+func unpause():
+	await get_tree().create_timer(time_to_next_beat + paused_time_offset).timeout
+	paused = false
+	paused_time_offset = 0.0
+	on_pause.emit()
+	
 func reset():
 	paused = false
 	bpm = 0
