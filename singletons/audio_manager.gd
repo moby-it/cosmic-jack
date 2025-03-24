@@ -29,10 +29,6 @@ func _process(_delta: float) -> void:
 		time_to_next_beat = seconds_per_beat
 		#print("time %s" % time)
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("Pause"):
-		await trigger_pause()
-
 func trigger_pause():
 		pause() if not paused else await unpause()
 

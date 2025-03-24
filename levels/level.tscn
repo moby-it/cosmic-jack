@@ -79,11 +79,13 @@ theme_override_constants/separation = 400
 
 [node name="play" type="Button" parent="Controls"]
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"ControlButton"
 icon = ExtResource("7_d5x7l")
 
 [node name="restart" type="Button" parent="Controls"]
 layout_mode = 2
+focus_mode = 0
 theme_type_variation = &"ControlButton"
 icon = ExtResource("8_rtcij")
 

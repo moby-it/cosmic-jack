@@ -45,6 +45,9 @@ func _input(event: InputEvent) -> void:
 			self.add_child(menu)
 	if event.is_action_pressed("Restart"):
 		restart_wave()
+	if event.is_action_pressed("Pause"):
+		await AudioManager.trigger_pause()
+		on_pause()
 	if event is InputEventMouseMotion and is_instance_valid(dragging_fruit):
 		dragging_fruit.position = get_global_mouse_position()
 	elif Utils.is_mouse_left_up(event) and dragging_fruit:
@@ -129,7 +132,7 @@ func render_convoys(wave: Wave):
 	print("wave offset %s" % offset)
 	for c in wave.convoys:
 		c.rendered = false
-		LevelState.enemies_exploded[c.get_instance_id()] = 0
+		LevelState.enemies_exploded[c.get_instance_id()] = []
 		var river_node = c.river.instantiate()
 		var river = river_node.get_node("Path2D")
 		
@@ -162,7 +165,7 @@ func add_enemy(convoy: Convoy, path: Path2D):
 	enemy.set_meta("convoy_id", convoy.get_instance_id())
 	pf.add_child(enemy)
 	path.add_child(pf)
-	if path.get_child_count() + LevelState.enemies_exploded[convoy.get_instance_id()] == convoy.count:
+	if path.get_child_count() + len(LevelState.enemies_exploded[convoy.get_instance_id()]) == convoy.count:
 		convoy.rendered = true
 	#print("path child count %s" % path.get_child_count())
 	#print("rendered %s" % convoy.rendered)
@@ -287,8 +290,6 @@ func on_pause():
 		play_btn.icon = load("res://assets/play-button.png")
 	else:
 		play_btn.icon = load("res://assets/pause-button.png")
-		
-
 
 func _on_play_button_down() -> void:
 	await AudioManager.trigger_pause()
