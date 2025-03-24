@@ -23,9 +23,9 @@ enemy = ExtResource("3_vivu7")
 [resource]
 script = ExtResource("5_3jyvn")
 enabled = true
-title = "Apple Story"
-subtitle = "Apples explode 4 beats after enemy touch."
-description = "One apple a day keeps the space animals away"
+title = "An Apple Story"
+subtitle = "Drag and drop the apple over your enemies to eliminate them."
+description = ""
 convoys = Array[ExtResource("2_hbyly")]([SubResource("Resource_8v38k")])
 bpm = 120
 ammo = SubResource("Resource_553n7")
