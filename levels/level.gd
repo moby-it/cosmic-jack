@@ -29,7 +29,7 @@ func _ready() -> void:
 	active_waves = waves.filter(func(w): return w.enabled)
 	LevelState.level_completed.connect(on_level_completed)
 	LevelState.wave_completed.connect(on_wave_completed)
-	Fruits.fruit_selected.connect(add_dragging_fruit)
+	LevelState.fruit_selected.connect(add_dragging_fruit)
 	update_wave_label()
 	show_announcer()
 	start_audio()
@@ -54,11 +54,10 @@ func _input(event: InputEvent) -> void:
 		if play_area.get_rect().has_point(get_global_mouse_position()):
 			var f = place_fruit(dragging_fruit, get_global_mouse_position())
 			LevelState.edit_fruit_placed(f)
-			gray_out_fruit(f)
 		else:
 			remove_fruit(dragging_fruit)
 	elif Utils.is_mouse_left_down(event) and not is_instance_valid(dragging_fruit):
-		var f = Fruits.find_fruits_under_cursor()
+		var f = LevelState.find_fruits_under_cursor()
 		if f.is_empty():
 			return
 		if not f[0].exploding:
@@ -87,8 +86,8 @@ func remove_fruit(fruit: Node2D):
 		dragging_fruit.queue_free()
 		dragging_fruit = null
 
-func add_dragging_fruit(name: String, idx: int):
-	dragging_fruit = Fruits.create_fruit(name)
+func add_dragging_fruit(n: String, idx: int):
+	dragging_fruit = LevelState.create_fruit(n)
 	dragging_fruit.set_meta("hud_idx", idx)
 	dragging_fruit.modulate.a = 0.3
 	dragging_fruit.position = get_global_mouse_position()
@@ -97,17 +96,17 @@ func add_dragging_fruit(name: String, idx: int):
 	self.add_child(dragging_fruit)
 
 func place_fruit(fruit: Node2D, p: Vector2) -> Node2D:
-	#print("placing fruit")
 	fruit.position = Vector2(p)
 	fruit.modulate.a = 1
 	fruit.add_to_group("fruits")
+	gray_out_fruit(fruit)
 	LevelState.enable_fruit_collision(fruit)
 	dragging_fruit = null
 	return fruit
 
 func create_fruit_list(wave: Wave):
 	clear_fruit_hud()
-	Fruits.create_fruit_list_hud($FruitList, wave)
+	LevelState.create_fruit_list_hud($FruitList, wave)
 	
 func create_wave(wave: Wave):
 	update_wave_label()

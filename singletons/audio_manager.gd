@@ -30,10 +30,13 @@ func _process(_delta: float) -> void:
 		#print("time %s" % time)
 
 func trigger_pause():
-		pause() if not paused else await unpause()
+		if not paused:
+			pause() 
+		else:
+			await unpause()
 
 func pause():
-	var time = (Time.get_ticks_usec() - time_begin) / 1000000.0
+	#var time = (Time.get_ticks_usec() - time_begin) / 1000000.0
 	paused_time_offset = seconds_per_beat - time_to_next_beat
 	#print("pause at offset: ", paused_time_offset)
 	#print("next beat after: ", time_to_next_beat)

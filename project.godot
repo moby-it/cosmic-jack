@@ -21,7 +21,6 @@ driver/output_latency=1
 
 [autoload]
 
-Fruits="*res://singletons/fruits.gd"
 SceneManager="*res://singletons/scene_manager.gd"
 Utils="*res://singletons/utils.gd"
 AudioManager="*res://singletons/audio_manager.gd"
@@ -31,7 +30,6 @@ LevelState="*res://singletons/level_state.gd"
 
 window/size/viewport_width=3840
 window/size/viewport_height=2160
-window/size/mode=2
 window/stretch/mode="canvas_items"
 
 [editor_plugins]
