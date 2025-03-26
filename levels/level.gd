@@ -55,15 +55,19 @@ func _input(event: InputEvent) -> void:
 			var f = place_fruit(dragging_fruit, get_global_mouse_position())
 			LevelState.edit_fruit_placed(f)
 		else:
-			remove_fruit(dragging_fruit)
+			ungray_out_fruit(dragging_fruit)
+			LevelState.remove_fruit_placed(dragging_fruit)
+			dragging_fruit.queue_free()
+		dragging_fruit = null
 	elif Utils.is_mouse_left_down(event) and not is_instance_valid(dragging_fruit):
 		var f = LevelState.find_fruits_under_cursor()
 		if f.is_empty():
 			return
 		if not f[0].exploding:
 			dragging_fruit = f[0]
+			dragging_fruit.set_meta("placed", false)
 			LevelState.disable_fruit_collision(dragging_fruit)
-			
+			LevelState.remove_fruit_placed(dragging_fruit)
 
 func gray_out_fruit(fruit: Node2D):
 	for i in fruit_list.get_child_count():
@@ -80,11 +84,6 @@ func ungray_out_fruit(fruit: Node2D):
 			var hud_node = f.get_child(fruit.get_meta("hud_idx"))
 			hud_node.material = null
 
-func remove_fruit(fruit: Node2D):
-		ungray_out_fruit(fruit)
-		LevelState.remove_fruit_placed(dragging_fruit)
-		dragging_fruit.queue_free()
-		dragging_fruit = null
 
 func add_dragging_fruit(n: String, idx: int):
 	dragging_fruit = LevelState.create_fruit(n)
@@ -98,10 +97,9 @@ func add_dragging_fruit(n: String, idx: int):
 func place_fruit(fruit: Node2D, p: Vector2) -> Node2D:
 	fruit.position = Vector2(p)
 	fruit.modulate.a = 1
-	fruit.add_to_group("fruits")
+	fruit.set_meta("placed", true)
 	gray_out_fruit(fruit)
 	LevelState.enable_fruit_collision(fruit)
-	dragging_fruit = null
 	return fruit
 
 func create_fruit_list(wave: Wave):
@@ -221,7 +219,7 @@ func clear_wave():
 
 ## removes all fruits from the play area
 func clear_fruits():
-	var fruits = self.get_tree().get_nodes_in_group("fruits")
+	var fruits = self.get_tree().get_nodes_in_group("fruits").filter(func(f): return f.get_meta("placed"))
 	for f in fruits:
 		f.queue_free()
 

@@ -91,7 +91,6 @@ func create_fruit(n: String) -> Node2D:
 	var fruit: Node2D = available_fruits[n].instantiate()
 	fruit.set_meta("name", n)
 	fruit.set_meta("placed", false)
-	fruit.remove_from_group("fruits")
 	fruit.explosive.add_explosive_radius(fruit,fruit.explosive.radius)
 	return fruit
 	
